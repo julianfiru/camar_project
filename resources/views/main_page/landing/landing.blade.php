@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CAMAR - Carbon Market Indonesia, Platform Perdagangan Karbon untuk Masa Depan Berkelanjutan">
-    <title>CAMAR - Carbon Market Indonesia</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('resources/css/landing.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/css/footer.css') }}">
-</head>
-<body>
-    <!-- Include Navbar -->
-    @include('partials.navbar')
+@extends('main_page.layout.app')
 
+@section('title', 'Beranda')
+@section('description', 'CAMAR - Carbon Market Indonesia, Platform Perdagangan Karbon untuk Masa Depan Berkelanjutan')
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+@endpush
+
+@section('content')
     <!-- Hero Section -->
     <section class="hero-section" id="home">
         <div class="hero-background">
-            <img src="{{ asset('resources/images/mangrove0.png') }}" alt="Mangrove Background">
+            <img src="{{ asset('images/mangrove0.png') }}" alt="Mangrove Background">
         </div>
         
         <div class="container">
@@ -95,7 +80,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('resources/images/project-mangrove.jpg') }}" alt="Rehabilitasi Mangrove">
+                            <img src="{{ asset('images/project-mangrove.jpg') }}" alt="Rehabilitasi Mangrove">
                             <span class="project-category">Mangrove</span>
                         </div>
                         <div class="project-info">
@@ -119,7 +104,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('resources/images/project-forest.jpg') }}" alt="Hutan Tropis">
+                            <img src="{{ asset('images/project-forest.jpg') }}" alt="Hutan Tropis">
                             <span class="project-category">Hutan Tropis</span>
                         </div>
                         <div class="project-info">
@@ -143,7 +128,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('resources/images/project-energy.jpg') }}" alt="Energi Terbarukan">
+                            <img src="{{ asset('images/project-energy.jpg') }}" alt="Energi Terbarukan">
                             <span class="project-category">Energi Bersih</span>
                         </div>
                         <div class="project-info">
@@ -167,7 +152,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('resources/images/project-peat.jpg') }}" alt="Gambut">
+                            <img src="{{ asset('images/project-peat.jpg') }}" alt="Gambut">
                             <span class="project-category">Lahan Gambut</span>
                         </div>
                         <div class="project-info">
@@ -191,7 +176,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('resources/images/project-biogas.jpg') }}" alt="Biogas">
+                            <img src="{{ asset('images/project-biogas.jpg') }}" alt="Biogas">
                             <span class="project-category">Bioenergi</span>
                         </div>
                         <div class="project-info">
@@ -215,7 +200,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('resources/images/project-agroforestry.jpg') }}" alt="Agroforestry">
+                            <img src="{{ asset('images/project-agroforestry.jpg') }}" alt="Agroforestry">
                             <span class="project-category">Agroforestri</span>
                         </div>
                         <div class="project-info">
@@ -447,13 +432,8 @@
         </div>
     </section>
 
-    <!-- Include Footer -->
-    @include('partials.footer')
+@endsection
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JS -->
-    <script src="{{ asset('resources/js/landing.js') }}"></script>
-</body>
-</html>
+@push('scripts')
+<script src="{{ asset('js/landing.js') }}"></script>
+@endpush

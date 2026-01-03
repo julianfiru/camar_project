@@ -1,33 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Edukasi Perubahan Iklim - CAMAR">
-    <title>Edukasi - CAMAR</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('resources/css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/css/edukasi.css') }}">
+@extends('main_page.layout.app')
+
+@section('title', 'Edukasi Carbon Offset')
+@section('description', 'Edukasi Carbon Offset - Pelajari tentang carbon offset, kredit karbon, dan strategi Net-Zero')
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/edukasi.css') }}">
+@endpush
+
+@section('content')
 </head>
 <body>
     <!-- Include Navbar -->
-    @include('partials.navbar')
 
     <!-- Section 1: Hero -->
     <section class="edukasi-hero">
         <div class="edukasi-hero-bg">
-            <img src="{{ asset('resources/images/forest0.png') }}" alt="Climate Education">
+            <img src="{{ asset('images/forest0.png') }}" alt="Climate Education">
         </div>
         <div class="container">
             <div class="edukasi-hero-content">
@@ -485,13 +473,13 @@
     </section>
 
     <!-- Include Footer -->
-    @include('partials.footer')
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom JS -->
-    <script src="{{ asset('resources/js/navbar.js') }}"></script>
-    <script src="{{ asset('resources/js/edukasi.js') }}"></script>
-</body>
-</html>
+    <script src="{{ asset('js/edukasi.js') }}"></script>
+@endsection
+
+@push('scripts')
+<script src="{{ asset('js/edukasi.js') }}"></script>
+@endpush

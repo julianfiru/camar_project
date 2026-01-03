@@ -1,30 +1,18 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Proyek Carbon Offset - CAMAR">
-    <title>Proyek Carbon Offset - CAMAR</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('resources/css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/css/projects.css') }}">
-</head>
-<body>
-    <!-- Include Navbar -->
-    @include('partials.navbar')
+@extends('main_page.layout.app')
+
+@section('title', 'Proyek Carbon Offset')
+@section('description', 'Proyek Carbon Offset - Pilih proyek verified carbon offset untuk mengurangi jejak karbon perusahaan Anda')
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/projects.css') }}">
+@endpush
+
+@section('content')
 
     <!-- Hero Section -->
     <section class="projects-hero" id="projects">
         <div class="projects-hero-bg">
-            <img src="{{ asset('resources/images/pabrik0.png') }}" alt="Hero Background">
+            <img src="{{ asset('images/pabrik0.png') }}" alt="Hero Background">
         </div>
         <div class="container">
             <div class="projects-hero-content">
@@ -128,13 +116,11 @@
     </main>
 
     <!-- Include Footer -->
-    @include('partials.footer')
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JS -->
-    <script src="{{ asset('resources/js/navbar.js') }}"></script>
-    <script src="{{ asset('resources/js/projects.js') }}"></script>
-</body>
-</html>
+@endsection
+
+@push('scripts')
+<script src="{{ asset('js/projects.js') }}"></script>
+@endpush

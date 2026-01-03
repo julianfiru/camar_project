@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid px-5">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('resources/images/logo-camar.svg') }}" alt="CAMAR Logo" class="logo-img">
+            <img src="{{ asset('images/logo-camar.svg') }}" alt="CAMAR Logo" class="logo-img">
             <span class="brand-text">CAMAR</span>
         </a>
         
