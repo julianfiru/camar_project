@@ -128,6 +128,51 @@
     margin: 0 auto;
 }
 
+/* Alert box for login errors */
+.login-alert {
+    margin-bottom: 1.5rem;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    background: rgba(255, 243, 241, 0.95);
+    border: 1px solid rgba(225, 112, 85, 0.45);
+    color: #b02a37;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    box-shadow: 0 6px 18px rgba(176, 42, 55, 0.12);
+}
+
+.login-alert::before {
+    content: "!";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #b02a37;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    margin-top: 0.1rem;
+}
+
+.login-alert strong {
+    display: block;
+    margin-bottom: 0.15rem;
+    font-weight: 700;
+}
+
+.login-alert ul {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+.login-alert li {
+    margin: 0;
+}
+
 .form-group {
     margin-bottom: 1.5rem;
 }

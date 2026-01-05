@@ -145,6 +145,24 @@
     color: #9B59B6;
 }
 
+/* Offset Module - Green Theme */
+.offset-module {
+    border-left: 4px solid #27AE60;
+}
+
+.offset-module .module-header {
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.08), rgba(39, 174, 96, 0.03));
+}
+
+.offset-module .module-badge {
+    background: #27AE60;
+}
+
+.offset-module .module-icon {
+    background: rgba(39, 174, 96, 0.15);
+    color: #27AE60;
+}
+
 /* Module Header */
 .module-header {
     display: flex;
@@ -238,7 +256,7 @@
 }
 
 .calc-module.expanded .module-content {
-    max-height: 1000px;
+    max-height: 1500px;
 }
 
 .module-content > div:last-child {
@@ -388,7 +406,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-grid:last-of-type {
+    margin-bottom: 0;
 }
 
 .result-item {
@@ -467,6 +489,42 @@
     color: var(--color-green);
     font-weight: 800;
     font-size: 1.125rem;
+}
+
+/* Result Actions */
+.result-actions {
+    margin-top: 2rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(103, 192, 144, 0.3);
+}
+
+.btn-view-projects {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--color-green), var(--color-teal));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-family: var(--font-title);
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(103, 192, 144, 0.3);
+}
+
+.btn-view-projects:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(103, 192, 144, 0.4);
+    color: white;
+}
+
+.btn-view-projects svg {
+    flex-shrink: 0;
 }
 
 /* Emission Factors Reference */

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,51 +46,26 @@ Route::get('/tentang', function () {
 // ========================================
 
 // Login Page
-Route::get('/login', function () {
-    return view('main_page.login.login');
-})->name('login');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
 // Register Page
-Route::get('/register', function () {
-    return view('main_page.register.register');
-})->name('register');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+
+// Register Success Page (after submitting registration)
+Route::get('/register/success', [AuthController::class, 'showRegisterSuccess'])->name('register.success');
 
 // ========================================
 // AUTHENTICATION ACTIONS (POST)
 // ========================================
 
 // Login Process
-Route::post('/login', function (Illuminate\Http\Request $request) {
-    // TODO: Implement login authentication logic
-    // Validate credentials
-    // Create session
-    // Redirect to dashboard
-    
-    // Temporary: Just redirect to home
-    return redirect()->route('home')->with('success', 'Login berhasil!');
-})->name('login.process');
+Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 
 // Register Process
-Route::post('/register', function (Illuminate\Http\Request $request) {
-    // TODO: Implement registration logic
-    // Validate form data
-    // Create user account
-    // Upload documents
-    // Send verification email
-    
-    // Temporary: Just redirect to home
-    return redirect()->route('home')->with('success', 'Registrasi berhasil! Akun Anda akan diverifikasi dalam 1-2 hari kerja.');
-})->name('register.process');
+Route::post('/register', [AuthController::class, 'register'])->name('register.process');
 
 // Logout
-Route::post('/logout', function () {
-    // TODO: Implement logout logic
-    // Destroy session
-    // Clear cookies
-    
-    // Temporary: Just redirect to home
-    return redirect()->route('home')->with('info', 'Anda telah logout.');
-})->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // ========================================
 // FUTURE ROUTES (TODO)
@@ -100,3 +76,7 @@ Route::post('/logout', function () {
 //     Route::get('/profile', 'ProfileController@index')->name('profile');
 //     Route::get('/transactions', 'TransactionController@index')->name('transactions');
 // });
+
+Route::get('/product/mangrove', function() {
+    return view('main_page.product-detail.product-detail');
+})->name('product.mangrove');

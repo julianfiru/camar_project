@@ -39,8 +39,8 @@
                     </div>
                     <div class="stats-content">
                         <div class="stats-label">Total Emisi Anda</div>
-                        <div class="stats-value" id="total-emissions">0</div>
-                        <div class="stats-unit">kg CO₂</div>
+                        <div class="stats-value" id="total-emissions">-</div>
+                        <div class="stats-unit">ton CO₂e</div>
                     </div>
                 </div>
                 
@@ -52,7 +52,7 @@
                     </div>
                     <div class="stats-content">
                         <div class="stats-label">Pohon Setara</div>
-                        <div class="stats-value" id="tree-equivalent">0</div>
+                        <div class="stats-value" id="tree-equivalent">-</div>
                         <div class="stats-unit">Pohon</div>
                     </div>
                 </div>
@@ -65,11 +65,21 @@
                     </div>
                     <div class="stats-content">
                         <div class="stats-label">Offset Dibutuhkan</div>
-                        <div class="stats-value" id="offset-needed">0</div>
-                        <div class="stats-unit">ton CO₂</div>
+                        <div class="stats-value" id="offset-needed">-</div>
+                        <div class="stats-unit">ton CO₂e</div>
                     </div>
                 </div>
             </section>
+
+            <!-- Calculation Notice -->
+            <div class="calculation-notice" id="calculation-notice" style="display: none;">
+                <div class="notice-content">
+                    <svg class="notice-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M13,17h-2v-6h2V17z M13,9h-2V7h2V9z"/>
+                    </svg>
+                    <p>Belum ada data emisi. <a href="{{ route('calculator') }}" class="notice-link">Hitung emisi Anda</a> terlebih dahulu untuk mendapatkan rekomendasi proyek yang sesuai.</p>
+                </div>
+            </div>
 
             <!-- Search & Sort Section -->
             <section class="search-sort-section">
@@ -122,5 +132,45 @@
 @endsection
 
 @push('scripts')
+<script>
+    // Load emission data from localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        loadEmissionData();
+    });
+
+    function loadEmissionData() {
+        const emissionData = localStorage.getItem('carbonEmissionData');
+        
+        if (emissionData) {
+            try {
+                const data = JSON.parse(emissionData);
+                
+                // Display emission stats
+                document.getElementById('total-emissions').textContent = data.totalEmissions || '-';
+                document.getElementById('tree-equivalent').textContent = data.treeEquivalent || '-';
+                document.getElementById('offset-needed').textContent = data.offsetNeeded || '-';
+                
+                // Hide calculation notice
+                document.getElementById('calculation-notice').style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error loading emission data:', error);
+                showCalculationNotice();
+            }
+        } else {
+            showCalculationNotice();
+        }
+    }
+
+    function showCalculationNotice() {
+        // Show notice
+        document.getElementById('calculation-notice').style.display = 'block';
+        
+        // Set default values
+        document.getElementById('total-emissions').textContent = '-';
+        document.getElementById('tree-equivalent').textContent = '-';
+        document.getElementById('offset-needed').textContent = '-';
+    }
+</script>
 <script src="{{ asset('js/projects.js') }}"></script>
 @endpush

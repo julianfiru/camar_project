@@ -528,4 +528,94 @@
         flex-direction: column;
         text-align: center;
     }
+}/* ====================================
+   PROJECTS PAGE - ADDITIONAL STYLES
+   ==================================== */
+
+/* Calculation Notice */
+.calculation-notice {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.05));
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notice-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.notice-icon {
+    width: 32px;
+    height: 32px;
+    color: #FF9800;
+    flex-shrink: 0;
+}
+
+.notice-content p {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-navy);
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.notice-link {
+    color: var(--color-teal);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-teal);
+    transition: all 0.3s ease;
+}
+
+.notice-link:hover {
+    color: var(--color-green);
+    border-bottom-color: var(--color-green);
+}
+
+/* Stats Card Updates for no data state */
+.stats-card .stats-value {
+    transition: all 0.3s ease;
+}
+
+.stats-card .stats-value:empty::after,
+.stats-card .stats-value:contains("-") {
+    opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calculation-notice {
+        padding: 1.25rem;
+    }
+
+    .notice-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .notice-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .notice-content p {
+        font-size: 0.875rem;
+    }
 }

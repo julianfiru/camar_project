@@ -12,15 +12,22 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+    protected $primaryKey = 'user_id';
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'email',
-        'password',
+        'password_hash',
+        'role',
+        'status',
+        'created_at',
+        'last_login',
     ];
 
     /**
@@ -29,7 +36,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
+        'password_hash',
         'remember_token',
     ];
 
@@ -41,8 +48,40 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'created_at' => 'datetime',
+            'last_login' => 'datetime',
         ];
+    }
+
+    /**
+     * Get the password attribute for authentication.
+     */
+    public function getAuthPassword()
+    {
+        return $this->password_hash;
+    }
+
+    /**
+     * Get the buyer profile.
+     */
+    public function buyer()
+    {
+        return $this->hasOne(Buyer::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Get the seller profile.
+     */
+    public function seller()
+    {
+        return $this->hasOne(Seller::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Get the admin profile.
+     */
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id', 'user_id');
     }
 }

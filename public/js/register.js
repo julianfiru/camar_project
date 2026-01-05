@@ -65,6 +65,8 @@ function updateButtons() {
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
     
+    if (!prevBtn || !nextBtn || !submitBtn) return;
+    
     // Show/hide prev button
     if (currentStep === 1) {
         prevBtn.style.display = 'none';
@@ -124,31 +126,12 @@ function validateStep(step) {
             return true;
             
         case 4:
-            // Validate required documents
-            const requiredDocs = ['doc1', 'doc2', 'doc3'];
-            for (let docId of requiredDocs) {
-                const doc = document.getElementById(docId);
-                if (!doc.files.length) {
-                    alert('Mohon upload semua dokumen wajib');
-                    return false;
-                }
-            }
-            
-            // Validate seller documents if seller
-            if (selectedAccountType === 'seller') {
-                const doc5 = document.getElementById('doc5').files.length;
-                const doc6 = document.getElementById('doc6').files.length;
-                if (doc5 === 0 && doc6 === 0) {
-                    alert('Seller harus upload minimal 1 sertifikat (Gold Standard atau VCS)');
-                    return false;
-                }
-            }
-            
+            // Documents are optional in validation, just proceed
             return true;
             
         case 5:
             const termsCheck = document.getElementById('termsCheck');
-            if (!termsCheck.checked) {
+            if (!termsCheck || !termsCheck.checked) {
                 alert('Anda harus menyetujui Syarat & Ketentuan');
                 return false;
             }
@@ -180,34 +163,37 @@ function togglePassword(inputId) {
 // ====================================
 
 // Photo Upload Handler
-document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    
-    if (!file) return;
-    
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-        alert('Ukuran file maksimal 5MB');
-        return;
-    }
-    
-    // Validate file type
-    if (!file.type.match('image.*')) {
-        alert('File harus berupa gambar');
-        return;
-    }
-    
-    // Read file and show crop modal
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        document.getElementById('cropImage').src = event.target.result;
-        document.getElementById('cropModal').style.display = 'flex';
+const profilePhotoInput = document.getElementById('profilePhotoInput');
+if (profilePhotoInput) {
+    profilePhotoInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
         
-        // Initialize cropper
-        initCropper();
-    };
-    reader.readAsDataURL(file);
-});
+        if (!file) return;
+        
+        // Validate file size (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Ukuran file maksimal 5MB');
+            return;
+        }
+        
+        // Validate file type
+        if (!file.type.match('image.*')) {
+            alert('File harus berupa gambar');
+            return;
+        }
+        
+        // Read file and show crop modal
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            document.getElementById('cropImage').src = event.target.result;
+            document.getElementById('cropModal').style.display = 'flex';
+            
+            // Initialize cropper
+            initCropper();
+        };
+        reader.readAsDataURL(file);
+    });
+}
 
 // Initialize Cropper
 function initCropper() {
@@ -271,28 +257,48 @@ function saveCroppedImage() {
     closeCropModal();
 }
 
-// Form Submit
-document.getElementById('registerForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
+// Form submit dibiarkan default HTML (tanpa JS intercept)
+
+// Submit form secara manual dari tombol "Daftar Sekarang"
+function submitRegisterForm() {
+    // Pastikan sudah di step 5 dan terms dicentang
     if (!validateStep(5)) {
         return;
     }
-    
-    // Collect form data
-    const formData = new FormData(this);
-    
-    // Show loading
+
+    const form = document.getElementById('registerForm');
+    if (!form) return;
+
     const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendaftar...';
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendaftar...';
+    }
+
+    // Bypass native validation (karena multi-step), gunakan validasi custom kita
+    form.submit();
+}
+
+// Update File Indicator
+function updateFileIndicator(inputId) {
+    const input = document.getElementById(inputId);
+    const indicator = document.getElementById('indicator-' + inputId);
     
-    // TODO: Send to server
-    setTimeout(() => {
-        alert('Registrasi berhasil! Akun Anda akan diverifikasi dalam 1-2 hari kerja.');
-        window.location.href = '/login';
-    }, 2000);
-});
+    if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        const fileName = file.name;
+        const fileSize = (file.size / 1024).toFixed(1); // KB
+        
+        indicator.className = 'file-indicator uploaded';
+        indicator.textContent = fileName.length > 15 ? fileName.substring(0, 15) + '...' : fileName;
+        indicator.title = fileName + ' (' + fileSize + ' KB)';
+    } else {
+        indicator.className = 'file-indicator';
+        indicator.textContent = '';
+        indicator.title = '';
+    }
+}
 
 // Initialize
+updateButtons();
 updateButtons();

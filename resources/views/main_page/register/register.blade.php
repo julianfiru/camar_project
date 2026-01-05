@@ -19,6 +19,25 @@
             <p>Daftar Akun Baru</p>
         </div>
 
+        <!-- Error Messages -->
+        @if ($errors->any())
+            <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h4 style="margin-top: 0;"><i class="fas fa-exclamation-triangle"></i> Terjadi Kesalahan:</h4>
+                <ul style="margin: 0.5rem 0;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- Success Message -->
+        @if (session('success'))
+            <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <i class="fas fa-check-circle"></i> {{ session('success') }}
+            </div>
+        @endif
+
         <!-- Progress Steps -->
         <div class="progress-steps">
             <div class="progress-line">
@@ -47,7 +66,7 @@
         </div>
 
         <!-- Registration Form -->
-        <form id="registerForm" enctype="multipart/form-data">
+        <form id="registerForm" method="POST" action="{{ route('register.process') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- STEP 1: Tipe Akun -->
@@ -135,6 +154,31 @@
                     </div>
 
                     <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> NIB/SIUP</label>
+                        <input type="text" name="nib_number" placeholder="Nomor Induk Berusaha">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-file-invoice"></i> NPWP</label>
+                        <input type="text" name="npwp_number" placeholder="Nomor Pokok Wajib Pajak">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-globe"></i> Website</label>
+                        <input type="url" name="website" placeholder="https://www.perusahaan.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-flag"></i> Negara</label>
+                        <input type="text" name="country" placeholder="Indonesia" value="Indonesia">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-info-circle"></i> Bio Perusahaan</label>
+                        <textarea name="bio" rows="3" placeholder="Deskripsi singkat tentang perusahaan Anda"></textarea>
+                    </div>
+
+                    <div class="form-group">
                         <label><i class="fas fa-lock"></i> Password <span class="required">*</span></label>
                         <div class="password-wrapper">
                             <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required>
@@ -147,7 +191,7 @@
                     <div class="form-group">
                         <label><i class="fas fa-lock"></i> Konfirmasi Password <span class="required">*</span></label>
                         <div class="password-wrapper">
-                            <input type="password" id="confirmPassword" name="confirm_password" placeholder="Ketik ulang password" required>
+                            <input type="password" id="confirmPassword" name="password_confirmation" placeholder="Ketik ulang password" required>
                             <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -224,11 +268,12 @@
                             </div>
                         </div>
                         <div class="doc-upload">
-                            <input type="file" id="doc1" name="akta" accept=".pdf,.jpg,.png" required>
+                            <input type="file" id="doc1" name="akta" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc1')">
                             <label for="doc1" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
+                            <span class="file-indicator" id="indicator-doc1"></span>
                             <span class="doc-badge required">Wajib</span>
                         </div>
                     </div>
@@ -242,11 +287,12 @@
                             </div>
                         </div>
                         <div class="doc-upload">
-                            <input type="file" id="doc2" name="npwp" accept=".pdf,.jpg,.png" required>
+                            <input type="file" id="doc2" name="npwp" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc2')">
                             <label for="doc2" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
+                            <span class="file-indicator" id="indicator-doc2"></span>
                             <span class="doc-badge required">Wajib</span>
                         </div>
                     </div>
@@ -260,11 +306,12 @@
                             </div>
                         </div>
                         <div class="doc-upload">
-                            <input type="file" id="doc3" name="nib" accept=".pdf,.jpg,.png" required>
+                            <input type="file" id="doc3" name="nib" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc3')">
                             <label for="doc3" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
+                            <span class="file-indicator" id="indicator-doc3"></span>
                             <span class="doc-badge required">Wajib</span>
                         </div>
                     </div>
@@ -278,11 +325,12 @@
                             </div>
                         </div>
                         <div class="doc-upload">
-                            <input type="file" id="doc4" name="iso" accept=".pdf,.jpg,.png">
+                            <input type="file" id="doc4" name="iso" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc4')">
                             <label for="doc4" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
+                            <span class="file-indicator" id="indicator-doc4"></span>
                             <span class="doc-badge optional">Opsional</span>
                         </div>
                     </div>
@@ -305,11 +353,12 @@
                             </div>
                         </div>
                         <div class="doc-upload">
-                            <input type="file" id="doc5" name="gold_standard" accept=".pdf,.jpg,.png">
+                            <input type="file" id="doc5" name="gold_standard" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc5')">
                             <label for="doc5" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
+                            <span class="file-indicator" id="indicator-doc5"></span>
                             <span class="doc-badge seller">Seller</span>
                         </div>
                     </div>
@@ -323,11 +372,12 @@
                             </div>
                         </div>
                         <div class="doc-upload">
-                            <input type="file" id="doc6" name="vcs" accept=".pdf,.jpg,.png">
+                            <input type="file" id="doc6" name="vcs" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc6')">
                             <label for="doc6" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
+                            <span class="file-indicator" id="indicator-doc6"></span>
                             <span class="doc-badge seller">Seller</span>
                         </div>
                     </div>
@@ -369,7 +419,7 @@
                     Lanjut
                     <i class="fas fa-arrow-right"></i>
                 </button>
-                <button type="submit" class="btn-submit" id="submitBtn" style="display: none;">
+                <button type="button" class="btn-submit" id="submitBtn" style="display: none;" onclick="submitRegisterForm()">
                     <i class="fas fa-check"></i>
                     Daftar Sekarang
                 </button>

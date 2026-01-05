@@ -31,37 +31,44 @@ function toggleModule(scopeId) {
 // ====================================
 
 function calculateEmissions() {
-    // Get input values
-    const fuelConsumption = parseFloat(document.getElementById('fuel-consumption').value) || 0;
-    const fuelFactor = parseFloat(document.getElementById('fuel-factor').value) || 2.68;
+    // Scope 1 - Direct Emissions
+    const bensin = parseFloat(document.getElementById('bensin').value) || 0;
+    const solar = parseFloat(document.getElementById('solar').value) || 0;
+    const gas = parseFloat(document.getElementById('gas').value) || 0;
     
-    const electricityConsumption = parseFloat(document.getElementById('electricity-consumption').value) || 0;
-    const electricityFactor = parseFloat(document.getElementById('electricity-factor').value) || 0.85;
+    const scope1 = (bensin * 2.31 + solar * 2.68 + gas * 2.0) / 1000; // Convert to tons
+
+    // Scope 2 - Indirect Emissions (Energy)
+    const listrik = parseFloat(document.getElementById('listrik').value) || 0;
+    const steam = parseFloat(document.getElementById('steam').value) || 0;
     
-    const transportDistance = parseFloat(document.getElementById('transport-distance').value) || 0;
-    const transportFactor = parseFloat(document.getElementById('transport-factor').value) || 0.21;
+    const scope2 = (listrik * 0.85 + steam * 0.3) / 1000; // Convert to tons
+
+    // Scope 3 - Value Chain Emissions
+    const transport = parseFloat(document.getElementById('transport').value) || 0;
+    const travel = parseFloat(document.getElementById('travel').value) || 0;
+    const waste = parseFloat(document.getElementById('waste').value) || 0;
     
-    const wasteAmount = parseFloat(document.getElementById('waste-amount').value) || 0;
-    const wasteFactor = parseFloat(document.getElementById('waste-factor').value) || 0.5;
-    
-    // Calculate emissions
-    const scope1 = fuelConsumption * fuelFactor;
-    const scope2 = electricityConsumption * electricityFactor;
-    const scope3 = (transportDistance * transportFactor) + (wasteAmount * wasteFactor);
-    const total = scope1 + scope2 + scope3;
-    
-    // Calculate tree equivalent (1 tree absorbs ~21.77 kg CO2 per year)
-    const treeEquivalent = Math.ceil(total / 21.77);
-    
-    // Display results
-    document.getElementById('result-scope1').textContent = scope1.toFixed(2);
-    document.getElementById('result-scope2').textContent = scope2.toFixed(2);
-    document.getElementById('result-scope3').textContent = scope3.toFixed(2);
-    document.getElementById('result-total').textContent = total.toFixed(2);
-    document.getElementById('tree-equivalent').textContent = treeEquivalent.toLocaleString('id-ID');
-    
+    const scope3 = (transport * 0.1 + travel * 0.25 + waste * 0.5) / 1000; // Convert to tons
+
+    // Total Emissions
+    const totalEmissions = scope1 + scope2 + scope3;
+
+    // Offset Calculation
+    const targetOffset = parseFloat(document.getElementById('targetOffset').value) || 0;
+    const offsetNeeded = totalEmissions * (targetOffset / 100);
+    const netEmissions = totalEmissions - offsetNeeded;
+
+    // Display Results
+    document.getElementById('resultScope1').textContent = scope1.toFixed(2);
+    document.getElementById('resultScope2').textContent = scope2.toFixed(2);
+    document.getElementById('resultScope3').textContent = scope3.toFixed(2);
+    document.getElementById('resultTotal').textContent = totalEmissions.toFixed(2);
+    document.getElementById('resultOffset').textContent = offsetNeeded.toFixed(2);
+    document.getElementById('resultNet').textContent = netEmissions.toFixed(2);
+
     // Show result box
-    const resultBox = document.getElementById('result-box');
+    const resultBox = document.getElementById('resultBox');
     resultBox.style.display = 'block';
     
     // Smooth scroll to result
@@ -111,15 +118,10 @@ document.querySelectorAll('.input-field').forEach(input => {
 
 function resetCalculator() {
     document.querySelectorAll('.input-field').forEach(input => {
-        if (input.id !== 'fuel-factor' && 
-            input.id !== 'electricity-factor' && 
-            input.id !== 'transport-factor' && 
-            input.id !== 'waste-factor') {
-            input.value = '';
-        }
+        input.value = '';
     });
     
-    document.getElementById('result-box').style.display = 'none';
+    document.getElementById('resultBox').style.display = 'none';
 }
 
 // ====================================

@@ -10,37 +10,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadEmissionData() {
     // Get calculator results from localStorage
-    const savedInputs = localStorage.getItem('calculatorInputs');
+    const emissionData = localStorage.getItem('carbonEmissionData');
     
-    if (savedInputs) {
-        const inputs = JSON.parse(savedInputs);
-        
-        // Recalculate emissions
-        const fuelConsumption = parseFloat(inputs['fuel-consumption']) || 0;
-        const fuelFactor = parseFloat(inputs['fuel-factor']) || 2.68;
-        const electricityConsumption = parseFloat(inputs['electricity-consumption']) || 0;
-        const electricityFactor = parseFloat(inputs['electricity-factor']) || 0.85;
-        const transportDistance = parseFloat(inputs['transport-distance']) || 0;
-        const transportFactor = parseFloat(inputs['transport-factor']) || 0.21;
-        const wasteAmount = parseFloat(inputs['waste-amount']) || 0;
-        const wasteFactor = parseFloat(inputs['waste-factor']) || 0.5;
-        
-        const scope1 = fuelConsumption * fuelFactor;
-        const scope2 = electricityConsumption * electricityFactor;
-        const scope3 = (transportDistance * transportFactor) + (wasteAmount * wasteFactor);
-        const total = scope1 + scope2 + scope3;
-        
-        // Calculate tree equivalent
-        const treeEquivalent = Math.ceil(total / 21.77);
-        
-        // Calculate offset needed in tons
-        const offsetNeeded = (total / 1000).toFixed(2);
-        
-        // Update display
-        document.getElementById('total-emissions').textContent = total.toFixed(2);
-        document.getElementById('tree-equivalent').textContent = treeEquivalent.toLocaleString('id-ID');
-        document.getElementById('offset-needed').textContent = offsetNeeded;
+    if (emissionData) {
+        try {
+            const data = JSON.parse(emissionData);
+            
+            // Display emission stats
+            document.getElementById('total-emissions').textContent = data.totalEmissions || '-';
+            document.getElementById('tree-equivalent').textContent = data.treeEquivalent || '-';
+            document.getElementById('offset-needed').textContent = data.offsetNeeded || '-';
+            
+            // Hide calculation notice
+            const noticeElement = document.getElementById('calculation-notice');
+            if (noticeElement) {
+                noticeElement.style.display = 'none';
+            }
+            
+        } catch (error) {
+            console.error('Error loading emission data:', error);
+            showCalculationNotice();
+        }
+    } else {
+        showCalculationNotice();
     }
+}
+
+function showCalculationNotice() {
+    // Show notice
+    const noticeElement = document.getElementById('calculation-notice');
+    if (noticeElement) {
+        noticeElement.style.display = 'block';
+    }
+    
+    // Set default values
+    document.getElementById('total-emissions').textContent = '-';
+    document.getElementById('tree-equivalent').textContent = '-';
+    document.getElementById('offset-needed').textContent = '-';
 }
 
 // ====================================
@@ -436,7 +442,9 @@ document.getElementById('sort-select').addEventListener('change', function(e) {
 // ====================================
 
 function viewProjectDetail(projectId) {
-    // This would navigate to project detail page
-    console.log('View project:', projectId);
-    // window.location.href = `/projects/${projectId}`;
+    if (projectId === 1) {
+        window.location.href = '/product/mangrove';
+    } else {
+        alert('Detail proyek akan segera tersedia!');
+    }
 }

@@ -24,6 +24,18 @@
             <form id="loginForm" class="login-form" method="POST" action="{{ route('login.process') }}">
                 @csrf
                 
+                {{-- Notifikasi error login --}}
+                @if ($errors->any())
+                    <div class="login-alert">
+                        <strong>Terjadi Kesalahan:</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                
                 <!-- Email -->
                 <div class="form-group">
                     <label for="email" class="form-label">
@@ -38,6 +50,7 @@
                         placeholder="nama@perusahaan.com" 
                         required
                         autocomplete="email"
+                        value="{{ old('email') }}"
                     >
                 </div>
 
@@ -66,7 +79,7 @@
                 <!-- Remember & Forgot -->
                 <div class="form-footer">
                     <label class="remember-me">
-                        <input type="checkbox" name="remember" id="remember">
+                        <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                         <span>Ingat saya</span>
                     </label>
                     <a href="#" class="forgot-link">Lupa password?</a>
