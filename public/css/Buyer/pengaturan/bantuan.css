@@ -1,0 +1,436 @@
+/* ========================================
+   PUSAT BANTUAN PAGE STYLES
+   ======================================== */
+
+/* Card Styling */
+.card {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
+}
+
+.card-title {
+    color: var(--color-dark);
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--color-light);
+}
+
+/* ========================================
+   FAQ ACCORDION STYLES
+   ======================================== */
+
+.faq-item {
+    border: 2px solid var(--color-light) !important;
+    border-radius: 12px !important;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.faq-item:hover {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 4px 12px rgba(103, 192, 144, 0.15);
+}
+
+.faq-item .accordion-button {
+    background: white;
+    padding: 20px 25px;
+    font-size: 16px;
+    color: var(--color-dark);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.faq-item .accordion-button:not(.collapsed) {
+    background: var(--color-light);
+    color: var(--color-dark);
+    box-shadow: none;
+}
+
+.faq-item .accordion-button:hover {
+    background: var(--color-light);
+}
+
+.faq-item .accordion-button:focus {
+    box-shadow: none;
+    border: none;
+}
+
+/* Hide default Bootstrap arrow */
+.faq-item .accordion-button::after {
+    display: none;
+}
+
+.faq-icon {
+    color: var(--color-primary);
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.faq-item .accordion-button:not(.collapsed) .faq-icon {
+    transform: rotate(90deg);
+}
+
+.faq-item .accordion-body {
+    padding: 20px 25px;
+    color: #666;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+}
+
+.faq-item .accordion-body p {
+    margin-bottom: 10px;
+}
+
+.faq-item .accordion-body ol,
+.faq-item .accordion-body ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.faq-item .accordion-body li {
+    margin-bottom: 8px;
+}
+
+.faq-item .accordion-body strong {
+    color: var(--color-dark);
+}
+
+/* Remove default accordion borders */
+.accordion-item:first-of-type .accordion-button {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.accordion-item:last-of-type .accordion-button.collapsed {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* ========================================
+   GUIDE CARDS STYLES
+   ======================================== */
+
+.guide-card {
+    background: white;
+    border: 2px solid var(--color-light);
+    border-radius: 12px;
+    padding: 25px;
+    height: 100%;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.guide-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(103, 192, 144, 0.15);
+    transform: translateY(-3px);
+}
+
+.guide-icon {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.guide-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.guide-steps {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.8;
+    font-family: 'Inter', sans-serif;
+    padding-left: 20px;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.guide-steps li {
+    margin-bottom: 8px;
+}
+
+.guide-steps strong {
+    color: var(--color-dark);
+    font-weight: 600;
+}
+
+.guide-tip {
+    background: var(--color-light);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--color-secondary);
+    font-weight: 600;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* ========================================
+   GLOSSARY STYLES
+   ======================================== */
+
+.glossary-item {
+    background: white;
+    border: 2px solid var(--color-light);
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.glossary-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(103, 192, 144, 0.15);
+}
+
+.glossary-term {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.glossary-icon {
+    font-size: 24px;
+}
+
+.glossary-definition {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.8;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ========================================
+   CONTACT CARDS STYLES
+   ======================================== */
+
+.contact-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 2px solid rgba(255,255,255,0.5);
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.contact-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.contact-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 10px;
+}
+
+.contact-link {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+.contact-desc {
+    font-size: 13px;
+    color: #666;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    margin-top: auto;
+}
+
+/* Operational Hours */
+.operational-hours {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.hour-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #666;
+}
+
+.hour-item:last-child {
+    border-bottom: none;
+}
+
+/* Response Times */
+.response-times {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.response-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.response-item:last-child {
+    border-bottom: none;
+}
+
+.response-item i {
+    font-size: 24px;
+    color: var(--color-primary);
+}
+
+.response-item .fw-bold {
+    font-size: 14px;
+    color: var(--color-dark);
+}
+
+.response-item small {
+    font-size: 12px;
+    color: #666;
+}
+
+/* ========================================
+   ALERT CUSTOMIZATION
+   ======================================== */
+
+.alert {
+    border: none;
+    border-radius: 10px;
+}
+
+.alert-success {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.alert-warning {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.alert-info {
+    background: #E0F2FE;
+    color: #075985;
+}
+
+/* ========================================
+   BADGE CUSTOMIZATION
+   ======================================== */
+
+.badge {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 992px) {
+    .guide-card {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .faq-item .accordion-button,
+    .faq-item .accordion-body {
+        padding: 15px 20px;
+    }
+
+    .guide-card,
+    .contact-card {
+        padding: 20px;
+    }
+
+    .guide-title {
+        font-size: 15px;
+    }
+
+    .guide-steps {
+        font-size: 12px;
+    }
+
+    .glossary-term {
+        font-size: 16px;
+    }
+
+    .glossary-definition {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .guide-icon,
+    .contact-icon {
+        font-size: 36px;
+    }
+
+    .faq-item .accordion-button {
+        font-size: 14px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+}
+
+/* ========================================
+   ANIMATION
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.5s ease;
+}

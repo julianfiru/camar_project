@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'email' => 'asd@seller.com',
             'password_hash' => bcrypt('asd'),
-            'photo_url' => 'profil/User1.gif',
+            'photo_url' => 'urlProfil/User1.gif',
             'role' => 'Seller',
             'status' => 2,
             'created_at' => now(),
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'email' => 'asd@buyer.com',
             'password_hash' => bcrypt('asd'),
-            'photo_url' => 'profil/User1.gif',
+            'photo_url' => 'urlProfil/User1.gif',
             'role' => 'Buyer',
             'status' => 2,
             'created_at' => now(),

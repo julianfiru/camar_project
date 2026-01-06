@@ -14,7 +14,6 @@ class Role
         if (Auth::user()->role !== $role) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
-
         return $next($request);
     }
 }

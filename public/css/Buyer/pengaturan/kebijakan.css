@@ -1,0 +1,399 @@
+/* ========================================
+   KEBIJAKAN PLATFORM PAGE STYLES
+   ======================================== */
+
+/* Card Styling */
+.card {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
+}
+
+.card-title {
+    color: var(--color-dark);
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--color-light);
+}
+
+/* Section Title */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+/* ========================================
+   POLICY CONTENT STYLES
+   ======================================== */
+
+.policy-content {
+    font-family: 'Inter', sans-serif;
+}
+
+.policy-intro {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.policy-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.policy-list li {
+    position: relative;
+    padding: 12px 0;
+    padding-left: 35px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.policy-list li:last-child {
+    border-bottom: none;
+}
+
+.policy-list li i {
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-size: 18px;
+}
+
+/* Privacy Sections */
+.privacy-section {
+    background: #F9FAFB;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--color-primary);
+}
+
+.privacy-subtitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 15px;
+}
+
+/* ========================================
+   DISCLAIMER CARD STYLES
+   ======================================== */
+
+.disclaimer-card {
+    border: 3px solid #FEE2E2 !important;
+    background: linear-gradient(135deg, #FFF5F5 0%, #ffffff 100%);
+}
+
+.disclaimer-card .section-title {
+    color: #DC2626;
+}
+
+.disclaimer-list li {
+    border-bottom-color: #FEE2E2;
+}
+
+.disclaimer-list li strong,
+.disclaimer-list li em {
+    color: #DC2626;
+    font-weight: 700;
+}
+
+/* Best Practice Box */
+.best-practice-box {
+    background: linear-gradient(135deg, var(--color-light) 0%, #E8F5E9 100%);
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 20px;
+    border: 2px solid var(--color-primary);
+}
+
+.best-practice-box h5 {
+    font-weight: 700;
+}
+
+.practice-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.practice-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.practice-number {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    font-weight: 800;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ========================================
+   RIGHTS & OBLIGATIONS BOXES
+   ======================================== */
+
+.rights-box,
+.obligations-box {
+    background: #F9FAFB;
+    padding: 25px;
+    border-radius: 12px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.rights-box {
+    border-left: 4px solid #10B981;
+}
+
+.rights-box:hover {
+    background: #ECFDF5;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.obligations-box {
+    border-left: 4px solid #F59E0B;
+}
+
+.obligations-box:hover {
+    background: #FFFBEB;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.rights-box h5,
+.obligations-box h5 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* ========================================
+   NOTIFICATION METHOD STYLES
+   ======================================== */
+
+.notification-method {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid #f0f0f0;
+    height: 100%;
+}
+
+.notification-method:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.notification-method i {
+    transition: transform 0.3s ease;
+}
+
+.notification-method:hover i {
+    transform: scale(1.1);
+}
+
+/* ========================================
+   ALERT CUSTOMIZATION
+   ======================================== */
+
+.alert {
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.alert-info {
+    background: #E0F2FE;
+    color: #075985;
+}
+
+.alert-success {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.alert-warning {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.alert-danger {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+.alert-secondary {
+    background: #F3F4F6;
+    color: #374151;
+}
+
+.alert strong {
+    font-weight: 700;
+}
+
+.alert .alert-heading {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* ========================================
+   ICON COLORS
+   ======================================== */
+
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+.text-danger {
+    color: #DC2626 !important;
+}
+
+.text-success {
+    color: #10B981 !important;
+}
+
+.text-warning {
+    color: #F59E0B !important;
+}
+
+.text-info {
+    color: #3B82F6 !important;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 992px) {
+    .practice-item {
+        margin-bottom: 15px;
+    }
+
+    .rights-box,
+    .obligations-box {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .section-title {
+        font-size: 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .policy-list li {
+        padding-left: 30px;
+        font-size: 14px;
+    }
+
+    .policy-list li i {
+        font-size: 16px;
+    }
+
+    .privacy-section,
+    .rights-box,
+    .obligations-box,
+    .notification-method {
+        padding: 20px;
+    }
+
+    .practice-number {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .best-practice-box {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .policy-intro {
+        font-size: 14px;
+    }
+
+    .policy-list li {
+        font-size: 13px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .privacy-subtitle {
+        font-size: 15px;
+    }
+
+    .alert {
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   ANIMATION
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Scroll reveal animation */
+.card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.card:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.card:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.card:nth-child(5) {
+    animation-delay: 0.4s;
+}

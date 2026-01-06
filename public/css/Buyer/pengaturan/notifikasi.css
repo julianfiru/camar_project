@@ -1,0 +1,266 @@
+/* ========================================
+   NOTIFIKASI & BAHASA PAGE STYLES
+   ======================================== */
+
+/* Card Styling */
+.card {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
+}
+
+.card-title {
+    color: var(--color-dark);
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--color-light);
+}
+
+/* Language Selection */
+.language-option .btn-check:checked + .btn-outline-primary {
+    background: linear-gradient(135deg, var(--color-light) 0%, #E8F5E9 100%);
+    border-color: var(--color-primary);
+    color: var(--color-dark);
+    box-shadow: 0 4px 12px rgba(103, 192, 144, 0.25);
+}
+
+.language-option .btn-outline-primary {
+    border: 2px solid #E5E7EB;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.language-option .btn-outline-primary:hover {
+    border-color: var(--color-primary);
+    background: var(--color-light);
+    transform: translateY(-2px);
+}
+
+/* Save Button */
+#saveBahasaBtn {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border: none;
+    border-radius: 10px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#saveBahasaBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(103, 192, 144, 0.4);
+}
+
+/* Notification Item */
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    background: #F9FAFB;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    gap: 20px;
+}
+
+.notification-item:hover {
+    background: var(--color-light);
+    transform: translateX(5px);
+}
+
+.notification-info {
+    flex: 1;
+}
+
+.notification-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 8px;
+}
+
+.notification-desc {
+    font-size: 14px;
+    color: #666;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+/* ========================================
+   CUSTOM TOGGLE SWITCH ANIMATION
+   ======================================== */
+
+.notification-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+/* Hide default checkbox */
+.form-switch .form-check-input {
+    display: none;
+}
+
+/* Custom Toggle Container */
+.form-switch {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+}
+
+.form-switch label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 34px;
+    border-radius: 17px;
+    background: #E5E7EB;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+/* Toggle Slider (Circle) */
+.form-switch label::after {
+    content: 'OFF';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: #999;
+}
+
+/* When Checked */
+.form-switch .form-check-input:checked + label {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+.form-switch .form-check-input:checked + label::after {
+    content: 'ON';
+    left: calc(100% - 31px);
+    color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(103, 192, 144, 0.4);
+}
+
+/* Hover Effect */
+.form-switch label:hover {
+    box-shadow: 0 0 10px rgba(103, 192, 144, 0.3);
+}
+
+/* Focus State */
+.form-switch .form-check-input:focus + label {
+    box-shadow: 0 0 0 3px rgba(103, 192, 144, 0.2);
+}
+
+/* Remove default toggle label */
+.toggle-label {
+    display: none;
+}
+
+/* Toast Notification */
+#notifToast {
+    min-width: 300px;
+}
+
+#notifToast .toast-body {
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+}
+
+#notifToast.toast-off .toast-body {
+    background: #6C757D;
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .notification-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .notification-toggle {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .language-option .btn-outline-primary {
+        font-size: 14px;
+    }
+
+    .card-body {
+        padding: 1.5rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .notification-title {
+        font-size: 15px;
+    }
+
+    .notification-desc {
+        font-size: 13px;
+    }
+
+    #saveBahasaBtn {
+        width: 100%;
+    }
+}
+
+/* Icon Colors */
+.bi-credit-card-2-front {
+    color: var(--color-primary) !important;
+}
+
+.bi-file-earmark-text {
+    color: #10B981 !important;
+}
+
+.bi-award {
+    color: #F59E0B !important;
+}
+
+.bi-gear {
+    color: #3B82F6 !important;
+}
+
+.bi-envelope {
+    color: #EF4444 !important;
+}
+
+/* Hover Effects */
+.notification-item:hover .bi {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Controller;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Route::macro('multirole', function ($uri, $actions) {
+            return Route::get($uri, function (...$parameters) use ($actions) {
+                $user = Auth::user();
+
+                foreach ($actions as $role => $controllerAction) {
+                    // Cek apakah user punya role tersebut
+                    // Pastikan logic $user->hasRole() sesuai dengan sistem role kamu
+                    if ($user->hasRole($role)) { 
+                        // Panggil Controller & Method yang sesuai
+                        return app()->call($controllerAction[0] . '@' . $controllerAction[1], $parameters);
+                    }
+                }
+
+                abort(403, 'Unauthorized');
+            });
+        });
         View::composer('*', function ($view) {
             $companyName = null;
             if (Auth::check()) {
