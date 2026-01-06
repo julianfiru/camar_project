@@ -679,6 +679,11 @@
 /* Documents */
 .documents-section {
     margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(248, 249, 250, 0.95), rgba(230, 244, 250, 0.9));
+    border-radius: 18px;
+    border: 1px solid rgba(222, 226, 230, 0.8);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
 }
 
 .doc-section-title {
@@ -706,9 +711,9 @@
 .document-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 1.25rem;
-    background: rgba(248, 249, 250, 0.8);
+    background: rgba(248, 249, 250, 0.9);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     margin-bottom: 1rem;
@@ -739,8 +744,9 @@
 
 .doc-upload {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
 }
 
 .doc-upload input[type="file"] {
@@ -776,6 +782,21 @@
     font-size: 0.875rem;
     font-weight: 600;
     min-width: 120px;
+}
+
+.doc-link-input {
+    width: 100%;
+    max-width: 260px;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    border: 1px dashed rgba(38, 102, 127, 0.45);
+    font-size: 0.8rem;
+    color: #495057;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.doc-link-input::placeholder {
+    color: #adb5bd;
 }
 
 .file-indicator.uploaded {

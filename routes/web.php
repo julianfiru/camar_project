@@ -54,6 +54,10 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 // Register Success Page (after submitting registration)
 Route::get('/register/success', [AuthController::class, 'showRegisterSuccess'])->name('register.success');
 
+// Account Status Page (untuk akun yang belum aktif/verifikasi)
+Route::get('/account/status', [AuthController::class, 'showAccountStatus'])
+    ->name('account.status');
+
 // ========================================
 // AUTHENTICATION ACTIONS (POST)
 // ========================================

@@ -24,6 +24,39 @@
             <form id="loginForm" class="login-form" method="POST" action="{{ route('login.process') }}">
                 @csrf
                 
+                {{-- Notifikasi status akun (menunggu verifikasi, ditolak, dll) --}}
+                @if (session('account_status_message'))
+                    @php
+                        $type = session('account_status_type', 'info');
+                        $bgColor = match($type) {
+                            'pending' => '#fff3cd', // kuning lembut
+                            'rejected' => '#f8d7da', // merah lembut
+                            'info' => '#d1ecf1',
+                            default => '#e2e3e5',
+                        };
+                        $textColor = match($type) {
+                            'pending' => '#856404',
+                            'rejected' => '#721c24',
+                            'info' => '#0c5460',
+                            default => '#383d41',
+                        };
+                    @endphp
+                    <div class="login-alert" style="background-color: {{ $bgColor }}; color: {{ $textColor }}; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+                        <strong>
+                            @if ($type === 'pending')
+                                <i class="fas fa-clock"></i> Akun Menunggu Verifikasi
+                            @elseif ($type === 'rejected')
+                                <i class="fas fa-times-circle"></i> Registrasi Ditolak
+                            @else
+                                <i class="fas fa-info-circle"></i> Informasi Akun
+                            @endif
+                        </strong>
+                        <p style="margin: 0.5rem 0 0; font-size: 0.9rem; line-height: 1.4;">
+                            {{ session('account_status_message') }}
+                        </p>
+                    </div>
+                @endif
+
                 {{-- Notifikasi error login --}}
                 @if ($errors->any())
                     <div class="login-alert">

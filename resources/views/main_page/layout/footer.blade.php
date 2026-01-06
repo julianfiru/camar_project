@@ -4,7 +4,7 @@
         <div class="row g-3">
             <div class="col-lg-4 mb-3">
                 <div class="footer-brand">
-                    <img src="{{ asset('resources/images/logo-camar.svg') }}" alt="CAMAR Logo" class="footer-logo">
+                    <img src="{{ asset('images/logo-camar.svg') }}" alt="CAMAR Logo" class="footer-logo">
                     <p class="footer-description">
                         Platform perdagangan karbon terpercaya untuk Indonesia yang lebih hijau dan berkelanjutan.
                     </p>

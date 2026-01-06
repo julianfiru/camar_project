@@ -11,7 +11,7 @@
 <!-- Hero Section -->
 <section class="tentang-hero" id="tentang">
     <div class="tentang-hero-bg">
-        <img src="{{ asset('images/forest0.png') }}" alt="Hero Background">
+        <img src="{{ asset('images/beach0.png') }}" alt="Hero Background">
     </div>
     <div class="container">
         <div class="tentang-hero-content">

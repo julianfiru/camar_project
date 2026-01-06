@@ -8,6 +8,25 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
 @endpush
 
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var alertBox = document.getElementById('registerErrorAlert');
+        var debugBox = document.getElementById('registerDebugError');
+
+        if (alertBox && debugBox) {
+            alertBox.addEventListener('dblclick', function () {
+                if (debugBox.style.display === 'none' || debugBox.style.display === '') {
+                    debugBox.style.display = 'block';
+                } else {
+                    debugBox.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+@endpush
+
 @section('content')
 <!-- Register Page -->
 <div class="register-page">
@@ -21,13 +40,20 @@
 
         <!-- Error Messages -->
         @if ($errors->any())
-            <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <div id="registerErrorAlert" class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; cursor: pointer;" @if(session('debug_error')) title="Klik dua kali untuk melihat detail teknis (hanya untuk debugging)" @endif>
                 <h4 style="margin-top: 0;"><i class="fas fa-exclamation-triangle"></i> Terjadi Kesalahan:</h4>
                 <ul style="margin: 0.5rem 0;">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
+
+                @if (session('debug_error'))
+                    <div id="registerDebugError" style="display: none; margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px solid rgba(114,28,36,0.2); font-size: 0.85rem;">
+                        <strong>Detail teknis (debugging):</strong>
+                        <pre style="white-space: pre-wrap; word-break: break-word; margin: 0.5rem 0 0; background: rgba(0,0,0,0.02); padding: 0.5rem; border-radius: 4px;">{{ session('debug_error') }}</pre>
+                    </div>
+                @endif
             </div>
         @endif
 
@@ -275,6 +301,7 @@
                             </label>
                             <span class="file-indicator" id="indicator-doc1"></span>
                             <span class="doc-badge required">Wajib</span>
+                            <input type="url" name="akta_gdrive" class="doc-link-input" placeholder="atau tempel link Google Drive Akta">
                         </div>
                     </div>
 
@@ -294,6 +321,7 @@
                             </label>
                             <span class="file-indicator" id="indicator-doc2"></span>
                             <span class="doc-badge required">Wajib</span>
+                            <input type="url" name="npwp_gdrive" class="doc-link-input" placeholder="atau tempel link Google Drive NPWP">
                         </div>
                     </div>
 
@@ -313,6 +341,7 @@
                             </label>
                             <span class="file-indicator" id="indicator-doc3"></span>
                             <span class="doc-badge required">Wajib</span>
+                            <input type="url" name="nib_gdrive" class="doc-link-input" placeholder="atau tempel link Google Drive NIB/SIUP">
                         </div>
                     </div>
 
@@ -332,6 +361,7 @@
                             </label>
                             <span class="file-indicator" id="indicator-doc4"></span>
                             <span class="doc-badge optional">Opsional</span>
+                            <input type="url" name="iso_gdrive" class="doc-link-input" placeholder="atau tempel link Google Drive ISO 14001">
                         </div>
                     </div>
                 </div>
@@ -360,6 +390,7 @@
                             </label>
                             <span class="file-indicator" id="indicator-doc5"></span>
                             <span class="doc-badge seller">Seller</span>
+                            <input type="url" name="gold_standard_gdrive" class="doc-link-input" placeholder="atau tempel link Google Drive Gold Standard">
                         </div>
                     </div>
 
@@ -379,6 +410,7 @@
                             </label>
                             <span class="file-indicator" id="indicator-doc6"></span>
                             <span class="doc-badge seller">Seller</span>
+                            <input type="url" name="vcs_gdrive" class="doc-link-input" placeholder="atau tempel link Google Drive VCS">
                         </div>
                     </div>
                 </div>

@@ -51,14 +51,16 @@ class AuthController extends Controller
                 ->withInput($request->only('email'));
         }
 
-        // Check user status
-        if ($user->status !== 'active') {
-            return back()
-                ->withErrors(['email' => 'Akun Anda tidak aktif. Silakan hubungi administrator.'])
-                ->withInput($request->only('email'));
+        // Jika status belum 3 (aktif), jangan login-kan user,
+        // hanya arahkan ke halaman status akun khusus dengan informasi di session
+        if ($user->status !== 3) {
+            $request->session()->put('account_status_email', $user->email);
+            $request->session()->put('account_status_code', $user->status);
+
+            return redirect()->route('account.status');
         }
 
-        // Update last login
+        // Update last login untuk akun aktif
         $user->last_login = now();
         $user->save();
 
@@ -67,6 +69,51 @@ class AuthController extends Controller
 
         // Redirect based on role
         return $this->redirectBasedOnRole($user->role);
+    }
+
+    /**
+     * Tampilkan status akun untuk user yang belum aktif.
+     */
+    public function showAccountStatus(Request $request)
+    {
+        $email = $request->session()->get('account_status_email');
+        $statusCode = $request->session()->get('account_status_code');
+
+        if (!$email || $statusCode === null) {
+            return redirect()->route('login');
+        }
+
+        // Map status kode ke label & pesan
+        switch ($statusCode) {
+            case 1:
+                $statusLabel = 'Menunggu Verifikasi';
+                $statusDescription = 'Pendaftaran akun Anda telah kami terima dan saat ini sedang ditinjau oleh tim CAMAR. Anda akan mendapatkan pemberitahuan melalui email setelah proses verifikasi selesai.';
+                $statusBadge = 'pending';
+                break;
+            case 2:
+                $statusLabel = 'Terverifikasi, Menunggu Aktivasi';
+                $statusDescription = 'Data perusahaan dan dokumen Anda telah terverifikasi. Akun Anda akan segera diaktifkan oleh tim CAMAR sehingga bisa digunakan untuk mengakses fitur platform.';
+                $statusBadge = 'info';
+                break;
+            case 0:
+                $statusLabel = 'Registrasi Ditolak / Dibatalkan';
+                $statusDescription = 'Mohon maaf, registrasi akun Anda ditolak atau dibatalkan. Jika Anda memerlukan penjelasan lebih lanjut atau ingin mengajukan pendaftaran ulang, silakan hubungi tim CAMAR melalui kanal dukungan resmi.';
+                $statusBadge = 'rejected';
+                break;
+            default:
+                $statusLabel = 'Status Akun Tidak Aktif';
+                $statusDescription = 'Status akun Anda saat ini belum aktif. Silakan hubungi tim CAMAR jika membutuhkan bantuan atau klarifikasi lebih lanjut.';
+                $statusBadge = 'info';
+                break;
+        }
+
+        return view('main_page.auth.account-status', [
+            'email' => $email,
+            'statusCode' => $statusCode,
+            'statusLabel' => $statusLabel,
+            'statusDescription' => $statusDescription,
+            'statusBadge' => $statusBadge,
+        ]);
     }
 
     /**
@@ -90,31 +137,99 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        // Validate input
-        $validator = Validator::make($request->all(), [
-            'account_type' => 'required|in:buyer,seller',
-            'company_name' => 'required|string|max:255',
-            'company_email' => 'required|email|unique:users,email',
-            'phone' => 'required|string|max:20',
-            'industry' => 'required|string',
-            'address' => 'required|string',
-            'full_name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'password' => 'required|string|min:8|confirmed',
-            'nib_number' => 'nullable|string|max:255',
-            'npwp_number' => 'nullable|string|max:255',
-            // Website tidak lagi dipaksa format URL penuh (http/https), cukup teks biasa
-            'website' => 'nullable|string|max:255',
-            'bio' => 'nullable|string',
-            'country' => 'nullable|string|max:255',
-            // File uploads - documents
-            'akta' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'npwp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'nib' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'iso' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'gold_standard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-            'vcs' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
-        ]);
+        // Validate input dengan pesan yang lebih mudah dipahami pengguna
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'account_type' => 'required|in:buyer,seller',
+                'company_name' => 'required|string|max:255',
+                'company_email' => 'required|email',
+                'phone' => 'required|string|max:20',
+                'industry' => 'required|string',
+                'address' => 'required|string',
+                'full_name' => 'required|string|max:255',
+                'position' => 'required|string|max:255',
+                'password' => 'required|string|min:8|confirmed',
+                'nib_number' => 'nullable|string|max:255',
+                'npwp_number' => 'nullable|string|max:255',
+                // Website tidak lagi dipaksa format URL penuh (http/https), cukup teks biasa
+                'website' => 'nullable|string|max:255',
+                'bio' => 'nullable|string',
+                'country' => 'nullable|string|max:255',
+                // File uploads - documents
+                'akta' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+                'akta_gdrive' => 'nullable|url|max:2048',
+                'npwp' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+                'npwp_gdrive' => 'nullable|url|max:2048',
+                'nib' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+                'nib_gdrive' => 'nullable|url|max:2048',
+                'iso' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+                'iso_gdrive' => 'nullable|url|max:2048',
+                'gold_standard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+                'gold_standard_gdrive' => 'nullable|url|max:2048',
+                'vcs' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
+                'vcs_gdrive' => 'nullable|url|max:2048',
+            ],
+            [
+                'account_type.required' => 'Silakan pilih tipe akun (Buyer atau Seller).',
+                'account_type.in' => 'Tipe akun yang dipilih tidak dikenali.',
+
+                'company_name.required' => 'Nama perusahaan wajib diisi.',
+                'company_name.max' => 'Nama perusahaan terlalu panjang (maksimal 255 karakter).',
+
+                'company_email.required' => 'Email perusahaan wajib diisi.',
+                'company_email.email' => 'Format email perusahaan tidak valid.',
+                'company_email.unique' => 'Email perusahaan ini sudah terdaftar di sistem kami.',
+
+                'phone.required' => 'Nomor telepon perusahaan wajib diisi.',
+                'phone.max' => 'Nomor telepon terlalu panjang.',
+
+                'industry.required' => 'Silakan pilih industri perusahaan.',
+
+                'address.required' => 'Alamat perusahaan wajib diisi.',
+
+                'full_name.required' => 'Nama lengkap penanggung jawab wajib diisi.',
+                'full_name.max' => 'Nama lengkap terlalu panjang (maksimal 255 karakter).',
+
+                'position.required' => 'Jabatan penanggung jawab wajib diisi.',
+                'position.max' => 'Jabatan terlalu panjang (maksimal 255 karakter).',
+
+                'password.required' => 'Password wajib diisi.',
+                'password.min' => 'Password minimal terdiri dari 8 karakter.',
+                'password.confirmed' => 'Konfirmasi password tidak sama dengan password utama.',
+
+                'nib_number.max' => 'Nomor NIB terlalu panjang (maksimal 255 karakter).',
+                'npwp_number.max' => 'Nomor NPWP terlalu panjang (maksimal 255 karakter).',
+
+                'website.max' => 'Alamat website terlalu panjang (maksimal 255 karakter).',
+
+                'country.max' => 'Nama negara terlalu panjang (maksimal 255 karakter).',
+
+                'akta.mimes' => 'Akta pendirian harus berupa file PDF atau gambar (JPG, JPEG, PNG).',
+                'akta.max' => 'Ukuran file Akta pendirian maksimal 10 MB.',
+
+                'npwp.mimes' => 'Dokumen NPWP harus berupa file PDF atau gambar (JPG, JPEG, PNG).',
+                'npwp.max' => 'Ukuran file NPWP maksimal 10 MB.',
+
+                'nib.mimes' => 'Dokumen NIB/SIUP harus berupa file PDF atau gambar (JPG, JPEG, PNG).',
+                'nib.max' => 'Ukuran file NIB/SIUP maksimal 10 MB.',
+
+                'iso.mimes' => 'Dokumen ISO harus berupa file PDF atau gambar (JPG, JPEG, PNG).',
+                'iso.max' => 'Ukuran file ISO maksimal 10 MB.',
+
+                'gold_standard.mimes' => 'Dokumen Gold Standard harus berupa file PDF atau gambar (JPG, JPEG, PNG).',
+                'gold_standard.max' => 'Ukuran file Gold Standard maksimal 10 MB.',
+
+                'vcs.mimes' => 'Dokumen VCS harus berupa file PDF atau gambar (JPG, JPEG, PNG).',
+                'vcs.max' => 'Ukuran file VCS maksimal 10 MB.',
+                'akta_gdrive.url' => 'Link Google Drive Akta harus berupa URL yang valid.',
+                'npwp_gdrive.url' => 'Link Google Drive NPWP harus berupa URL yang valid.',
+                'nib_gdrive.url' => 'Link Google Drive NIB/SIUP harus berupa URL yang valid.',
+                'iso_gdrive.url' => 'Link Google Drive ISO harus berupa URL yang valid.',
+                'gold_standard_gdrive.url' => 'Link Google Drive Gold Standard harus berupa URL yang valid.',
+                'vcs_gdrive.url' => 'Link Google Drive VCS harus berupa URL yang valid.',
+            ]
+        );
 
         if ($validator->fails()) {
             return back()
@@ -124,17 +239,51 @@ class AuthController extends Controller
 
         try {
             DB::beginTransaction();
+            // Cek apakah email sudah pernah terdaftar sebelumnya
+            $existingUser = User::where('email', $request->company_email)->first();
 
-            // Create user account
-            $user = User::create([
-                'email' => $request->company_email,
-                'password_hash' => Hash::make($request->password),
-                'role' => $request->account_type,
-                // Akun baru berstatus pending, menunggu persetujuan admin/auditor
-                'status' => 'pending',
-                'created_at' => now(),
-                'last_login' => null,
-            ]);
+            // Jika email sudah dipakai oleh akun yang bukan status 0 (ditolak/dibatalkan), blok registrasi
+            if ($existingUser && $existingUser->status !== 0) {
+                DB::rollBack();
+
+                return back()
+                    ->withErrors(['company_email' => 'Email perusahaan ini sudah terdaftar di sistem kami. Silakan gunakan email lain atau masuk ke akun yang sudah ada.'])
+                    ->withInput($request->except('password', 'password_confirmation'));
+            }
+
+            // Jika email pernah dipakai tapi status 0 (registrasi ditolak), izinkan registrasi ulang dengan akun yang sama
+            if ($existingUser && $existingUser->status === 0) {
+                $user = $existingUser;
+                $user->password_hash = Hash::make($request->password);
+                $user->role = $request->account_type;
+                $user->status = 1; // kembali ke status menunggu verifikasi
+                $user->created_at = now();
+                $user->last_login = null;
+                $user->save();
+
+                // Bersihkan profil & dokumen lama sebelum membuat yang baru
+                $buyerProfiles = Buyer::where('user_id', $user->user_id)->get();
+                foreach ($buyerProfiles as $buyerProfile) {
+                    BuyerDocumentation::where('buyer_id', $buyerProfile->buyer_id)->delete();
+                }
+                Buyer::where('user_id', $user->user_id)->delete();
+
+                $sellerProfiles = Seller::where('user_id', $user->user_id)->get();
+                foreach ($sellerProfiles as $sellerProfile) {
+                    SellerDocumentation::where('seller_id', $sellerProfile->seller_id)->delete();
+                }
+                Seller::where('user_id', $user->user_id)->delete();
+            } else {
+                // Buat user baru pertama kali
+                $user = User::create([
+                    'email' => $request->company_email,
+                    'password_hash' => Hash::make($request->password),
+                    'role' => $request->account_type,
+                    // Akun baru: 1 = menunggu verifikasi admin
+                    'status' => 1,
+                    'created_at' => now(),
+                ]);
+            }
 
             // Handle profile photo upload
             $profilePhotoPath = null;
@@ -190,9 +339,13 @@ class AuthController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            
+
             return back()
-                ->withErrors(['error' => 'Terjadi kesalahan saat registrasi: ' . $e->getMessage()])
+                ->withErrors([
+                    'error' => 'Terjadi kendala saat memproses registrasi Anda. Silakan coba lagi beberapa saat lagi atau hubungi tim CAMAR jika masalah berlanjut.',
+                ])
+                // Simpan detail error teknis di session terpisah untuk keperluan debugging di UI (double click warning box)
+                ->with('debug_error', $e->getMessage())
                 ->withInput($request->except('password', 'password_confirmation'));
         }
     }
@@ -221,6 +374,15 @@ class AuthController extends Controller
                     'size' => $file->getSize(),
                     'document_status' => 'pending',
                     'document_url' => $path,
+                ]);
+            } elseif ($request->filled($key . '_gdrive')) {
+                BuyerDocumentation::create([
+                    'buyer_id' => $buyerId,
+                    'document_name' => $name,
+                    'document_type' => 'gdrive-url',
+                    'size' => 0,
+                    'document_status' => 'pending',
+                    'document_url' => $request->input($key . '_gdrive'),
                 ]);
             }
         }
@@ -252,6 +414,15 @@ class AuthController extends Controller
                     'size' => $file->getSize(),
                     'document_status' => 'pending',
                     'document_url' => $path,
+                ]);
+            } elseif ($request->filled($key . '_gdrive')) {
+                SellerDocumentation::create([
+                    'seller_id' => $sellerId,
+                    'document_name' => $name,
+                    'document_type' => 'gdrive-url',
+                    'size' => 0,
+                    'document_status' => 'pending',
+                    'document_url' => $request->input($key . '_gdrive'),
                 ]);
             }
         }

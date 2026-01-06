@@ -48,6 +48,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'status' => 'integer',
             'created_at' => 'datetime',
             'last_login' => 'datetime',
         ];
