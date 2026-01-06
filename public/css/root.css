@@ -1,0 +1,165 @@
+
+        /* COLOR PALLETE & THEME*/
+            :root {
+                --body-bg: linear-gradient(135deg, var(--mint) 0%, var(--white) 100%);
+                --body-color: var(--navy);
+                --red: #E74C3C;
+                --mint: #DDF4E7;
+                --green: #67C090;
+                --teal: #26667F;
+                --navy: #124170;
+                --white: #ffffff;
+                --gray-light: #f5f5f5;
+                --gray: #666;
+                --yellow: #f39c12;
+                --dark: #1a1a1a;
+                --darker: #0f0f0f;
+                --darkest: #0a0a0a;
+
+                /* NAVIGASI LIGHT MODE (DEFAULT)*/
+                    --sidebar-bg: var(--white);
+                    --sidebar-text: var(--gray);
+                    --sidebar-logo: var(--teal);
+                    --sidebar-border-right: transparent;
+                    --sidebar-shadow: 2px 0 10px rgba(0,0,0,0.05);
+                    --nav-hover-bg: var(--mint);
+                    --nav-hover-text: var(--teal);
+                    --nav-active-border: var(--green);
+                    --nav-icon-color: currentColor;
+                /* NAVIGASI LIGHT MODE (DEFAULT)*/
+
+                /* FONT */
+                    --bs-font-sans-serif: 'Ubuntu', sans-serif;
+                    --bs-body-font-family: 'Ubuntu', sans-serif;
+                /* FONT */
+
+                /* === STAT LIGHT MODE (DEFAULT) === */
+                    --card-bg: var(--white);
+                    --card-border: transparent;
+                    --card-shadow: 0 2px 8px rgba(0,0,0,0.05);
+                    --card-hover-shadow: 0 8px 15px rgba(0,0,0,0.1);
+                    --card-hover-border: transparent;
+                    --card-hover-transform: -5px;
+                    --stat-title-color: var(--gray);
+                    --stat-value-color: var(--navy);
+                    --stat-normal-color: var(--navy);
+                /* === STAT LIGHT MODE (DEFAULT) === */
+                
+                /* TABLE LIGHT MODE (DEFAULT) */
+                    --table-bg: transparent;
+                    --table-head-bg: var(--gray-light);
+                    --table-head-text: var(--navy);
+                    --table-head-border: transparent;
+                    --table-body-text: var(--navy);
+                    --table-row-border: #eee;
+                    --table-row-hover: var(--mint);
+                /* TABLE LIGHT MODE (DEFAULT) */
+
+                /* UPLOAD LIGHT MODE (DEFAULT) */
+                    --upload-bg: transparent;
+                    --upload-border: var(--green);
+                    --upload-hover-bg: var(--mint);
+                    --upload-hover-border: var(--teal);
+                    --upload-text-title: var(--navy);
+                /* UPLOAD LIGHT MODE (DEFAULT) */
+            }
+            
+            [data-theme="dark"] {
+                --body-bg: linear-gradient(135deg, var(--darkest) 0%, var(--darker) 50%, var(--dark) 100%);
+                --body-color: var(--text-primary);
+                --bg-dark: rgba(15, 15, 15, 0.95);
+                --bgnav-dark: rgba(103, 192, 144, 0.08);
+                --bg-card: rgba(255, 255, 255, 0.03);
+                --bg-hover: rgba(103, 192, 144, 0.1);
+                --border: rgba(103, 192, 144, 0.2);
+                --text-primary: #ffffff;
+                --text-secondary: #ffffff90;
+
+                /* NAVIGASI DARK MODE*/
+                    --sidebar-bg: var(--bgnav-dark);
+                    --sidebar-text: var(--green);
+                    --sidebar-logo: var(--mint);
+                    --sidebar-border-right: var(--border);
+                    --sidebar-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+                    --nav-hover-bg: var(--bg-hover);
+                    --nav-hover-text: var(--mint);
+                    --nav-active-border: var(--green);
+                /* NAVIGASI DARK MODE*/
+                
+                /* === STAT DARK MODE MODE === */
+                    --card-bg: var(--bg-card);
+                    --card-border: var(--border);
+                    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                    --card-hover-shadow: 0 8px 30px rgba(103, 192, 144, 0.2);
+                    --card-hover-border: var(--green);
+                    --card-hover-transform: -8px;
+                    --stat-title-color: var(--text-secondary);
+                    --stat-value-color: var(--mint);
+                    --stat-normal-color: var(--white);
+                /* === STAT DARK MODE MODE === */
+                
+                /* TABLE DARK MODE */
+                    --table-bg: transparent;
+                    --table-head-bg: rgba(255, 255, 255, 0.05);
+                    --table-head-text: var(--mint);
+                    --table-head-border: var(--border); /* Di dark mode Anda pakai border 2px */
+                    
+                    --table-body-text: var(--text-secondary);
+                    --table-row-border: rgba(103, 192, 144, 0.1);
+                    --table-row-hover: rgba(103, 192, 144, 0.05);
+                /* TABLE DARK MODE */
+
+                /* UPLOAD DARK MODE */
+                    --upload-bg: var(--bg-card);
+                    --upload-border: var(--border);
+                    --upload-hover-bg: rgba(103, 192, 144, 0.05);
+                    --upload-hover-border: var(--green);
+                    --upload-text-title: var(--mint);
+                /* UPLOAD DARK MODE */
+            }
+        /* COLOR PALLETE & THEME*/
+        
+        /* BORDER CUSTOM */
+            .bdc-green {
+                border-color: var(--green) !important;
+                transition: all 0.3s;
+                color: var(--green) !important;
+            }
+            .bdc-green:hover, .bdc-green.active {
+                background-color: var(--green) !important;
+                color: var(--white) !important
+            }
+        /* BORDER CUSTOM */
+        
+        /* BACKGROUND CUSTOM COLOR */
+            .bgc-blue {
+                background-color: var(--teal) !important;
+            }
+            .bgc-green {
+                background-color: var(--green) !important;
+            }
+            .bgc-yellow {
+                background-color: var(--yellow) !important;
+            }
+            .bgc-red {
+                background-color: var(--red) !important;
+            }
+        /* BACKGROUND CUSTOM COLOR */
+
+        /* FONT COLOR */
+            .ftc-secondary {
+                color: var(--text-secondary) !important;
+            }
+            .ftc-blue {
+                color: var(--navy) !important;
+            }
+            .ftc-green {
+                color: var(--green) !important;
+            }
+            .ftc-yellow {
+                color: var(--yellow) !important;
+            }
+            .ftc-red {
+                color: var(--red) !important;
+            }
+        /* FONT COLOR */
