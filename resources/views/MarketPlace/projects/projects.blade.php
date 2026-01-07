@@ -133,6 +133,10 @@
 
 @push('scripts')
 <script>
+    window.MARKETPLACE_PROJECT_DETAIL_URLS = {
+        1: "{{ route('marketplace.product_detail.mangrove') }}",
+    };
+
     // Load emission data from localStorage
     document.addEventListener('DOMContentLoaded', function() {
         loadEmissionData();

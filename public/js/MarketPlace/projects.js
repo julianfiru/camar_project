@@ -442,9 +442,13 @@ document.getElementById('sort-select').addEventListener('change', function(e) {
 // ====================================
 
 function viewProjectDetail(projectId) {
-    if (projectId === 1) {
-        window.location.href = '/product/mangrove';
-    } else {
-        alert('Detail proyek akan segera tersedia!');
+    const detailUrls = window.MARKETPLACE_PROJECT_DETAIL_URLS || {};
+    const detailUrl = detailUrls[projectId];
+
+    if (detailUrl) {
+        window.location.href = detailUrl;
+        return;
     }
+
+    alert('Detail proyek akan segera tersedia!');
 }

@@ -357,7 +357,7 @@
                             </p>
                             <div class="project-footer">
                                 <div class="project-price">Rp 250K<span>/ton CO₂</span></div>
-                                <button class="btn-project-detail">Detail</button>
+                                <a href="{{ route('marketplace.product_detail.mangrove') }}" class="btn-project-detail">Detail</a>
                             </div>
                         </div>
                     </div>

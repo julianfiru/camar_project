@@ -20,6 +20,10 @@ Route::get('/kalkulator', function () {
 Route::get('/proyek', function () {
     return view('MarketPlace.projects.projects');
 })->name('projects');
+
+Route::get('/proyek/rehabilitasi-mangrove-pesisir-jawa', function () {
+    return view('MarketPlace.product-detail.product-detail');
+})->name('marketplace.product_detail.mangrove');
 Route::get('/edukasi', function () {
     return view('MarketPlace.edukasi.edukasi');
 })->name('edukasi');
