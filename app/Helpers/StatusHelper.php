@@ -60,19 +60,20 @@ if (!function_exists('format_angka_singkat')) {
     }
 }
 if (!function_exists('format_ukuran_kb')) {
-    function format_ukuran_kb($kb, $presisi = 1) {
-        if (!is_numeric($kb)) return '0 KB';
-        if ($kb >= 1048576) { 
-            $hasil = $kb / 1048576;
+    function format_ukuran_kb($bytes, $presisi = 1) {
+        if (!is_numeric($bytes)) return '0 B';
+        if ($bytes >= 1073741824) {
+            $hasil = $bytes / 1073741824;
             $satuan = ' GB';
-        }
-        elseif ($kb >= 1024) {
-            $hasil = $kb / 1024;
+        } elseif ($bytes >= 1048576) {
+            $hasil = $bytes / 1048576;
             $satuan = ' MB';
-        }
-        else {
-            $hasil = $kb;
+        } elseif ($bytes >= 1024) {
+            $hasil = $bytes / 1024;
             $satuan = ' KB';
+        } else {
+            $hasil = $bytes;
+            $satuan = ' B';
             $presisi = 0;
         }
         return number_format($hasil, $presisi, ',', '.') . $satuan;

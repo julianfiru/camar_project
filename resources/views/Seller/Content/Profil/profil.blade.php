@@ -8,7 +8,7 @@
         <div class="d-flex align-items-start gap-4 mb-4">
             <div class="flex-shrink-0">
                 <div class="company-logo d-flex align-items-center justify-content-center fw-bold fs-1 text-white rounded-3">
-                    <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
+                    <img src="{{ asset($photoUrl) }}" 
                         alt="Profile" 
                         class="w-100 h-100 rounded-3" 
                         style="object-fit: cover;">
@@ -115,7 +115,9 @@
         <div class="border-0 d-flex justify-content-between align-items-center py-3">
             <div class="d-flex justify-content-between align-items-center w-100 pb-3 border-bottom border-2">    
                 <h5 class="fw-bold mb-0 stat-value">Dokumen Legal & Sertifikat</h5>
-                <button class="btn text-white basefont fw-bold btn-sm px-3 bgc-green">
+                <button class="btn text-white basefont fw-bold btn-sm px-3 bgc-green"
+                    onclick="showUploadCard()" 
+                    style="cursor: pointer;">
                     + Upload Dokumen
                 </button>
             </div>
@@ -142,15 +144,38 @@
                 </span>
             @endforelse
         </div>
-        <div class="upload-area p-5 mt-5 text-center rounded-4">
-            <div class="mb-3 text-secondary">
-                <svg style="width: 48px; height: 48px;" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                </svg>
+        <form id="uploadForm" class="bs" action="{{ route('seller.upload.documentSeller') }}" method="POST" enctype="multipart/form-data" style="display: none;">
+            @csrf
+            <div class="upload-card p-4">
+                <h5 class="fw-bold mb-3" style="color: var(--navy);">Upload Laporan</h5>
+                <div class="upload-area text-center p-4 mb-3" 
+                    id="uploadArea" 
+                    onclick="document.getElementById('fileInput').click()" 
+                    style="cursor: pointer;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0 auto 12px;">
+                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="#67C090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 8L12 3L7 8" stroke="#67C090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V15" stroke="#67C090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h6 class="fw-semibold mb-2" style="color: var(--navy);">Pilih file atau drag & drop</h6>
+                    <p class="small text-muted mb-0">Format: PDF, DOC, DOCX (Maks. 10MB)</p>
+                </div>
+                <input type="file" 
+                    id="fileInput" 
+                    name="document_file" 
+                    class="d-none" 
+                    accept=".pdf,.doc,.docx" 
+                    onchange="handleFileSelect(event)">
+                <div class="d-flex gap-2 justify-content-end">
+                    <button type="button" class="btn btn-keluar" onclick="hideUploadCard()">
+                        Keluar
+                    </button>
+                    <button type="button" class="btn btn-lanjutkan" id="btnLanjutkan" onclick="handleSubmit()" disabled>
+                        Lanjutkan
+                    </button>
+                </div>
             </div>
-            <h3 class="fw-bold mb-2" style="color: var(--upload-text-title);">Upload Dokumen Baru</h3>
-            <p class="text-secondary fs-5 mb-0">Klik atau drag & drop file PDF, maksimal 10MB</p>
-        </div>
+        </form>
     </div>
 
     <!-- Bank Account Information -->
@@ -167,25 +192,25 @@
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Nama Bank</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank?->bank_name ?? '-' }}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank->bank_name }}</div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Nomor Rekening</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank?->account_number ?? '-' }}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank->account_number }}</div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Nama Pemegang Rekening</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank?->seller?->company_name ?? $companyName ?? '-' }}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank->seller->company_name}}</div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Cabang Bank</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank?->bank_branch ?? '-' }}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank->bank_branch }}</div>
                 </div>
             </div>
         </div>
@@ -223,7 +248,6 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/seller/UploadFile.js') }}"></script>
+<script src="{{ asset('js/seller/UploadFile.js') }}"></script>
 @endsection
-@push('scripts')
-    <script src="{{ asset('detail/projek/detail_project.js') }}"></script>
-@endpush

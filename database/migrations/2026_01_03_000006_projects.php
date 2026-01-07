@@ -30,8 +30,8 @@ return new class extends Migration
             $table->id('mrv_id');
             $table->unsignedBigInteger('project_id');
             $table->string('mrv_name');
-            $table->date('reporting_period_start');
-            $table->date('reporting_period_end');
+            $table->integer('status');
+            $table->decimal('size', 65, 0);
             $table->string('document_url');
             $table->timestamp('submitted_at');
 

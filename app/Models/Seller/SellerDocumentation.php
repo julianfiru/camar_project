@@ -17,6 +17,7 @@ class SellerDocumentation extends Model
         'size',
         'document_status', 
         'document_url', 
+        'submitted_at',
     ];
     public function seller()
     {

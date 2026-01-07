@@ -129,6 +129,21 @@
                 background-color: var(--green) !important;
                 color: var(--white) !important
             }
+            .bdc-green-stats {
+                border-color: var(--green) !important;
+                transition: all 0.3s;
+                color: var(--white) !important;
+            }
+            .bdc-yellow.stats {
+                border-color: var(--yellow) !important;
+                transition: all 0.3s;
+                color: var(--white) !important;
+            }
+            .bdc-red.stats {
+                border-color: var(--red) !important;
+                transition: all 0.3s;
+                color: var(--white) !important;
+            }
         /* BORDER CUSTOM */
         
         /* BACKGROUND CUSTOM COLOR */
@@ -161,5 +176,8 @@
             }
             .ftc-red {
                 color: var(--red) !important;
+            }
+            .ftc-white {
+                color: var(--white) !important;
             }
         /* FONT COLOR */

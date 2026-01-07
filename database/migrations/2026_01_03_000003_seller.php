@@ -51,6 +51,7 @@ return new class extends Migration
             $table->decimal('size', 65, 0);
             $table->integer('document_status');
             $table->string('document_url');
+            $table->timestamp('submitted_at');
 
             $table->foreign('seller_id')->references('seller_id')->on('sellers');
         });

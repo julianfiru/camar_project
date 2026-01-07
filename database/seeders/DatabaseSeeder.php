@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Buyer\Buyer;
 use App\Models\Buyer\BuyerDocumentation;
+use App\Models\Seller\Mrv;
 use App\Models\Seller\Order;
 use App\Models\Seller\Payment;
 use App\Models\Seller\Project;
@@ -74,6 +75,7 @@ class DatabaseSeeder extends Seeder
             'size' => 4500 ,
             'document_status' => 2,
             'document_url' => 'https://claude.ai/new',
+            'submitted_at' => now(),
         ]);
         Buyer::create([
             'user_id' => 2,
@@ -118,6 +120,14 @@ class DatabaseSeeder extends Seeder
             'duration_years' => 2,
             'status' => 2,
             'created_at' => '2025-01-04 17:09:07',
+        ]);
+        Mrv::create([
+            'project_id' => 1,
+            'mrv_name' => 'MRV Report Q1 2025',
+            'status' => 2,
+            'size' => 4000,
+            'document_url' => 'https://claude.ai/new',
+            'submitted_at' => '2025-04-05 10:00:00',
         ]);
         Project::create([
             'seller_id' => 1,

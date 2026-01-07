@@ -32,7 +32,7 @@
             <div class="bs stat-card h-100">
                 <div class="stat-header">Dibatalkan</div>
                 <div class="stat-value fs-2">{{ $totalBatal }}</div>
-                <div class="ftc-red">{{ $totalProyek > 0 ? number_format(($totalBatal / $totalProyek) * 100, 1) : 0 }}% dari total</div>
+                <div class="ftc-red">{{ $totalBatal / $totalProyek * 100}}% dari total</div>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
             </thead>
             <tbody>
                 @forelse($projects as $item)
-                    <tr>
+                    <tr class="project-row" data-status="{{ $item->status }}">
                         <td class="ps-4 fw-bold">{{ $item->project_name }}</td>
                         <td class="ps-4 fw-bold">{{ $item->project_type }}</td>
                         <td class="p-3">
@@ -88,7 +88,9 @@
 
                         <td class="text-end pe-4">
                             <button class="btn btn-sm rounded-pill bdc-green" 
-                                    onclick="showProjectDetail({{ $item->project_id }})">
+                                data-bs-target="#projectModal"
+                                onclick="showProjectDetail(this)"  
+                                data-url="{{ route('seller.project.detail', $item->project_id) }}">
                                 Detail
                             </button>
                         </td>
@@ -103,6 +105,6 @@
             </tbody>
         </table>
     </div>
+    @include('Seller.Content.Proyek.tproyek')
+    <script src="{{ asset('js/seller/proyek/Proyek.js') }}"></script>
 @endsection
-@push('scripts')
-@endpush

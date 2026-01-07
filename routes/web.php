@@ -46,6 +46,9 @@ Route::get('/tentang', function () {
 Route::middleware(['auth'])->group(function () {
     # SELLER #
         Route::middleware(['role:Seller'])->prefix('seller')->group(function () {
+            Route::get('/project/detail/{id}', [ProyekSeller::class, 'getDetail'])->name('seller.project.detail');
+            Route::post('/project/uploadDocument', [ProyekSeller::class, 'UploadDocument'])->name('seller.upload.documentProject');
+            Route::post('/profil/uploadDocument', [ProfilSeller::class, 'UploadDocument'])->name('seller.upload.documentSeller');
             Route::get('/dashboard', [DashboardSeller::class, 'index'])->name('seller.dashboard');
             Route::get('/penjualan', [PenjualanSeller::class, 'index'])->name('seller.penjualan');
             Route::get('/profil', [ProfilSeller::class, 'index'])->name('seller.profil');

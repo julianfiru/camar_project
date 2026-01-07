@@ -25,4 +25,12 @@ class Project extends Model
     {
         return $this->belongsTo(Seller::class, 'seller_id', 'seller_id');
     }
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'project_id', 'project_id');
+    }
+    public function mrv()
+    {
+        return $this->hasMany(Mrv::class, 'project_id', 'project_id');
+    }
 }
