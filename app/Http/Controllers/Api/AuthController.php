@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Buyer;
-use App\Models\Seller;
-use App\Models\BuyerDocumentation;
-use App\Models\SellerDocumentation;
+use App\Models\Buyer\Buyer;
+use App\Models\Seller\Seller;
+use App\Models\Buyer\BuyerDocumentation;
+use App\Models\Seller\SellerDocumentation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -33,21 +34,37 @@ class AuthController extends Controller
                 ->withErrors($validator)
                 ->withInput($request->only('email'));
         }
-        $user = User::where('email', $request->email)->first();
+        // Jika ada lebih dari 1 record untuk email yang sama (mis. pernah ditolak lalu daftar ulang),
+        // prioritaskan yang statusnya paling tinggi (2 aktif > 1 pending > 0 ditolak).
+        $user = User::where('email', $request->email)
+            ->orderByDesc('status')
+            ->orderByDesc('user_id')
+            ->first();
         if (!$user || !Hash::check($request->password, $user->password_hash)) {
             return back()
                 ->withErrors(['email' => 'Email atau password salah.'])
                 ->withInput($request->only('email'));
         }
-        if ($user->status !== 2) {
-            return back()
-                ->withErrors(['email' => 'Akun Anda tidak aktif. Silakan hubungi administrator.'])
-                ->withInput($request->only('email'));
+        
+        // DEBUG: Logging sementara untuk melihat nilai status yang sebenarnya
+        \Log::info('Login attempt', [
+            'email' => $user->email,
+            'user_id' => $user->user_id,
+            'status_raw' => $user->getAttributes()['status'],
+            'status_cast' => $user->status,
+            'status_int' => (int) $user->status,
+            'is_active' => ((int) $user->status === 2),
+        ]);
+        
+        if ((int) $user->status !== 2) {
+            // Arahkan ke halaman status akun tanpa navbar/footer
+            return redirect()->route('account.status', ['email' => $user->email]);
         }
         $user->last_login = now();
         $user->save();
         Auth::login($user, $request->filled('remember'));
-        return $this->redirectBasedOnRole($user->role);
+        // Sesuai requirement: jika sudah aktif (status=2) langsung ke landing page dan logged-in
+        return redirect()->route('home');
     }
 
     public function showRegisterForm()
@@ -58,12 +75,43 @@ class AuthController extends Controller
     {
         return view('MarketPlace.register.register-success');
     }
+
+    public function showAccountStatus(Request $request)
+    {
+        $email = (string) $request->query('email', '');
+        if ($email === '') {
+            return redirect()->route('login');
+        }
+
+        $user = User::where('email', $email)
+            ->orderByDesc('status')
+            ->orderByDesc('user_id')
+            ->first();
+
+        if (!$user) {
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Akun tidak ditemukan. Silakan coba login kembali.']);
+        }
+
+        return view('MarketPlace.account.status', [
+            'email' => $user->email,
+            'role' => $user->role,
+            'status' => (int) $user->status,
+        ]);
+    }
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'account_type' => 'required|in:buyer,seller',
             'company_name' => 'required|string|max:255',
-            'company_email' => 'required|email|unique:users,email',
+            'company_email' => [
+                'required',
+                'email',
+                // Hanya blokir email yang sudah dipakai akun dengan status != 0 (pending/aktif).
+                Rule::unique('users', 'email')->where(function ($query) {
+                    return $query->where('status', '!=', 0);
+                }),
+            ],
             'phone' => 'required|string|max:20',
             'industry' => 'required|string',
             'address' => 'required|string',
@@ -100,9 +148,10 @@ class AuthController extends Controller
                 'photo_url' => $profilePhotoPath,
                 'password_hash' => Hash::make($request->password),
                 'role' => $request->account_type,
-                'status' => 'pending',
+                'status' => 1, // 1 = pending
                 'created_at' => now(),
-                'last_login' => null,
+                // Kolom last_login di DB tidak nullable, isi awal sama dengan waktu registrasi
+                'last_login' => now(),
             ]);
             if ($request->account_type === 'buyer') {
                 $buyer = Buyer::create([
@@ -116,7 +165,6 @@ class AuthController extends Controller
                     'bio' => $request->bio ?? '',
                     'desc' => $request->full_name . ' - ' . $request->position,
                     'address' => $request->address,
-                    'verified_at' => null,
                 ]);
                 $this->uploadBuyerDocuments($request, $buyer->buyer_id);
             } else {
@@ -131,7 +179,6 @@ class AuthController extends Controller
                     'bio' => $request->bio ?? '',
                     'desc' => $request->full_name . ' - ' . $request->position,
                     'address' => $request->address,
-                    'verified_at' => null,
                 ]);
                 $this->uploadSellerDocuments($request, $seller->seller_id);
             }
@@ -173,6 +220,19 @@ class AuthController extends Controller
                     'document_url' => $path,
                 ]);
             }
+
+            // Optional: Google Drive link for this document
+            $driveField = $key . '_drive_url';
+            if ($request->filled($driveField)) {
+                BuyerDocumentation::create([
+                    'buyer_id' => $buyerId,
+                    'document_name' => $name . ' (Google Drive)',
+                    'document_type' => 'gdrive',
+                    'size' => 0,
+                    'document_status' => 1,
+                    'document_url' => $request->input($driveField),
+                ]);
+            }
         }
     }
 
@@ -200,8 +260,21 @@ class AuthController extends Controller
                     'document_name' => $name,
                     'document_type' => $file->getClientOriginalExtension(),
                     'size' => $file->getSize(),
-                    'document_status' => 'pending',
+                    'document_status' => 1,
                     'document_url' => $path,
+                ]);
+            }
+
+            // Optional: Google Drive link for this document
+            $driveField = $key . '_drive_url';
+            if ($request->filled($driveField)) {
+                SellerDocumentation::create([
+                    'seller_id' => $sellerId,
+                    'document_name' => $name . ' (Google Drive)',
+                    'document_type' => 'gdrive',
+                    'size' => 0,
+                    'document_status' => 1,
+                    'document_url' => $request->input($driveField),
                 ]);
             }
         }

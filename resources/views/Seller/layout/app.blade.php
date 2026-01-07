@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/root.css') }}">
 </head>
     <body data-theme="">
+        
         <div class="container">
             <aside class="sidebar d-flex flex-column flex-shrink-0 vh-100 fixed-top" id="sidebar">
                 <div class="logo p-4 mb-3" onclick="navigateTo('dashboard')">

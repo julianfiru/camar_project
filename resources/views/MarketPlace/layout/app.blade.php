@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Navbar & Footer CSS (Global) -->
-    @if(!in_array(Route::currentRouteName(), ['login', 'register']))
+    @if(!in_array(Route::currentRouteName(), ['login', 'register', 'register.success', 'account.status']))
     <link rel="stylesheet" href="{{ asset('css/MarketPlace/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/MarketPlace/footer.css') }}">
     @endif
@@ -33,8 +33,8 @@
 </head>
 <body class="@yield('body-class')">
     
-    <!-- Include Navbar (kecuali login & register) -->
-    @if(!in_array(Route::currentRouteName(), ['login', 'register']))
+    <!-- Include Navbar (kecuali login, register & halaman status/berhasil) -->
+    @if(!in_array(Route::currentRouteName(), ['login', 'register', 'register.success', 'account.status']))
         @include('MarketPlace.layout.navbar')
     @endif
     
@@ -43,8 +43,8 @@
         @yield('content')
     </main>
     
-    <!-- Include Footer (kecuali login & register) -->
-    @if(!in_array(Route::currentRouteName(), ['login', 'register']))
+    <!-- Include Footer (kecuali login, register & halaman status/berhasil) -->
+    @if(!in_array(Route::currentRouteName(), ['login', 'register', 'register.success', 'account.status']))
         @include('MarketPlace.layout.footer')
     @endif
     
@@ -52,7 +52,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Navbar JS (Global) -->
-    @if(!in_array(Route::currentRouteName(), ['login', 'register']))
+    @if(!in_array(Route::currentRouteName(), ['login', 'register', 'register.success', 'account.status']))
     <script src="{{ asset('js/MarketPlace/navbar.js') }}"></script>
     @endif
     

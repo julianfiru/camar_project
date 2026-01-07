@@ -261,7 +261,6 @@ body {
         border: 2px dashed var(--upload-border);
         cursor: pointer;
         transition: all 0.3s ease;
-        /* Border radius dan padding kita serahkan ke Bootstrap di HTML */
     }
 
     .upload-area:hover {

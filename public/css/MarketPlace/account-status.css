@@ -1,0 +1,205 @@
+/* ====================================
+   ACCOUNT STATUS PAGE
+   ==================================== */
+
+.account-status-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Same hero background as landing (blur 20px) */
+.account-status-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../images/MarketPlace/mangrove0.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(20px);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+.account-status-page::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+}
+
+.account-status-card {
+    width: 100%;
+    max-width: 720px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2.5rem 2.25rem;
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.18);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: currentColor;
+}
+
+.status-success {
+    color: #155724;
+    background: rgba(209, 231, 221, 0.9);
+    border: 1px solid rgba(40, 167, 69, 0.35);
+}
+
+.status-warning {
+    color: #856404;
+    background: rgba(255, 243, 205, 0.9);
+    border: 1px solid rgba(255, 193, 7, 0.4);
+}
+
+.status-danger {
+    color: #721c24;
+    background: rgba(248, 215, 218, 0.9);
+    border: 1px solid rgba(220, 53, 69, 0.35);
+}
+
+.status-neutral {
+    color: #495057;
+    background: rgba(233, 236, 239, 0.9);
+    border: 1px solid rgba(108, 117, 125, 0.25);
+}
+
+.status-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #124170;
+    margin-bottom: 0.5rem;
+}
+
+.status-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.account-info {
+    border: 1px solid rgba(38, 102, 127, 0.14);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1.75rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 1.1rem;
+    background: rgba(248, 249, 250, 0.85);
+}
+
+.info-row + .info-row {
+    border-top: 1px solid rgba(38, 102, 127, 0.10);
+}
+
+.info-label {
+    font-weight: 700;
+    color: #124170;
+}
+
+.info-value {
+    color: #495057;
+    font-weight: 600;
+    text-align: right;
+    word-break: break-word;
+}
+
+.status-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #67C090, #26667F);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(103, 192, 144, 0.45);
+}
+
+.btn-secondary {
+    background: #ffffff;
+    color: #26667F;
+    border: 2px solid rgba(38, 102, 127, 0.22);
+}
+
+.btn-secondary:hover {
+    background: rgba(38, 102, 127, 0.05);
+}
+
+.status-note {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.7;
+}
+
+@media (max-width: 576px) {
+    .account-status-card {
+        padding: 2.1rem 1.4rem;
+    }
+
+    .status-title {
+        font-size: 1.6rem;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .info-value {
+        text-align: left;
+    }
+}

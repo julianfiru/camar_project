@@ -157,7 +157,7 @@
     <div class="bs mb-4">
         <div class="border-0 d-flex justify-content-between align-items-center py-3">
             <div class="d-flex justify-content-between align-items-center w-100 pb-3 border-bottom border-2">    
-                <h2 class="fw-bold mb-0 stat-value">Informasi Rekening Bank</h5>
+                <h2 class="fw-bold fs-2 mb-0 stat-value">Informasi Rekening Bank</h5>
                 <button class="btn text-white basefont fw-bold btn-sm px-3 bdc-green">
                     Edit Rekening
                 </button>

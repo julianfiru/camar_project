@@ -111,7 +111,7 @@
             <div class="bg-transparent border-0 d-flex justify-content-between align-items-center py-3">
                 <div class="d-flex justify-content-between align-items-center w-100 pb-3 border-bottom border-2">    
                     <h5 class="fw-bold mb-0 stat-value">Riwayat Transaksi Terbaru</h5>
-                    <a href="{{ url('/Customer') }}" class="btn bdc-green fw-bold btn-sm">Lihat Semua</a>
+                    <a href="{{ route('seller.customer') }}" class="btn bdc-green fw-bold btn-sm">Lihat Semua</a>
                 </div>
             </div>
             <div class="card-body p-0">

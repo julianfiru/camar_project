@@ -33,6 +33,7 @@ Route::get('/tentang', function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::get('/register/success', [AuthController::class, 'showRegisterSuccess'])->name('register.success');
+    Route::get('/account/status', [AuthController::class, 'showAccountStatus'])->name('account.status');
     Route::post('/login', [AuthController::class, 'login'])->name('login.process');
     Route::post('/register', [AuthController::class, 'register'])->name('register.process');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -274,7 +274,12 @@
                                 Upload
                             </label>
                             <span class="file-indicator" id="indicator-doc1"></span>
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc1','akta')">
+                                <i class="fab fa-google-drive"></i>
+                                Drive
+                            </button>
                             <span class="doc-badge required">Wajib</span>
+                            <input type="hidden" name="akta_drive_url" id="akta_drive_url">
                         </div>
                     </div>
 
@@ -293,7 +298,12 @@
                                 Upload
                             </label>
                             <span class="file-indicator" id="indicator-doc2"></span>
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc2','npwp')">
+                                <i class="fab fa-google-drive"></i>
+                                Drive
+                            </button>
                             <span class="doc-badge required">Wajib</span>
+                            <input type="hidden" name="npwp_drive_url" id="npwp_drive_url">
                         </div>
                     </div>
 
@@ -312,7 +322,12 @@
                                 Upload
                             </label>
                             <span class="file-indicator" id="indicator-doc3"></span>
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc3','nib')">
+                                <i class="fab fa-google-drive"></i>
+                                Drive
+                            </button>
                             <span class="doc-badge required">Wajib</span>
+                            <input type="hidden" name="nib_drive_url" id="nib_drive_url">
                         </div>
                     </div>
 
@@ -331,7 +346,12 @@
                                 Upload
                             </label>
                             <span class="file-indicator" id="indicator-doc4"></span>
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc4','iso')">
+                                <i class="fab fa-google-drive"></i>
+                                Drive
+                            </button>
                             <span class="doc-badge optional">Opsional</span>
+                            <input type="hidden" name="iso_drive_url" id="iso_drive_url">
                         </div>
                     </div>
                 </div>
@@ -359,7 +379,12 @@
                                 Upload
                             </label>
                             <span class="file-indicator" id="indicator-doc5"></span>
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc5','gold_standard')">
+                                <i class="fab fa-google-drive"></i>
+                                Drive
+                            </button>
                             <span class="doc-badge seller">Seller</span>
+                            <input type="hidden" name="gold_standard_drive_url" id="gold_standard_drive_url">
                         </div>
                     </div>
 
@@ -378,7 +403,12 @@
                                 Upload
                             </label>
                             <span class="file-indicator" id="indicator-doc6"></span>
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc6','vcs')">
+                                <i class="fab fa-google-drive"></i>
+                                Drive
+                            </button>
                             <span class="doc-badge seller">Seller</span>
+                            <input type="hidden" name="vcs_drive_url" id="vcs_drive_url">
                         </div>
                     </div>
                 </div>

@@ -82,61 +82,68 @@
                                     </span>
                                 </div>
                                 <div class="d-flex gap-1 mb-3 w-100 overflow-auto">
+                                    @php
+                                        $carryOver = 0; 
+                                    @endphp
                                     @for($i = 1; $i <= $totalPhases; $i++)
-                                        @php
-                                            $projectStart   = \Carbon\Carbon::parse($project->created_at);
-                                            $phaseStartDate = $projectStart->copy()->addMonths(($i - 1) * 6);
-                                            $phaseEndDate   = $phaseStartDate->copy()->addMonths(6);
-                                            $now            = now();
-                                            $isFuture = $now < $phaseStartDate; 
-                                            $status      = 'bg-light text-muted'; 
-                                            $borderClass = 'border-light';
-                                            $textClass   = '';
-                                            $actualVolume = 0;
+                                    @php
+                                        $projectStart   = \Carbon\Carbon::parse($project->created_at);
+                                        $phaseStartDate = $projectStart->copy()->addMonths(($i - 1) * 6);
+                                        $phaseEndDate   = $phaseStartDate->copy()->addMonths(6);
+                                        $now            = now();
+                                        $isFuture       = $now < $phaseStartDate;
+                                        $isPast         = $now > $phaseEndDate;
+                                        $currentPhaseRaw = 0;
+                                        if (!$isFuture) {
+                                            $currentPhaseRaw = $riwayatTransaksi
+                                                ->where('project_id', $project->project_id)
+                                                ->where('order_status', 2)
+                                                ->filter(function ($item) use ($phaseStartDate, $phaseEndDate) {
+                                                    return \Carbon\Carbon::parse($item->created_at)
+                                                        ->between($phaseStartDate, $phaseEndDate);
+                                                })
+                                                ->sum('offset_amount_ton');
+                                        }
+                                        $totalProjectProgress += $currentPhaseRaw;
+                                        $availableForPhase = $currentPhaseRaw + $carryOver;
+                                        if ($availableForPhase >= $targetPerPhase) {
+                                            $isTargetReached = true;
+                                            $carryOver = $availableForPhase - $targetPerPhase;
+                                            $displayVolume = $targetPerPhase; 
+                                        } else {
+                                            $isTargetReached = false;
+                                            $carryOver = 0; 
+                                            $displayVolume = $availableForPhase;
+                                        }
+                                        $status      = 'bg-light text-muted';
+                                        $borderClass = 'border-light';
+                                        $textClass   = '';
+                                        if ($isTargetReached) {
+                                            $status      = 'bg-success-subtle';
+                                            $borderClass = 'border-success';
+                                            $textClass   = 'text-success-emphasis';
+                                        } else {
+                                            // Jika belum tercapai
                                             if ($isFuture) {
-                                                $actualVolume = 0;
-                                                $status = 'bg-light text-muted';
+                                                $status      = 'bg-light text-muted';
+                                                $borderClass = 'border-light';
+                                            } elseif ($isPast) {
+                                                $status      = 'bg-danger-subtle';
+                                                $borderClass = 'border-danger';
+                                                $textClass   = 'text-danger';
                                             } else {
-                                                $actualVolume = $riwayatTransaksi
-                                                    ->where('project_id', $project->project_id)
-                                                    ->where('order_status', 2)
-                                                    ->filter(function ($item) use ($phaseStartDate, $phaseEndDate) {
-                                                        return \Carbon\Carbon::parse($item->created_at)
-                                                            ->between($phaseStartDate, $phaseEndDate);
-                                                    })
-                                                    ->sum('offset_amount_ton');
-                                                $totalProjectProgress += $actualVolume;
-                                                $isTargetReached = $actualVolume >= $targetPerPhase;
-                                                $isPast          = $now > $phaseEndDate;
-                                                if ($isPast) {
-                                                    if ($isTargetReached) {
-                                                        $status      = 'bg-success-subtle'; 
-                                                        $borderClass = 'border-success'; 
-                                                        $textClass   = 'text-success-emphasis';
-                                                    } else {
-                                                        $status      = 'bg-danger-subtle';
-                                                        $borderClass = 'border-danger'; 
-                                                        $textClass   = 'text-danger';
-                                                    }
-                                                } else {
-                                                    if ($isTargetReached) {
-                                                        $status      = 'bg-success-subtle'; 
-                                                        $borderClass = 'border-success';
-                                                        $textClass   = 'text-success-emphasis';
-                                                    } else {
-                                                        $status      = 'bg-warning-subtle';
-                                                        $borderClass = 'border-warning'; 
-                                                        $textClass   = 'text-warning-emphasis';
-                                                    }
-                                                }
+                                                $status      = 'bg-warning-subtle';
+                                                $borderClass = 'border-warning';
+                                                $textClass   = 'text-warning-emphasis';
                                             }
-                                        @endphp
+                                        }
+                                    @endphp
                                         <div class="phase-box flex-fill border rounded p-2 text-center {{ $status }} {{ $borderClass }} {{ $textClass }}" style="min-width: 80px;">
                                             <small class="d-block fw-bold text-uppercase opacity-75 mb-1" style="font-size: 0.65rem;">
                                                 Fase {{ $i }}
                                             </small>
                                             <div class="fw-bold fs-6 lh-1">
-                                                {{ $isFuture ? '-' : number_format($actualVolume, 0, ',', '.') }}
+                                                {{ $isFuture ? '-' : number_format($availableForPhase, 0, ',', '.') }}
                                             </div>
                                             <div class="opacity-75" style="font-size: 0.65rem;">
                                                 / {{ number_format($targetPerPhase, 0, ',', '.') }} t
@@ -147,7 +154,7 @@
                                 <div class="d-flex justify-content-end align-items-center small">
                                     <span class="text-muted me-2">Total Terlaksana:</span>
                                     <span class="fw-bold text-dark">
-                                        {{ number_format($totalProjectProgress, 0, ',', '.') }} / {{ number_format($project->total_capicity_ton, 0, ',', '.') }} ton
+                                        {{ number_format($totalProjectProgress, 0, ',', '.') }} / {{ $totalTon }} ton
                                     </span>
                                 </div>
                             </div>

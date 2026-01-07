@@ -61,8 +61,270 @@
         </div>
     </section>
 
+    <!-- Section 2: Apa itu Carbon Offset - Apa dan Mengapa -->
+    <section class="what-carbon-section" id="studi">
+        <div class="container">
+            <!-- Header -->
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto text-center">
+                    <div class="what-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2c1.103 0 2 .897 2 2v2c0 1.103-.897 2-2 2s-2-.897-2-2v-2c0-1.103.897-2 2-2zm0 12c1.103 0 2-.897 2-2v-2c0-1.103-.897-2-2-2s-2 .897-2 2v2c0 1.103.897 2 2 2z"/>
+                        </svg>
+                        Carbon Offset
+                    </div>
+                    <h2 class="what-title">Apa itu Carbon Offset?</h2>
+                    <p class="what-lead">
+                        Carbon offset adalah mekanisme pengurangan emisi gas rumah kaca untuk mengompensasi emisi yang dihasilkan di tempat lain, mendukung transisi menuju Net-Zero emissions
+                    </p>
+                </div>
+            </div>
+
+            <!-- What is Carbon Offset -->
+            <div class="row align-items-center g-5 mb-5">
+                <!-- Left: Single Image -->
+                <div class="col-lg-5 order-lg-1 order-2">
+                    <div class="what-visual-single">
+                        <img src="{{ asset('images/MarketPlace/what-carbon-offset.png') }}" alt="Apa itu Carbon Offset" class="img-fluid rounded-4">
+                    </div>
+                </div>
+                
+                <!-- Right: Content -->
+                <div class="col-lg-7 order-lg-2 order-1">
+                    <div class="what-content">
+                        <h3 class="what-subtitle">Apa itu Carbon Offset?</h3>
+                        <p class="what-text">
+                            <strong>Carbon offset</strong> adalah kredit karbon yang mewakili pengurangan satu ton CO₂ atau gas rumah kaca setara dari atmosfer. Ketika perusahaan atau individu tidak dapat menghilangkan semua emisi mereka, mereka dapat membeli carbon offset untuk mengkompensasi jejak karbon mereka.
+                        </p>
+                        <p class="what-text">
+                            Setiap kredit carbon offset didapatkan dari proyek-proyek terverifikasi seperti:
+                        </p>
+                        <div class="offset-types">
+                            <div class="offset-type-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-3.371 2.866-5.484 3-9 3v11.535c0 4.603 3.203 5.804 9 9.465 5.797-3.661 9-4.862 9-9.465v-11.535c-3.516 0-5.629-.134-9-3z"/>
+                                </svg>
+                                <span><strong>Reforestasi:</strong> Penanaman hutan baru untuk menyerap CO₂</span>
+                            </div>
+                            <div class="offset-type-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-3.371 2.866-5.484 3-9 3v11.535c0 4.603 3.203 5.804 9 9.465 5.797-3.661 9-4.862 9-9.465v-11.535c-3.516 0-5.629-.134-9-3z"/>
+                                </svg>
+                                <span><strong>Energi Terbarukan:</strong> Solar, wind, hydro yang mengganti fosil</span>
+                            </div>
+                            <div class="offset-type-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-3.371 2.866-5.484 3-9 3v11.535c0 4.603 3.203 5.804 9 9.465 5.797-3.661 9-4.862 9-9.465v-11.535c-3.516 0-5.629-.134-9-3z"/>
+                                </svg>
+                                <span><strong>Konservasi Hutan:</strong> Melindungi hutan dari deforestasi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Carbon Offset -->
+            <div class="why-section-wrapper">
+                <div class="row mb-4">
+                    <div class="col-lg-10 mx-auto text-center">
+                        <h3 class="why-subtitle">Mengapa Carbon Offset Penting?</h3>
+                        <p class="why-description">Solusi terukur untuk mencapai target Net-Zero dalam menghadapi krisis iklim global</p>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <!-- Problem Card -->
+                    <div class="col-lg-6">
+                        <div class="why-card problem-why-card">
+                            <div class="why-card-header">
+                                <div class="why-icon problem-why-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 5.177l8.631 15.823h-17.262l8.631-15.823zm0-4.177l-12 22h24l-12-22zm-1 9h2v6h-2v-6zm1 9.75c-.689 0-1.25-.56-1.25-1.25s.561-1.25 1.25-1.25 1.25.56 1.25 1.25-.561 1.25-1.25 1.25z"/>
+                                    </svg>
+                                </div>
+                                <h4 class="why-card-title">Tantangan</h4>
+                            </div>
+                            <div class="why-card-body">
+                                <div class="challenge-stats">
+                                    <div class="challenge-row">
+                                        <span class="challenge-number">+1.2°C</span>
+                                        <span class="challenge-text">Peningkatan suhu global sejak era pra-industri</span>
+                                    </div>
+                                    <div class="challenge-row">
+                                        <span class="challenge-number">33 Gt</span>
+                                        <span class="challenge-text">Emisi CO₂ global per tahun dan terus meningkat</span>
+                                    </div>
+                                    <div class="challenge-row">
+                                        <span class="challenge-number">29-41%</span>
+                                        <span class="challenge-text">Target pengurangan emisi Indonesia pada 2030</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Solution Card -->
+                    <div class="col-lg-6">
+                        <div class="why-card solution-why-card">
+                            <div class="why-card-header">
+                                <div class="why-icon solution-why-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
+                                    </svg>
+                                </div>
+                                <h4 class="why-card-title">Solusi</h4>
+                            </div>
+                            <div class="why-card-body">
+                                <div class="solution-process">
+                                    <div class="process-step">
+                                        <div class="process-badge">01</div>
+                                        <span>Hitung jejak karbon menggunakan GHG Protocol</span>
+                                    </div>
+                                    <div class="process-step">
+                                        <div class="process-badge">02</div>
+                                        <span>Reduksi internal melalui efisiensi operasional</span>
+                                    </div>
+                                    <div class="process-step">
+                                        <div class="process-badge">03</div>
+                                        <span>Offset emisi residual dengan kredit karbon verified</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact & Net Zero -->
+                <div class="impact-netzero-wrapper">
+                    <div class="impact-stats-banner">
+                        <div class="impact-stat">
+                            <div class="impact-stat-number">2.6M</div>
+                            <div class="impact-stat-label">Hektar Hutan Terlindungi</div>
+                        </div>
+                        <div class="impact-stat-divider"></div>
+                        <div class="impact-stat">
+                            <div class="impact-stat-number">450K</div>
+                            <div class="impact-stat-label">Ton CO₂ Dikurangi</div>
+                        </div>
+                        <div class="impact-stat-divider"></div>
+                        <div class="impact-stat">
+                            <div class="impact-stat-number">150+</div>
+                            <div class="impact-stat-label">Perusahaan Berpartisipasi</div>
+                        </div>
+                    </div>
+
+                    <div class="netzero-banner-final">
+                        <div class="netzero-icon-final">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.25 8.891l-1.421-1.409-6.105 6.218-3.078-2.937-1.396 1.436 4.5 4.319 7.5-7.627z"/>
+                            </svg>
+                        </div>
+                        <div class="netzero-content-final">
+                            <h4 class="netzero-title-final">Indonesia Berkomitmen: Net Zero 2060</h4>
+                            <p class="netzero-text-final">Target Indonesia mencapai net zero emission membutuhkan kontribusi semua sektor. Carbon offset menjadi jembatan penting menuju ekonomi rendah karbon yang berkelanjutan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Section Divider -->
-    <div class="section-divider-90"></div>
+    <div class="section-divider">
+        <div class="divider-line"></div>
+    </div>
+
+    <!-- Section 3: Apa itu CAMAR - Centered Title -->
+    <section class="about-camar-dynamic" id="tentang">
+        <div class="container">
+            <!-- Centered Header -->
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto text-center">
+                    <div class="content-badge-center">
+                        <span class="badge-dot"></span>
+                        Platform Terpercaya
+                    </div>
+                    <h2 class="content-title-center">Apa itu CAMAR?</h2>
+                </div>
+            </div>
+
+            <!-- Content Row with Divider -->
+            <div class="row g-5 align-items-start position-relative">
+                <!-- Left Content -->
+                <div class="col-lg-6 order-lg-1 order-1">
+                    <div class="about-content-main">
+                        <div class="content-text">
+                            <p class="lead-text">
+                                <strong>CAMAR (CArbon MARket Indonesia)</strong> adalah platform marketplace carbon offset terpercaya yang menghubungkan perusahaan dengan proyek pengurangan emisi terverifikasi untuk masa depan berkelanjutan.
+                            </p>
+                            
+                            <p>
+                                Kami memfasilitasi aksi iklim nyata melalui platform yang transparan dan mudah diakses. Setiap proyek di CAMAR telah diverifikasi oleh standar internasional seperti <strong>Gold Standard</strong> dan <strong>Verra VCS</strong>, memastikan dampak nyata dalam pengurangan emisi karbon.
+                            </p>
+                            
+                            <p>
+                                Dengan teknologi terkini, kami memberikan transparansi penuh mulai dari pembelian hingga monitoring dampak carbon offset secara real-time. Platform kami mendukung berbagai jenis proyek berkelanjutan di seluruh Indonesia, dari reforestasi hingga energi terbarukan.
+                            </p>
+                        </div>
+
+                        <!-- Key Points -->
+                        <div class="key-points">
+                            <div class="key-point-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.25 8.891l-1.421-1.409-6.105 6.218-3.078-2.937-1.396 1.436 4.5 4.319 7.5-7.627z"/>
+                                </svg>
+                                <span>100% Proyek Terverifikasi Internasional</span>
+                            </div>
+                            <div class="key-point-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.25 8.891l-1.421-1.409-6.105 6.218-3.078-2.937-1.396 1.436 4.5 4.319 7.5-7.627z"/>
+                                </svg>
+                                <span>Dashboard Monitoring Real-time</span>
+                            </div>
+                            <div class="key-point-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.25 8.891l-1.421-1.409-6.105 6.218-3.078-2.937-1.396 1.436 4.5 4.319 7.5-7.627z"/>
+                                </svg>
+                                <span>Mendukung Target Net-Zero 2060 Indonesia</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 2 Images Stacked -->
+                <div class="col-lg-6 order-lg-2 order-2">
+                    <div class="camar-images-stacked">
+                        <div class="camar-image-top">
+                            <img src="{{ asset('images/MarketPlace/camar-about-1.png') }}" alt="CAMAR Platform" class="img-fluid rounded-4">
+                        </div>
+                        <div class="camar-image-bottom">
+                            <img src="{{ asset('images/MarketPlace/camar-about-2.png') }}" alt="CAMAR Features" class="img-fluid rounded-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Buttons Below (Mobile: after images) -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="content-cta-center">
+                        <a href="{{ route('register') }}" class="btn-dynamic-primary">
+                            Mulai Sekarang
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                            </svg>
+                        </a>
+                        <a href="#proyek" class="btn-dynamic-outline">Lihat Proyek</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider">
+        <div class="divider-line"></div>
+    </div>
 
     <!-- Proyek Terbaru Section -->
     <section class="projects-section py-5" id="proyek">
@@ -80,7 +342,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('images/MarketPlace/project-mangrove.jpg') }}" alt="Rehabilitasi Mangrove">
+                            <img src="{{ asset('images/project-mangrove.jpg') }}" alt="Rehabilitasi Mangrove">
                             <span class="project-category">Mangrove</span>
                         </div>
                         <div class="project-info">
@@ -104,7 +366,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('images/MarketPlace/project-forest.jpg') }}" alt="Hutan Tropis">
+                            <img src="{{ asset('images/project-forest.jpg') }}" alt="Hutan Tropis">
                             <span class="project-category">Hutan Tropis</span>
                         </div>
                         <div class="project-info">
@@ -128,7 +390,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('images/MarketPlace/project-energy.jpg') }}" alt="Energi Terbarukan">
+                            <img src="{{ asset('images/project-energy.jpg') }}" alt="Energi Terbarukan">
                             <span class="project-category">Energi Bersih</span>
                         </div>
                         <div class="project-info">
@@ -152,7 +414,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('images/MarketPlace/project-peat.jpg') }}" alt="Gambut">
+                            <img src="{{ asset('images/project-peat.jpg') }}" alt="Gambut">
                             <span class="project-category">Lahan Gambut</span>
                         </div>
                         <div class="project-info">
@@ -163,7 +425,7 @@
                                 <span>48 Bulan</span>
                             </div>
                             <p class="project-description">
-                                Pemulihan dan rewetting lahan gambut terdegradasi seluas 800 hektar untuk mencegah kebakaran dan emisi CO₂.
+                                Pemulihan ekosistem lahan gambut yang terdegradasi seluas 300 hektar untuk mencegah kebakaran dan emisi karbon.
                             </p>
                             <div class="project-footer">
                                 <div class="project-price">Rp 290K<span>/ton CO₂</span></div>
@@ -176,18 +438,18 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('images/MarketPlace/project-biogas.jpg') }}" alt="Biogas">
-                            <span class="project-category">Bioenergi</span>
+                            <img src="{{ asset('images/project-community.jpg') }}" alt="Community">
+                            <span class="project-category">Pemberdayaan</span>
                         </div>
                         <div class="project-info">
-                            <div class="project-company">Bio Energy Indonesia</div>
-                            <h3 class="project-name">Sistem Biogas Desa Mandiri</h3>
+                            <div class="project-company">Komunitas Hijau Indonesia</div>
+                            <h3 class="project-name">Agroforestri Berbasis Komunitas</h3>
                             <div class="project-duration">
                                 <span>📅</span>
                                 <span>30 Bulan</span>
                             </div>
                             <p class="project-description">
-                                Pembangunan 500 unit biogas rumah tangga dari limbah ternak untuk mengurangi penggunaan LPG dan emisi metana.
+                                Program agroforestri yang melibatkan 500 petani untuk meningkatkan tutupan hijau sekaligus kesejahteraan ekonomi.
                             </p>
                             <div class="project-footer">
                                 <div class="project-price">Rp 210K<span>/ton CO₂</span></div>
@@ -200,21 +462,21 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="{{ asset('images/MarketPlace/project-agroforestry.jpg') }}" alt="Agroforestry">
-                            <span class="project-category">Agroforestri</span>
+                            <img src="{{ asset('images/project-ocean.jpg') }}" alt="Ocean">
+                            <span class="project-category">Laut Biru</span>
                         </div>
                         <div class="project-info">
-                            <div class="project-company">Petani Hijau Nusantara</div>
-                            <h3 class="project-name">Agroforestri Kopi Berkelanjutan</h3>
+                            <div class="project-company">Ocean Conservation Network</div>
+                            <h3 class="project-name">Konservasi Terumbu Karang</h3>
                             <div class="project-duration">
                                 <span>📅</span>
                                 <span>36 Bulan</span>
                             </div>
                             <p class="project-description">
-                                Sistem agroforestri terpadu dengan tanaman kopi dan pohon pelindung di 300 hektar lahan untuk carbon sequestration.
+                                Restorasi dan perlindungan terumbu karang di kawasan Kepulauan Seribu untuk biodiversitas laut dan carbon sink.
                             </p>
                             <div class="project-footer">
-                                <div class="project-price">Rp 195K<span>/ton CO₂</span></div>
+                                <div class="project-price">Rp 340K<span>/ton CO₂</span></div>
                                 <button class="btn-project-detail">Detail</button>
                             </div>
                         </div>
@@ -225,143 +487,12 @@
     </section>
 
     <!-- Section Divider -->
-    <div class="section-divider-90"></div>
+    <div class="section-divider">
+        <div class="divider-line"></div>
+    </div>
 
-    <!-- Why Carbon Offset Section -->
-    <section class="why-carbon-section py-5" id="studi">
-        <div class="container">
-            <div class="row mb-4">
-                <div class="col-lg-10 mx-auto text-center">
-                    <h2 class="section-title-alt">Mengapa Carbon Offset?</h2>
-                    <p class="section-subtitle-alt">
-                        Memahami urgensi dan solusi sistematis untuk krisis iklim
-                    </p>
-                </div>
-            </div>
-
-            <div class="row g-3 mb-4">
-                <div class="col-lg-6">
-                    <div class="problem-card">
-                        <div class="problem-icon-wrapper">
-                            <svg class="problem-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12,6c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6S15.31,6,12,6z"/>
-                            </svg>
-                        </div>
-                        <h3 class="problem-title">Krisis Iklim Global</h3>
-                        <p class="problem-text">
-                            Emisi CO₂ global mencapai 36.8 miliar ton/tahun, menyebabkan peningkatan suhu 1.1°C. 
-                            Indonesia berkontribusi 615 juta ton CO₂e per tahun.
-                        </p>
-                        <div class="problem-stat">
-                            <span class="stat-big">615 Jt</span>
-                            <span class="stat-label">Ton CO₂e/tahun</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="problem-card">
-                        <div class="problem-icon-wrapper">
-                            <svg class="problem-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12,2l-5.5,9h11L12,2z M12,5.84L13.93,9h-3.87L12,5.84z M17.5,13c-2.49,0-4.5,2.01-4.5,4.5s2.01,4.5,4.5,4.5 s4.5-2.01,4.5-4.5S19.99,13,17.5,13z M17.5,20c-1.38,0-2.5-1.12-2.5-2.5s1.12-2.5,2.5-2.5s2.5,1.12,2.5,2.5S18.88,20,17.5,20z M3,21.5h8v-8H3V21.5z M5,15.5h4v4H5V15.5z"/>
-                            </svg>
-                        </div>
-                        <h3 class="problem-title">Sektor Industri & Energi</h3>
-                        <p class="problem-text">
-                            Sektor energi dan industri menyumbang 35% dari total emisi nasional. Pembangkit fosil 
-                            dan manufaktur menjadi kontributor utama.
-                        </p>
-                        <div class="problem-stat">
-                            <span class="stat-big">35%</span>
-                            <span class="stat-label">Kontribusi industri</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="solution-container">
-                <div class="solution-header">
-                    <div class="solution-badge">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M9,21c0,0.55,0.45,1,1,1h4c0.55,0,1-0.45,1-1v-1H9V21z M12,2C8.14,2,5,5.14,5,9c0,2.38,1.19,4.47,3,5.74V17 c0,0.55,0.45,1,1,1h6c0.55,0,1-0.45,1-1v-2.26c1.81-1.27,3-3.36,3-5.74C19,5.14,15.86,2,12,2z"/>
-                        </svg>
-                        Solusi
-                    </div>
-                    <h3 class="solution-title">Carbon Offset: Jembatan Menuju Net Zero</h3>
-                </div>
-
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="solution-step">
-                            <div class="step-number">01</div>
-                            <h4 class="step-title">Hitung Emisi</h4>
-                            <p class="step-text">
-                                Perusahaan menghitung jejak karbon menggunakan metodologi GHG Protocol terstandarisasi.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="solution-step">
-                            <div class="step-number">02</div>
-                            <h4 class="step-title">Reduksi Internal</h4>
-                            <p class="step-text">
-                                Implementasi efisiensi energi dan peralihan ke energi terbarukan untuk reduksi langsung.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="solution-step">
-                            <div class="step-number">03</div>
-                            <h4 class="step-title">Offset Residu</h4>
-                            <p class="step-text">
-                                Emisi residual dioffset melalui kredit karbon dari proyek verified reforestasi dan energi bersih.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="impact-showcase">
-                    <div class="impact-item">
-                        <div class="impact-value">2.6M</div>
-                        <div class="impact-label">Hektar hutan</div>
-                    </div>
-                    <div class="impact-divider"></div>
-                    <div class="impact-item">
-                        <div class="impact-value">450K</div>
-                        <div class="impact-label">Ton CO₂</div>
-                    </div>
-                    <div class="impact-divider"></div>
-                    <div class="impact-item">
-                        <div class="impact-value">150+</div>
-                        <div class="impact-label">Perusahaan</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="commitment-box">
-                <div class="commitment-icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M10,17l-5-5l1.41-1.41L10,14.17l7.59-7.59L19,8 L10,17z"/>
-                    </svg>
-                </div>
-                <div class="commitment-content">
-                    <h4 class="commitment-title">Komitmen Indonesia: Net Zero 2060</h4>
-                    <p class="commitment-text">
-                        Indonesia berkomitmen mencapai net zero emission pada 2060 dan mengurangi emisi 29-41% pada 2030. 
-                        Carbon offset menjadi instrumen kunci mencapai target ini.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section Divider -->
-    <div class="section-divider-90"></div>
-
-    <!-- Layanan Kami Section -->
-    <section class="services-section py-5" id="tentang">
+    <!-- Section 5: Layanan Kami -->
+    <section class="services-section py-5" id="layanan">
         <div class="container">
             <div class="row text-center mb-4">
                 <div class="col-lg-8 mx-auto">
