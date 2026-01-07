@@ -33,38 +33,45 @@
             <div class="d-flex">
                 @auth
                     <!-- User Profile Section -->
-                    <div class="user-profile-section">
-                        <span class="user-display-name">
-                            @if(auth()->user()->role === 'buyer' && auth()->user()->buyer)
-                                {{ auth()->user()->buyer->company_name }}
-                            @elseif(auth()->user()->role === 'seller' && auth()->user()->seller)
-                                {{ auth()->user()->seller->company_name }}
-                            @else
-                                {{ explode('@', auth()->user()->email)[0] }}
-                            @endif
-                        </span>
+                    <div class="user-profile-section d-flex align-items-center">
+                        <div class="me-3 text-end d-none d-lg-block">
+                            <div class="user-display-name fs-5 fw-bold">{{ $displayName ?? explode('@', auth()->user()->email)[0] }}</div>
+                            <div class="user-role small text-muted fw-semibold">{{ $roleLabel ?? '' }}</div>
+                        </div>
+
                         <div class="dropdown">
                             <a class="profile-avatar" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                @auth
-                                    <div class="rounded-circle d-flex align-items-center justify-content-center overflow-hidden bg-secondary" 
-                                        style="width: 45px; height: 45px; min-width: 45px;">
-                                        
-                                        {{-- Logika Simpel: Cek photo_url, jika kosong pakai default --}}
-                                        <img src="{{ asset(auth()->user()->photo_url ?? 'img/default-avatar.png') }}" 
-                                            alt="Profile" 
-                                            class="w-100 h-100" 
-                                            style="object-fit: cover;">
-                                            
-                                    </div>
-                                @else
-                                    <div class="avatar-placeholder">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                @endauth
+                                <div class="rounded-circle d-flex align-items-center justify-content-center overflow-hidden bg-secondary" 
+                                    style="width: 45px; height: 45px; min-width: 45px;">
+                                    <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
+                                        alt="Profile" 
+                                        class="w-100 h-100" 
+                                        style="object-fit: cover;">
+                                </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> Profil</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Pengaturan</a></li>
+                                <li>
+                                    @if(isset($roleSlug) && $roleSlug === 'buyer')
+                                        <a class="dropdown-item" href="{{ route('buyer.dashboard') }}"><i class="fas fa-user-circle"></i> Dashboard</a>
+                                    @elseif(isset($roleSlug) && $roleSlug === 'seller')
+                                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}"><i class="fas fa-user-circle"></i> Dashboard</a>
+                                    @elseif(isset($roleSlug) && $roleSlug === 'admin')
+                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="fas fa-user-circle"></i> Dashboard</a>
+                                    @elseif(isset($roleSlug) && $roleSlug === 'auditor')
+                                        <a class="dropdown-item" href="{{ route('auditor.dashboard') }}"><i class="fas fa-user-circle"></i> Dashboard</a>
+                                    @else
+                                        <a class="dropdown-item" href="{{ route('account.status') }}"><i class="fas fa-user-circle"></i> Dashboard</a>
+                                    @endif
+                                </li>
+                                <li>
+                                    @if(isset($roleSlug) && $roleSlug === 'buyer')
+                                        <a class="dropdown-item" href="{{ route('buyer.keamanan') }}"><i class="fas fa-cog"></i> Pengaturan</a>
+                                    @elseif(isset($roleSlug) && $roleSlug === 'seller')
+                                        <a class="dropdown-item" href="{{ route('seller.profil') }}"><i class="fas fa-cog"></i> Pengaturan</a>
+                                    @else
+                                        <a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Pengaturan</a>
+                                    @endif
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
@@ -76,6 +83,7 @@
                                 </li>
                             </ul>
                         </div>
+                    </div>
                     </div>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-login">Login</a>

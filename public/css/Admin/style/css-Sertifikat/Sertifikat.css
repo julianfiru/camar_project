@@ -1,0 +1,287 @@
+/* ===================================
+   CAMAR - Sertifikat Styles
+   =================================== */
+
+/* Certificate Card Styles */
+.certificate-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.certificate-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--color-secondary);
+}
+
+.certificate-card:hover {
+    box-shadow: 0 6px 16px rgba(38, 102, 127, 0.12);
+    transform: translateY(-2px);
+    border-color: var(--color-secondary);
+}
+
+.certificate-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-quaternary);
+}
+
+.certificate-id {
+    font-family: var(--font-sub);
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* Info Item Styles */
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+    font-family: var(--font-sub);
+}
+
+.info-value {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 600;
+    font-family: var(--font-sub);
+}
+
+/* Custom Tab Styles */
+.nav-tabs {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.nav-tabs .nav-link {
+    padding: 15px 25px;
+    font-weight: 500;
+    color: #666;
+    border: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    background: none;
+    font-family: var(--font-main);
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--color-quaternary);
+    background: var(--color-primary);
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--color-quaternary);
+    background: transparent;
+    border-bottom-color: var(--color-secondary);
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link i {
+    font-size: 16px;
+}
+
+/* Tab Content Animation */
+.tab-pane {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input Group Styling */
+.input-group-text {
+    background-color: var(--color-primary);
+    border-color: #e0e0e0;
+    color: var(--color-quaternary);
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(103, 192, 144, 0.25);
+}
+
+/* Form Select Styling */
+.form-select {
+    border-color: #e0e0e0;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.form-select:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(103, 192, 144, 0.25);
+}
+
+/* Button Hover Effects */
+.btn-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Table Row Hover */
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Badge for Certificate Status */
+.badge.issued {
+    background: rgba(103, 192, 144, 0.2);
+    color: #2d5f46;
+}
+
+/* Section Title with Icon */
+.section-title i {
+    color: var(--color-secondary);
+}
+
+/* Search Box Enhancement */
+.input-group .form-control::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Table Header Enhancement */
+.table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Icon in Info Value */
+.info-value i {
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .certificate-card {
+        padding: 20px;
+    }
+
+    .certificate-title {
+        font-size: 16px;
+    }
+
+    .certificate-id {
+        font-size: 12px;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .table {
+        font-size: 13px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 8px;
+    }
+
+    .btn-sm {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    .input-group,
+    .form-select {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .certificate-card {
+        padding: 15px;
+    }
+
+    .info-label {
+        font-size: 11px;
+    }
+
+    .info-value {
+        font-size: 13px;
+    }
+
+    .d-flex.gap-2 {
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        font-size: 13px;
+    }
+}
+
+/* Action Buttons Container */
+.d-flex.gap-2 {
+    flex-wrap: wrap;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+/* Loading Spinner */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Print Styles */
+@media print {
+    .certificate-card {
+        page-break-inside: avoid;
+        border: 1px solid #000;
+    }
+
+    .btn,
+    .nav-tabs,
+    .input-group,
+    .form-select {
+        display: none;
+    }
+}

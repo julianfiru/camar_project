@@ -1,0 +1,238 @@
+/* ===================================
+   CAMAR - Proyek Styles
+   =================================== */
+
+/* Custom Tab Styles */
+.nav-tabs {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.nav-tabs .nav-link {
+    padding: 15px 25px;
+    font-weight: 500;
+    color: #666;
+    border: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    background: none;
+    font-family: var(--font-main);
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--color-quaternary);
+    background: var(--color-primary);
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--color-quaternary);
+    background: transparent;
+    border-bottom-color: var(--color-secondary);
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link i {
+    font-size: 16px;
+}
+
+/* Tab Content Animation */
+.tab-pane {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input Group Styling */
+.input-group-text {
+    background-color: var(--color-primary);
+    border-color: #e0e0e0;
+    color: var(--color-quaternary);
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(103, 192, 144, 0.25);
+}
+
+/* Form Select Styling */
+.form-select {
+    border-color: #e0e0e0;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.form-select:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(103, 192, 144, 0.25);
+}
+
+/* Project Card Styles */
+.project-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    box-shadow: 0 4px 12px rgba(38, 102, 127, 0.1);
+    transform: translateY(-2px);
+}
+
+.project-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-quaternary);
+    font-family: var(--font-main);
+}
+
+.project-id {
+    font-family: var(--font-sub);
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* Info Item Styles */
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+    font-family: var(--font-sub);
+}
+
+.info-value {
+    font-size: 14px;
+    color: #1f2937;
+    font-weight: 600;
+    font-family: var(--font-sub);
+}
+
+/* Additional Badge Styles */
+.badge.rejected {
+    background: rgba(255, 68, 68, 0.2);
+    color: #cc0000;
+}
+
+.badge.active {
+    background: rgba(38, 102, 127, 0.2);
+    color: var(--color-tertiary);
+}
+
+.badge.inactive {
+    background: rgba(108, 117, 125, 0.2);
+    color: #495057;
+}
+
+.badge.suspended {
+    background: rgba(255, 193, 7, 0.2);
+    color: #856404;
+}
+
+/* Button Hover Effects */
+.btn-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress Bar Custom Styles */
+.progress {
+    background-color: #e5e7eb;
+    border-radius: 10px;
+}
+
+.progress-bar {
+    background-color: var(--color-secondary);
+    border-radius: 10px;
+}
+
+/* Action Buttons Container */
+.d-flex.gap-2 {
+    flex-wrap: wrap;
+}
+
+/* Search Box Enhancement */
+.input-group .form-control::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+/* Loading Spinner */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .project-card {
+        padding: 20px;
+    }
+
+    .project-title {
+        font-size: 16px;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .btn-sm {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    .input-group,
+    .form-select {
+        font-size: 14px;
+    }
+
+    .info-label {
+        font-size: 11px;
+    }
+
+    .info-value {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .project-card {
+        padding: 15px;
+    }
+}

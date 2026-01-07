@@ -1,0 +1,184 @@
+/* ===================================
+   CAMAR - Manajemen Akun Styles
+   =================================== */
+
+/* Custom Tab Styles */
+.nav-tabs {
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.nav-tabs .nav-link {
+    padding: 15px 25px;
+    font-weight: 500;
+    color: #666;
+    border: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    background: none;
+    font-family: var(--font-main);
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--color-quaternary);
+    background: var(--color-primary);
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--color-quaternary);
+    background: transparent;
+    border-bottom-color: var(--color-secondary);
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link i {
+    font-size: 16px;
+}
+
+/* Tab Content Animation */
+.tab-pane {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input Group Styling */
+.input-group-text {
+    background-color: var(--color-primary);
+    border-color: #e0e0e0;
+    color: var(--color-quaternary);
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(103, 192, 144, 0.25);
+}
+
+/* Form Select Styling */
+.form-select {
+    border-color: #e0e0e0;
+    font-family: var(--font-main);
+    transition: all 0.3s ease;
+}
+
+.form-select:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 0.2rem rgba(103, 192, 144, 0.25);
+}
+
+/* Additional Badge Styles */
+.badge.rejected {
+    background: rgba(255, 68, 68, 0.2);
+    color: #cc0000;
+}
+
+/* Button Hover Effects */
+.btn-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Table Row Hover */
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .table {
+        font-size: 13px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 8px;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .btn-sm {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    .input-group,
+    .form-select {
+        font-size: 14px;
+    }
+}
+
+/* Action Buttons Container */
+.d-flex.gap-2 {
+    flex-wrap: wrap;
+}
+
+/* Search Box Enhancement */
+.input-group .form-control::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Table Header Enhancement */
+.table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+/* Loading Spinner */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Status Badge Custom Colors */
+.badge.active {
+    background: rgba(38, 102, 127, 0.2);
+    color: var(--color-tertiary);
+}
+
+.badge.inactive {
+    background: rgba(108, 117, 125, 0.2);
+    color: #495057;
+}
+
+.badge.suspended {
+    background: rgba(255, 193, 7, 0.2);
+    color: #856404;
+}

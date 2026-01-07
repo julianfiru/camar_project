@@ -11,7 +11,11 @@ class Role
         if (!Auth::check()) {
             return redirect('/login');
         }
-        if (Auth::user()->role !== $role) {
+
+        $userRole = strtolower((string) (Auth::user()->role ?? ''));
+        $requiredRole = strtolower((string) $role);
+
+        if ($userRole !== $requiredRole) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
         return $next($request);

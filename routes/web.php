@@ -93,5 +93,51 @@ Route::middleware(['auth'])->group(function () {
                 return view('Buyer.content.pengaturan.hapusakun');
             })->name('buyer.hapusakun');
         });
-    # BUYER
+    # BUYER #
+
+    # ADMIN #
+        Route::middleware(['role:Admin'])->prefix('admin')->group(function () {
+            Route::get('/dashboard', function () {
+                return view('Admin.Content.AdminDashboard.admindashboard');
+            })->name('admin.dashboard');
+            Route::get('/manajemen-akun', function () {
+                return view('Admin.Content.ManajemenAkun.manajemenakun');
+            })->name('admin.manajemen.akun');
+            Route::get('/proyek', function () {
+                return view('Admin.Content.Proyek.proyek');
+            })->name('admin.proyek');
+            Route::get('/sertifikat', function () {
+                return view('Admin.Content.Sertifikat.sertifikat');
+            })->name('admin.sertifikat');
+            Route::get('/audit-log', function () {
+                return view('Admin.Content.AuditLog.auditlog');
+            })->name('admin.audit.log');
+            Route::get('/pengaturan-platform', function () {
+                return view('Admin.Content.PengaturanPlatform.pengaturanplatform');
+            })->name('admin.pengaturan.platform');
+        });
+    # ADMIN #
+
+    # AUDITOR #
+        Route::middleware(['role:Auditor'])->prefix('auditor')->group(function () {
+            Route::get('/dashboard', function () {
+                return view('Auditor.content.Dashboard.dashboard');
+            })->name('auditor.dashboard');
+            Route::get('/menunggu-verifikasi', function () {
+                return view('Auditor.content.Menunggu-verifikasi.menunggu-verifikasi');
+            })->name('auditor.menunggu-verifikasi');
+            Route::get('/verifikasi-proyek', function () {
+                return view('Auditor.content.Verifikasi-proyek.verifikasi-proyek');
+            })->name('auditor.verifikasi-proyek');
+            Route::get('/upload-laporan', function () {
+                return view('Auditor.content.Upload-laporan.upload-laporan');
+            })->name('auditor.upload-laporan');
+            Route::get('/arsip-verifikasi', function () {
+                return view('Auditor.content.Arsip-verifikasi.arsip-verifikasi');
+            })->name('auditor.arsip-verifikasi');
+            Route::get('/pengaturan', function () {
+                return view('Auditor.content.Pengaturan.pengaturan');
+            })->name('auditor.pengaturan');
+        });
+    # AUDITOR #
 });

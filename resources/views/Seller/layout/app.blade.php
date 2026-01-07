@@ -80,17 +80,37 @@
                         </div>
                         <div class="d-flex align-items-center gap-3">
                             <div class="text-end d-none d-sm-block">
-                                <p class="fw-bold mb-2">{{ $companyName }}</p>
+                                <p class="fw-bold mb-1 fs-5">{{ $companyName ?? $displayName }}</p>
+                                <small class="d-block text-muted mb-2 fw-semibold">{{ $roleLabel ?? '' }}</small>
                                 <span class="badge rounded-pill px-3 py-2 fw-bold" style="{{ $badgeStyle }}"> 
                                     {{ $badgeLevel }}
                                 </span>
                             </div>
-                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold company-logo overflow-hidden bg-secondary" 
-                                style="width: 45px; height: 45px; min-width: 45px;">
-                                <img src="{{ asset($photoUrl) }}" 
-                                    alt="Profile" 
-                                    class="w-100 h-100" 
-                                    style="object-fit: cover;">
+                            <div class="dropdown">
+                                <a href="#" class="d-inline-block" id="sellerUserDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold company-logo overflow-hidden bg-secondary" 
+                                        style="width: 45px; height: 45px; min-width: 45px;">
+                                        <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
+                                            alt="Profile" 
+                                            class="w-100 h-100" 
+                                            style="object-fit: cover;">
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="sellerUserDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}">Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('seller.profil') }}">Pengaturan</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form-seller').submit();">Logout</a>
+                                        <form id="logout-form-seller" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

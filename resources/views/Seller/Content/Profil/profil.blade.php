@@ -8,7 +8,7 @@
         <div class="d-flex align-items-start gap-4 mb-4">
             <div class="flex-shrink-0">
                 <div class="company-logo d-flex align-items-center justify-content-center fw-bold fs-1 text-white rounded-3">
-                    <img src="{{ asset($photoUrl) }}" 
+                    <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
                         alt="Profile" 
                         class="w-100 h-100 rounded-3" 
                         style="object-fit: cover;">
@@ -167,25 +167,25 @@
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Nama Bank</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank->bank_name }}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank?->bank_name ?? '-' }}</div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Nomor Rekening</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank->account_number }}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank?->account_number ?? '-' }}</div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Nama Pemegang Rekening</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank->seller->company_name}}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank?->seller?->company_name ?? $companyName ?? '-' }}</div>
                 </div>
             </div>
             <div class="col-12 col-md-6">
                 <div class="info-card h-100 p-4 rounded-3">
                     <div class="small fw-semibold mb-2 stat-header">Cabang Bank</div>
-                    <div class="fs-5 fw-medium stat-value">{{ $bank->bank_branch }}</div>
+                    <div class="fs-5 fw-medium stat-value">{{ $bank?->bank_branch ?? '-' }}</div>
                 </div>
             </div>
         </div>

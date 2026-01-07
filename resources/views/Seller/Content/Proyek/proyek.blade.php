@@ -32,7 +32,7 @@
             <div class="bs stat-card h-100">
                 <div class="stat-header">Dibatalkan</div>
                 <div class="stat-value fs-2">{{ $totalBatal }}</div>
-                <div class="ftc-red">{{ $totalBatal / $totalProyek * 100}}% dari total</div>
+                <div class="ftc-red">{{ $totalProyek > 0 ? number_format(($totalBatal / $totalProyek) * 100, 1) : 0 }}% dari total</div>
             </div>
         </div>
     </div>

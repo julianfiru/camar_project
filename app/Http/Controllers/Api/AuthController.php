@@ -63,8 +63,8 @@ class AuthController extends Controller
         $user->last_login = now();
         $user->save();
         Auth::login($user, $request->filled('remember'));
-        // Sesuai requirement: jika sudah aktif (status=2) langsung ke landing page dan logged-in
-        return redirect()->route('home');
+        // Redirect users to role-specific dashboard
+        return $this->redirectBasedOnRole($user->role);
     }
 
     public function showRegisterForm()
@@ -142,10 +142,11 @@ class AuthController extends Controller
             $profilePhotoPath = null;
             if ($request->filled('profile_photo')) {
                 $profilePhotoPath = $this->saveBase64Image($request->profile_photo, 'profile_photos');
+                \Log::info('Profile photo saved during registration', ['profilePhotoPath' => $profilePhotoPath]);
             }
             $user = User::create([
                 'email' => $request->company_email,
-                'photo_url' => $profilePhotoPath,
+                'photo_url' => $profilePhotoPath ?: 'urlProfil/User1.gif',
                 'password_hash' => Hash::make($request->password),
                 'role' => $request->account_type,
                 'status' => 1, // 1 = pending
@@ -183,6 +184,7 @@ class AuthController extends Controller
                 $this->uploadSellerDocuments($request, $seller->seller_id);
             }
             DB::commit();
+            \Log::info('User created', ['user_id' => $user->user_id, 'photo_url' => $user->photo_url]);
             return redirect()
                 ->route('register.success')
                 ->with('success', 'Registrasi berhasil! Akun Anda akan ditinjau dan diaktifkan oleh admin/auditor.');
@@ -324,12 +326,15 @@ class AuthController extends Controller
      */
     protected function redirectBasedOnRole($role)
     {
-        switch ($role) {
-            case 'Admin':
+        $r = strtolower($role ?? '');
+        switch ($r) {
+            case 'admin':
                 return redirect()->route('admin.dashboard');
-            case 'Seller':
+            case 'auditor':
+                return redirect()->route('auditor.dashboard');
+            case 'seller':
                 return redirect()->route('seller.dashboard');
-            case 'Buyer':
+            case 'buyer':
                 return redirect()->route('buyer.dashboard');
             default:
                 return redirect()->route('home');

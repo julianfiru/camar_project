@@ -79,7 +79,7 @@
 <div class="content-section">
     <div class="company-header">
         <div class="company-avatar">
-            <img src="{{ asset($photoUrl) }}" 
+              <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
                 alt="Profile" 
                 class="w-100 h-100 rounded-3" 
                 style="object-fit: cover;">

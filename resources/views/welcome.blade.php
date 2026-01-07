@@ -24,8 +24,9 @@
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
+                        @php $r = strtolower(Auth::user()->role ?? ''); @endphp
                         <a
-                            href="{{ url('/dashboard') }}"
+                            href="{{ $r === 'admin' ? route('admin.dashboard') : ($r === 'auditor' ? route('auditor.dashboard') : ($r === 'seller' ? route('seller.dashboard') : ($r === 'buyer' ? route('buyer.dashboard') : route('account.status')))) }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
                         >
                             Dashboard

@@ -91,44 +91,39 @@
                     <div class="dropdown">
                         <button class="btn user-menu" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="user-info-header">
-                                <div class="user-text d-none d-md-block">
-                                    <div class="user-name">PT Green Energy Indonesia</div>
-                                    <div class="user-role">Akun Pembeli</div>
+                                <div class="user-text d-none d-md-block text-end">
+                                    <div class="user-name fs-5 fw-bold">{{ $displayName ?? explode('@', auth()->user()->email)[0] }}</div>
+                                    <div class="user-role small text-muted fw-semibold">{{ $roleLabel ?? '' }}</div>
                                 </div>
                                 <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold company-logo overflow-hidden bg-secondary" 
                                     style="width: 45px; height: 45px; min-width: 45px;">
-                                    <img src="{{ asset($photoUrl) }}" 
+                                    <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
                                         alt="Profile" 
                                         class="w-100 h-100" 
                                         style="object-fit: cover;">
                                 </div>
                             </div>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow user-dropdown">
+                        <ul class="dropdown-menu dropdown-menu-end shadow user-dropdown" aria-labelledby="userDropdown">
                             <li class="dropdown-header user-dropdown-header">
-                                <strong class="d-block mb-1">PT Green Energy Indonesia</strong>
-                                <small class="text-muted">contact@greenenergy.co.id</small>
+                                <strong class="d-block mb-1">{{ $displayName ?? explode('@', auth()->user()->email)[0] }}</strong>
+                                <small class="text-muted">{{ auth()->user()->email }}</small>
                             </li>
                             <li><hr class="dropdown-divider m-0"></li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('buyer.profil') }}">
-                                    <i class="bi bi-building me-2"></i> Profil Perusahaan
+                                <a class="dropdown-item" href="{{ route('buyer.dashboard') }}">
+                                    <i class="bi bi-speedometer2 me-2"></i> Dashboard
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('buyer.keamanan') }}">
-                                    <i class="bi bi-shield-lock me-2"></i> Keamanan & Akun
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('buyer.notifikasi') }}">
-                                    <i class="bi bi-bell me-2"></i> Notifikasi & Bahasa
+                                    <i class="bi bi-gear me-2"></i> Pengaturan
                                 </a>
                             </li>
                             <li><hr class="dropdown-divider m-0"></li>
                             <li>
                                 <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="bi bi-box-arrow-right me-2"></i> Keluar
+                                    <i class="bi bi-box-arrow-right me-2"></i> Logout
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
