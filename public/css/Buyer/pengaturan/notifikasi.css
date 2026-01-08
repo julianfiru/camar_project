@@ -1,46 +1,47 @@
 /* ========================================
-   NOTIFIKASI & BAHASA PAGE STYLES
+   NOTIFIKASI & BAHASA PAGE STYLES (NAMESPACED)
+   Prefix: nb- (notifikasi-bahasa)
    ======================================== */
 
 /* Card Styling */
-.card {
+.nb-card {
     border-radius: 15px;
     transition: all 0.3s ease;
 }
 
-.card:hover {
+.nb-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.12) !important;
 }
 
-.card-title {
+.nb-card-title {
     color: var(--color-dark);
     padding-bottom: 15px;
     border-bottom: 3px solid var(--color-light);
 }
 
 /* Language Selection */
-.language-option .btn-check:checked + .btn-outline-primary {
+.nb-language-option .btn-check:checked + .nb-btn-outline {
     background: linear-gradient(135deg, var(--color-light) 0%, #E8F5E9 100%);
     border-color: var(--color-primary);
     color: var(--color-dark);
     box-shadow: 0 4px 12px rgba(103, 192, 144, 0.25);
 }
 
-.language-option .btn-outline-primary {
+.nb-language-option .nb-btn-outline {
     border: 2px solid #E5E7EB;
     border-radius: 12px;
     transition: all 0.3s ease;
 }
 
-.language-option .btn-outline-primary:hover {
+.nb-language-option .nb-btn-outline:hover {
     border-color: var(--color-primary);
     background: var(--color-light);
     transform: translateY(-2px);
 }
 
 /* Save Button */
-#saveBahasaBtn {
+.nb-save-btn {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     border: none;
     border-radius: 10px;
@@ -49,13 +50,13 @@
     transition: all 0.3s ease;
 }
 
-#saveBahasaBtn:hover {
+.nb-save-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(103, 192, 144, 0.4);
 }
 
 /* Notification Item */
-.notification-item {
+.nb-notification-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -66,23 +67,23 @@
     gap: 20px;
 }
 
-.notification-item:hover {
+.nb-notification-item:hover {
     background: var(--color-light);
     transform: translateX(5px);
 }
 
-.notification-info {
+.nb-notification-info {
     flex: 1;
 }
 
-.notification-title {
+.nb-notification-title {
     font-size: 16px;
     font-weight: 700;
     color: var(--color-dark);
     margin-bottom: 8px;
 }
 
-.notification-desc {
+.nb-notification-desc {
     font-size: 14px;
     color: #666;
     font-family: 'Inter', sans-serif;
@@ -93,7 +94,7 @@
    CUSTOM TOGGLE SWITCH ANIMATION
    ======================================== */
 
-.notification-toggle {
+.nb-notification-toggle {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -101,19 +102,19 @@
 }
 
 /* Hide default checkbox */
-.form-switch .form-check-input {
+.nb-form-switch .nb-form-check-input {
     display: none;
 }
 
 /* Custom Toggle Container */
-.form-switch {
+.nb-form-switch {
     position: relative;
     display: inline-block;
     width: 70px;
     height: 34px;
 }
 
-.form-switch label {
+.nb-form-switch label {
     position: absolute;
     top: 0;
     left: 0;
@@ -126,7 +127,7 @@
 }
 
 /* Toggle Slider (Circle) */
-.form-switch label::after {
+.nb-form-switch label::after {
     content: 'OFF';
     position: absolute;
     top: 3px;
@@ -146,11 +147,11 @@
 }
 
 /* When Checked */
-.form-switch .form-check-input:checked + label {
+.nb-form-switch .nb-form-check-input:checked + label {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
 }
 
-.form-switch .form-check-input:checked + label::after {
+.nb-form-switch .nb-form-check-input:checked + label::after {
     content: 'ON';
     left: calc(100% - 31px);
     color: var(--color-primary);
@@ -158,26 +159,21 @@
 }
 
 /* Hover Effect */
-.form-switch label:hover {
+.nb-form-switch label:hover {
     box-shadow: 0 0 10px rgba(103, 192, 144, 0.3);
 }
 
 /* Focus State */
-.form-switch .form-check-input:focus + label {
+.nb-form-switch .nb-form-check-input:focus + label {
     box-shadow: 0 0 0 3px rgba(103, 192, 144, 0.2);
 }
 
-/* Remove default toggle label */
-.toggle-label {
-    display: none;
-}
-
 /* Toast Notification */
-#notifToast {
+.nb-toast {
     min-width: 300px;
 }
 
-#notifToast .toast-body {
+.nb-toast-body {
     background: var(--color-primary);
     color: white;
     font-weight: 600;
@@ -186,12 +182,12 @@
     font-family: 'Inter', sans-serif;
 }
 
-#notifToast.toast-off .toast-body {
+.nb-toast.nb-toast-off .nb-toast-body {
     background: #6C757D;
 }
 
 /* Animation */
-@keyframes slideIn {
+@keyframes nb-slideIn {
     from {
         transform: translateX(400px);
         opacity: 0;
@@ -202,65 +198,65 @@
     }
 }
 
+/* Icon Colors */
+.nb-icon-primary {
+    color: var(--color-primary) !important;
+}
+
+.nb-icon-success {
+    color: #10B981 !important;
+}
+
+.nb-icon-warning {
+    color: #F59E0B !important;
+}
+
+.nb-icon-info {
+    color: #3B82F6 !important;
+}
+
+.nb-icon-danger {
+    color: #EF4444 !important;
+}
+
+/* Hover Effects */
+.nb-notification-item:hover .bi {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .notification-item {
+    .nb-notification-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
     }
 
-    .notification-toggle {
+    .nb-notification-toggle {
         width: 100%;
         justify-content: flex-end;
     }
 
-    .language-option .btn-outline-primary {
+    .nb-language-option .nb-btn-outline {
         font-size: 14px;
     }
 
-    .card-body {
+    .nb-card .card-body {
         padding: 1.5rem !important;
     }
 }
 
 @media (max-width: 576px) {
-    .notification-title {
+    .nb-notification-title {
         font-size: 15px;
     }
 
-    .notification-desc {
+    .nb-notification-desc {
         font-size: 13px;
     }
 
-    #saveBahasaBtn {
+    .nb-save-btn {
         width: 100%;
     }
-}
-
-/* Icon Colors */
-.bi-credit-card-2-front {
-    color: var(--color-primary) !important;
-}
-
-.bi-file-earmark-text {
-    color: #10B981 !important;
-}
-
-.bi-award {
-    color: #F59E0B !important;
-}
-
-.bi-gear {
-    color: #3B82F6 !important;
-}
-
-.bi-envelope {
-    color: #EF4444 !important;
-}
-
-/* Hover Effects */
-.notification-item:hover .bi {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
 }

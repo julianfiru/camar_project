@@ -22,30 +22,6 @@
         'status_verifikasi' => 'Terverifikasi',
         'created_at' => now(),
     ];
-
-    // Data dokumen dummy
-    $dokumens = [
-        (object) [
-            'nama' => 'Akta Pendirian Perusahaan',
-            'keterangan' => 'Legal identity perusahaan',
-            'status' => 'verified'
-        ],
-        (object) [
-            'nama' => 'NIB',
-            'keterangan' => 'Nomor Induk Berusaha',
-            'status' => 'verified'
-        ],
-        (object) [
-            'nama' => 'NPWP',
-            'keterangan' => 'Nomor Pokok Wajib Pajak',
-            'status' => 'verified'
-        ],
-        (object) [
-            'nama' => 'Surat Kuasa (Opsional)',
-            'keterangan' => 'Dokumen tambahan',
-            'status' => 'pending'
-        ],
-    ];
 @endphp
 
 {{-- Success/Error Messages --}}
@@ -79,19 +55,11 @@
 <div class="content-section">
     <div class="company-header">
         <div class="company-avatar">
-              <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
-                alt="Profile" 
-                class="w-100 h-100 rounded-3" 
-                style="object-fit: cover;">
+            {{ strtoupper(substr($perusahaan->nama, 0, 2)) }}
         </div>
         <div class="company-header-info">
             <h2 class="company-name">{{ $perusahaan->nama }}</h2>
             <p class="company-tagline">{{ $perusahaan->tagline }}</p>
-            <div class="company-badges">
-                <span class="badge-verified">✓ Terverifikasi</span>
-                <span class="badge-gold">🏆 Gold</span>
-                <span class="badge-premium">🌟 Premium Member</span>
-            </div>
         </div>
     </div>
 </div>
@@ -146,89 +114,6 @@
     <p class="company-description">
         {{ $perusahaan->deskripsi }}
     </p>
-</div>
-
-<!-- Dokumen Perusahaan -->
-<div class="content-section">
-    <h2 class="section-title">Dokumen Perusahaan (Buyer)</h2>
-    
-    <div class="document-list">
-        @foreach($dokumens as $dokumen)
-        <div class="document-item">
-            <div class="document-info">
-                <h3 class="document-title">{{ $dokumen->nama }}</h3>
-                <p class="document-desc">{{ $dokumen->keterangan }}</p>
-            </div>
-            <span class="badge {{ $dokumen->status == 'verified' ? 'badge-verified-doc' : 'badge-optional' }}">
-                {{ $dokumen->status == 'verified' ? 'Terverifikasi' : 'Belum Diunggah' }}
-            </span>
-        </div>
-        @endforeach
-    </div>
-</div>
-
-<!-- Upload Dokumen Tambahan -->
-<div class="content-section">
-    <h2 class="section-title">Upload Dokumen Verifikasi Tambahan (Opsional)</h2>
-    
-    <form action="#" method="POST" enctype="multipart/form-data" onsubmit="event.preventDefault(); alert('Fitur upload akan aktif setelah sistem login diimplementasikan');">
-        @csrf
-        <div class="form-group mb-3">
-            <label class="form-label">Jenis Dokumen</label>
-            <select class="form-select" name="jenis_dokumen">
-                <option value="">Pilih jenis dokumen</option>
-                <option value="surat_pernyataan">Surat Pernyataan Manajemen</option>
-                <option value="audit_internal">Dokumen Audit Internal</option>
-                <option value="lainnya">Dokumen Pendukung Lainnya</option>
-            </select>
-        </div>
-        
-        <div class="form-group mb-3">
-            <label class="form-label">File Dokumen</label>
-            <input type="file" class="form-control file-input" name="dokumen" accept=".pdf,.doc,.docx">
-            <p class="form-text text-muted">
-                <small>Format: PDF, DOC, DOCX (Max: 5MB)</small><br>
-                <small class="text-warning">⚠️ Status: Fitur upload akan aktif setelah sistem login diimplementasikan</small>
-            </p>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Upload Dokumen</button>
-    </form>
-</div>
-
-<!-- Metode Pembayaran -->
-<div class="content-section">
-    <h2 class="section-title">Metode Pembayaran</h2>
-    
-    <ul class="payment-list">
-        <li>💳 Transfer Bank</li>
-        <li>🏦 Virtual Account</li>
-        <li>💰 Kartu Kredit (Opsional)</li>
-    </ul>
-    
-    <p class="payment-note">
-        Metode pembayaran digunakan khusus untuk transaksi pembelian carbon offset.
-    </p>
-</div>
-
-<!-- Status Akun -->
-<div class="content-section">
-    <h2 class="section-title">Status Akun</h2>
-    
-    <div class="status-grid">
-        <div class="status-item">
-            <div class="status-label">Tanggal Bergabung</div>
-            <strong class="status-value">{{ $perusahaan->created_at->format('d F Y') }}</strong>
-        </div>
-        <div class="status-item">
-            <div class="status-label">Status Verifikasi</div>
-            <strong class="status-value status-verified">✓ {{ $perusahaan->status_verifikasi }}</strong>
-        </div>
-        <div class="status-item">
-            <div class="status-label">Tingkat Keanggotaan</div>
-            <strong class="status-value status-gold">🏆 Gold Member</strong>
-        </div>
-    </div>
 </div>
 
 @endsection

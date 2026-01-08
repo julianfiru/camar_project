@@ -65,7 +65,7 @@
                                 </li>
                                 <li>
                                     @if(isset($roleSlug) && $roleSlug === 'buyer')
-                                        <a class="dropdown-item" href="{{ route('buyer.keamanan') }}"><i class="fas fa-cog"></i> Pengaturan</a>
+                                        <a class="dropdown-item" href="{{ route('buyer.pengaturan.keamanan') }}"><i class="fas fa-cog"></i> Pengaturan</a>
                                     @elseif(isset($roleSlug) && $roleSlug === 'seller')
                                         <a class="dropdown-item" href="{{ route('seller.profil') }}"><i class="fas fa-cog"></i> Pengaturan</a>
                                     @else

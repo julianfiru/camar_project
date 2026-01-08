@@ -17,11 +17,6 @@
                     <div class="info-value">contact@greenenergy.co.id</div>
                     <div class="info-description">Email ini digunakan untuk login ke akun Anda</div>
                 </div>
-                <div class="info-card-footer">
-                    <button class="btn btn-outline-primary btn-sm" onclick="ubahEmail()">
-                        <i class="bi bi-pencil-square me-2"></i>Ubah Email Login
-                    </button>
-                </div>
             </div>
         </div>
         
@@ -84,13 +79,13 @@
                         <label for="currentPassword" class="form-label">
                             Password Saat Ini <span class="text-danger">*</span>
                         </label>
-                        <div class="input-group">
-                            <span class="input-group-text">
+                        <div class="password-input-wrapper">
+                            <span class="input-icon-left">
                                 <i class="bi bi-lock"></i>
                             </span>
-                            <input type="password" class="form-control" id="currentPassword" 
+                            <input type="password" class="form-control ps-5 pe-5" id="currentPassword" 
                                    placeholder="Masukkan password saat ini" required>
-                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('currentPassword')">
+                            <button class="input-toggle-btn" type="button" onclick="togglePassword('currentPassword')">
                                 <i class="bi bi-eye" id="currentPasswordIcon"></i>
                             </button>
                         </div>
@@ -100,13 +95,13 @@
                         <label for="newPassword" class="form-label">
                             Password Baru <span class="text-danger">*</span>
                         </label>
-                        <div class="input-group">
-                            <span class="input-group-text">
+                        <div class="password-input-wrapper">
+                            <span class="input-icon-left">
                                 <i class="bi bi-lock-fill"></i>
                             </span>
-                            <input type="password" class="form-control" id="newPassword" 
+                            <input type="password" class="form-control ps-5 pe-5" id="newPassword" 
                                    placeholder="Masukkan password baru" required minlength="8">
-                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('newPassword')">
+                            <button class="input-toggle-btn" type="button" onclick="togglePassword('newPassword')">
                                 <i class="bi bi-eye" id="newPasswordIcon"></i>
                             </button>
                         </div>
@@ -120,13 +115,13 @@
                         <label for="confirmPassword" class="form-label">
                             Konfirmasi Password Baru <span class="text-danger">*</span>
                         </label>
-                        <div class="input-group">
-                            <span class="input-group-text">
+                        <div class="password-input-wrapper">
+                            <span class="input-icon-left">
                                 <i class="bi bi-check-circle"></i>
                             </span>
-                            <input type="password" class="form-control" id="confirmPassword" 
+                            <input type="password" class="form-control ps-5 pe-5" id="confirmPassword" 
                                    placeholder="Masukkan ulang password baru" required minlength="8">
-                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('confirmPassword')">
+                            <button class="input-toggle-btn" type="button" onclick="togglePassword('confirmPassword')">
                                 <i class="bi bi-eye" id="confirmPasswordIcon"></i>
                             </button>
                         </div>
@@ -176,7 +171,7 @@
 
     <div id="loginActivityList" class="activity-list">
         <!-- Current Session -->
-        <div class="activity-item activity-current">
+        <div class="activity-item activity-current" data-device="current">
             <div class="activity-badge">
                 <i class="bi bi-circle-fill"></i> SESI AKTIF
             </div>
@@ -215,7 +210,7 @@
         </div>
 
         <!-- Other Sessions -->
-        <div class="activity-item">
+        <div class="activity-item" data-device="iphone">
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
                     <div class="activity-info">
@@ -248,13 +243,13 @@
                     <strong>IP Address:</strong> 103.127.132.45 • 
                     <strong>Browser:</strong> Safari 17.1
                 </div>
-                <button class="btn btn-outline-danger btn-sm" onclick="logoutDevice('iPhone 14')">
+                <button class="btn btn-outline-danger btn-sm" onclick="logoutDevice('iPhone 14', 'iphone')">
                     <i class="bi bi-box-arrow-right me-1"></i>Logout Perangkat
                 </button>
             </div>
         </div>
 
-        <div class="activity-item">
+        <div class="activity-item" data-device="macbook">
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
                     <div class="activity-info">
@@ -287,13 +282,13 @@
                     <strong>IP Address:</strong> 114.79.54.21 • 
                     <strong>Browser:</strong> Safari 17.0
                 </div>
-                <button class="btn btn-outline-danger btn-sm" onclick="logoutDevice('MacBook Pro')">
+                <button class="btn btn-outline-danger btn-sm" onclick="logoutDevice('MacBook Pro', 'macbook')">
                     <i class="bi bi-box-arrow-right me-1"></i>Logout Perangkat
                 </button>
             </div>
         </div>
 
-        <div class="activity-item">
+        <div class="activity-item" data-device="samsung">
             <div class="row g-3 mb-3">
                 <div class="col-md-4">
                     <div class="activity-info">
@@ -326,7 +321,7 @@
                     <strong>IP Address:</strong> 180.252.89.14 • 
                     <strong>Browser:</strong> Chrome Mobile 120.0
                 </div>
-                <button class="btn btn-outline-danger btn-sm" onclick="logoutDevice('Samsung Galaxy S23')">
+                <button class="btn btn-outline-danger btn-sm" onclick="logoutDevice('Samsung Galaxy S23', 'samsung')">
                     <i class="bi bi-box-arrow-right me-1"></i>Logout Perangkat
                 </button>
             </div>
@@ -339,4 +334,21 @@
         </button>
     </div>
 </div>
+
+<!-- Alert Modal for Notifications -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content alert-modal-content">
+            <div class="modal-body text-center p-4">
+                <div class="alert-icon mb-3" id="alertIcon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <h5 class="alert-title mb-3" id="alertTitle">Notifikasi</h5>
+                <p class="alert-message" id="alertMessage">Pesan notifikasi akan muncul di sini</p>
+                <button type="button" class="btn btn-primary mt-3" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

@@ -1,28 +1,15 @@
 /* ========================================
-   EMISSION CALCULATOR STYLES
+   EMISSION CALCULATOR STYLES - NAMESPACED
+   Prefix: emission-calculator-
    ======================================== */
 
-/* General Styles */
-body {
-    background: #f8f9fa;
-    min-height: 100vh;
-    font-family: var(--font-body);
-}
-
-h1 {
-    font-family: var(--font-heading);
-    color: var(--color-dark);
-    font-weight: 700;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.container {
-    max-width: 1400px;
+/* Wrapper */
+.emission-calculator-wrapper {
+    width: 100%;
 }
 
 /* Scope Cards */
-.scope-card {
+.emission-calculator-scope-card {
     background: white;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -31,107 +18,103 @@ h1 {
     transition: all 0.3s ease;
 }
 
-.scope-card:hover {
+.emission-calculator-scope-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.scope-header {
+.emission-calculator-scope-header {
     padding: 2rem 2.5rem;
     border-bottom: 3px solid;
 }
 
 /* Scope 1 - Hijau Tua */
-.scope-1 .scope-header {
+.emission-calculator-scope-1 .emission-calculator-scope-header {
     background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
     border-bottom-color: #2E7D32;
 }
 
 /* Scope 2 - Hijau Muda */
-.scope-2 .scope-header {
+.emission-calculator-scope-2 .emission-calculator-scope-header {
     background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
     border-bottom-color: #4CAF50;
 }
 
 /* Scope 3 - Biru Tua */
-.scope-3 .scope-header {
+.emission-calculator-scope-3 .emission-calculator-scope-header {
     background: linear-gradient(135deg, #90CAF9 0%, #64B5F6 100%);
     border-bottom-color: #1565C0;
 }
 
 /* Offset Card - Biru Muda */
-.offset-card .scope-header {
+.emission-calculator-offset-card .emission-calculator-scope-header {
     background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
     border-bottom-color: #2196F3;
 }
 
-.scope-header > div {
+.emission-calculator-scope-header > div {
     flex: 1;
 }
 
-.scope-header h3 {
+.emission-calculator-scope-header h3 {
     margin: 0.5rem 0 0.25rem 0;
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-dark);
-    font-family: var(--font-heading);
+    color: #2c3e50;
 }
 
-.scope-header p {
+.emission-calculator-scope-header p {
     color: #6c757d;
     font-size: 0.95rem;
     line-height: 1.4;
-    font-family: var(--font-body);
     margin-bottom: 0;
 }
 
-.scope-header .badge {
+.emission-calculator-badge {
     font-size: 0.7rem;
     font-weight: 700;
     padding: 0.3rem 0.85rem;
     letter-spacing: 1.2px;
     border-radius: 20px;
-    font-family: var(--font-inter);
     display: inline-block;
 }
 
 /* Badge Colors */
-.scope-1 .badge {
+.emission-calculator-scope-1 .emission-calculator-badge {
     background: #2E7D32;
     color: white;
 }
 
-.scope-2 .badge {
+.emission-calculator-scope-2 .emission-calculator-badge {
     background: #4CAF50;
     color: white;
 }
 
-.scope-3 .badge {
+.emission-calculator-scope-3 .emission-calculator-badge {
     background: #1565C0;
     color: white;
 }
 
-.offset-card .badge,
-.offset-card .bg-success {
+.emission-calculator-badge-success,
+.emission-calculator-offset-card .emission-calculator-badge {
     background: #2196F3 !important;
     color: white;
 }
 
-.scope-body {
+.emission-calculator-scope-body {
     padding: 2.5rem;
 }
 
 /* Form Controls */
-.form-label {
+.emission-calculator-form-label {
     font-weight: 600;
-    color: var(--color-dark);
+    color: #2c3e50;
     margin-bottom: 0.75rem;
     font-size: 0.95rem;
-    font-family: var(--font-inter);
     display: block;
 }
 
-.form-control {
+.emission-calculator-form-control {
     border: 2px solid #e9ecef;
     border-radius: 12px;
     padding: 1rem 1.25rem;
@@ -139,32 +122,31 @@ h1 {
     font-weight: 500;
     transition: all 0.3s ease;
     background: #f8f9fa;
-    font-family: var(--font-body);
-    color: var(--color-dark);
+    color: #2c3e50;
+    width: 100%;
 }
 
-.form-control:focus {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px rgba(103, 192, 144, 0.1);
+.emission-calculator-form-control:focus {
+    border-color: #5dab86;
+    box-shadow: 0 0 0 4px rgba(93, 171, 134, 0.1);
     background: white;
     outline: none;
 }
 
-.form-control::placeholder {
+.emission-calculator-form-control::placeholder {
     color: #adb5bd;
 }
 
-small.text-muted {
+.emission-calculator-text-muted {
     color: #6c757d !important;
     font-size: 0.8125rem;
     display: block;
     margin-top: 0.5rem;
     line-height: 1.4;
-    font-family: var(--font-inter);
 }
 
 /* Formula Box */
-.formula-box {
+.emission-calculator-formula-box {
     background: linear-gradient(135deg, #E8F5E9 0%, #F1F8F4 100%);
     border-left: 5px solid #4CAF50;
     border-radius: 12px;
@@ -174,92 +156,82 @@ small.text-muted {
     gap: 1rem;
 }
 
-.formula-icon {
+.emission-calculator-formula-icon {
     font-size: 2rem;
     flex-shrink: 0;
 }
 
-.formula-box strong {
+.emission-calculator-formula-box strong {
     display: block;
-    color: var(--color-dark);
+    color: #2c3e50;
     font-size: 0.75rem;
     margin-bottom: 0.625rem;
     letter-spacing: 1.2px;
-    font-family: var(--font-inter);
     font-weight: 700;
 }
 
-.formula-text {
+.emission-calculator-formula-text {
     font-family: 'Courier New', Consolas, monospace;
     font-size: 0.9375rem;
-    color: var(--color-dark);
+    color: #2c3e50;
     line-height: 1.8;
     font-weight: 500;
     margin-bottom: 0.25rem;
 }
 
-/* Button */
-.btn-primary {
+/* Buttons */
+.emission-calculator-btn {
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.emission-calculator-btn-primary {
     background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-    border: none;
-    border-radius: 16px;
-    font-weight: 700;
-    font-size: 1.25rem;
-    padding: 1.25rem 3.5rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 25px rgba(76, 175, 80, 0.3);
-    font-family: var(--font-heading);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
     color: white;
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 35px rgba(76, 175, 80, 0.4);
-    background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
-    color: white;
-}
-
-.btn-primary:active {
-    transform: translateY(-1px);
-}
-
-.btn-primary .me-2 {
-    font-size: 1.5rem;
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #2196F3 0%, #1565C0 100%);
-    border: none;
-    border-radius: 16px;
-    font-weight: 700;
     font-size: 1.125rem;
-    padding: 1.125rem 3rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 25px rgba(33, 150, 243, 0.3);
-    font-family: var(--font-heading);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: white;
+    padding: 1rem 3rem;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
-.btn-success:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 35px rgba(33, 150, 243, 0.4);
-    background: linear-gradient(135deg, #42A5F5 0%, #2196F3 100%);
+.emission-calculator-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
+}
+
+.emission-calculator-btn-primary:active {
+    transform: translateY(0);
+}
+
+.emission-calculator-btn-success {
+    background: linear-gradient(135deg, #5dab86 0%, #4a9471 100%);
     color: white;
+    font-size: 1rem;
+    padding: 1rem 2.5rem;
+    box-shadow: 0 4px 15px rgba(93, 171, 134, 0.3);
+}
+
+.emission-calculator-btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(93, 171, 134, 0.4);
+    background: linear-gradient(135deg, #6dbf96 0%, #5dab86 100%);
+}
+
+.emission-calculator-btn-lg {
+    font-size: 1.125rem;
+    padding: 1rem 3rem;
 }
 
 /* Hasil Section */
-.hasil-section {
-    animation: fadeInUp 0.6s ease;
+.emission-calculator-hasil-section {
+    animation: emission-calculator-fadeInUp 0.6s ease;
     margin-top: 4rem;
 }
 
-@keyframes fadeInUp {
+@keyframes emission-calculator-fadeInUp {
     from {
         opacity: 0;
         transform: translateY(40px);
@@ -270,191 +242,197 @@ small.text-muted {
     }
 }
 
-.hasil-container {
-    background: white;
+.emission-calculator-hasil-container {
+    background: linear-gradient(135deg, #e8f5f0 0%, #d4ede3 100%);
     border-radius: 24px;
     padding: 3rem 2.5rem;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(93, 171, 134, 0.2);
 }
 
-.hasil-container h2 {
-    color: var(--color-dark);
+.emission-calculator-hasil-container h2 {
+    color: #1e4d3d;
     font-weight: 700;
-    font-size: 2.25rem;
-    font-family: var(--font-heading);
-    margin-bottom: 0.75rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
-.hasil-card {
+/* Result Cards - Clean Minimalist Style */
+.emission-calculator-hasil-card {
     background: white;
-    border-radius: 20px;
+    border-radius: 16px;
     padding: 2rem 1.5rem;
     text-align: center;
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease;
-    border: 3px solid;
+    border: none;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.hasil-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+.emission-calculator-hasil-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* Result Card Colors - Hijau untuk Scope 1 & 2 */
-.scope-1-result {
-    border-color: #2E7D32;
-    background: linear-gradient(135deg, #C8E6C9 0%, #A5D6A7 100%);
+/* Simplified Card Styles */
+.emission-calculator-scope-1-result,
+.emission-calculator-scope-2-result,
+.emission-calculator-scope-3-result,
+.emission-calculator-offset-result,
+.emission-calculator-net-result {
+    background: white;
 }
 
-.scope-2-result {
-    border-color: #4CAF50;
-    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+.emission-calculator-total-result {
+    background: linear-gradient(135deg, #5dab86 0%, #4a9471 100%);
 }
 
-/* Result Card Colors - Biru untuk Scope 3 & Offset */
-.scope-3-result {
-    border-color: #1565C0;
-    background: linear-gradient(135deg, #90CAF9 0%, #64B5F6 100%);
+.emission-calculator-total-result .emission-calculator-hasil-label,
+.emission-calculator-total-result .emission-calculator-hasil-value,
+.emission-calculator-total-result .emission-calculator-hasil-unit {
+    color: white !important;
 }
 
-.offset-result {
-    border-color: #2196F3;
-    background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
-}
-
-/* Total & Net Results */
-.total-result {
-    border-color: #2E7D32;
-    background: linear-gradient(135deg, #A5D6A7 0%, #81C784 100%);
-}
-
-.net-result {
-    border-color: #1565C0;
-    background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
-}
-
-.hasil-label {
-    font-size: 0.75rem;
+.emission-calculator-hasil-label {
+    font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.8px;
     color: #6c757d;
-    margin-bottom: 1.25rem;
-    font-family: var(--font-inter);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
-.hasil-value {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--color-dark);
-    margin: 1rem 0;
+.emission-calculator-hasil-value {
+    font-size: 2.75rem;
+    font-weight: 700;
+    color: #1e4d3d;
+    margin: 0.5rem 0;
     line-height: 1;
-    font-family: var(--font-heading);
 }
 
-.hasil-unit {
-    font-size: 1rem;
+.emission-calculator-total-result .emission-calculator-hasil-value {
+    font-size: 3rem;
+}
+
+.emission-calculator-hasil-unit {
+    font-size: 0.875rem;
     color: #6c757d;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    font-family: var(--font-inter);
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+/* Bottom Button Section */
+.emission-calculator-hasil-container .text-center.mt-4 {
+    margin-top: 2.5rem !important;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(93, 171, 134, 0.15);
 }
 
 /* Responsive */
 @media (max-width: 991px) {
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .scope-header {
+    .emission-calculator-scope-header {
         padding: 1.75rem 2rem;
     }
     
-    .scope-header h3 {
+    .emission-calculator-scope-header h3 {
         font-size: 1.35rem;
     }
     
-    .scope-body {
+    .emission-calculator-scope-body {
         padding: 2rem;
     }
     
-    .hasil-container {
+    .emission-calculator-hasil-container {
         padding: 2.5rem 2rem;
     }
     
-    .hasil-value {
+    .emission-calculator-hasil-container h2 {
+        font-size: 1.75rem;
+    }
+    
+    .emission-calculator-hasil-value {
+        font-size: 2.25rem;
+    }
+    
+    .emission-calculator-total-result .emission-calculator-hasil-value {
         font-size: 2.5rem;
     }
 }
 
 @media (max-width: 767px) {
-    h1 {
-        font-size: 1.75rem;
-    }
-    
-    .scope-header {
+    .emission-calculator-scope-header {
         padding: 1.5rem;
         text-align: center;
     }
     
-    .scope-header h3 {
+    .emission-calculator-scope-header h3 {
         font-size: 1.2rem;
         margin: 0.25rem 0 0.15rem 0;
     }
     
-    .scope-header p {
+    .emission-calculator-scope-header p {
         font-size: 0.9rem;
     }
     
-    .scope-body {
+    .emission-calculator-scope-body {
         padding: 1.5rem;
     }
     
-    .form-control {
+    .emission-calculator-form-control {
         padding: 0.875rem 1rem;
         font-size: 1rem;
     }
     
-    .btn-primary {
+    .emission-calculator-btn-primary {
         font-size: 1.125rem;
         padding: 1rem 2.5rem;
     }
     
-    .btn-success {
-        font-size: 1rem;
-        padding: 1rem 2rem;
+    .emission-calculator-btn-success {
+        font-size: 0.9rem;
+        padding: 0.875rem 1.75rem;
     }
     
-    .hasil-container {
+    .emission-calculator-hasil-container {
         padding: 2rem 1.5rem;
     }
     
-    .hasil-container h2 {
-        font-size: 1.75rem;
+    .emission-calculator-hasil-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
     }
     
-    .hasil-card {
+    .emission-calculator-hasil-card {
         padding: 1.5rem 1rem;
         margin-bottom: 1rem;
     }
     
-    .hasil-value {
+    .emission-calculator-hasil-value {
         font-size: 2rem;
+    }
+    
+    .emission-calculator-total-result .emission-calculator-hasil-value {
+        font-size: 2.25rem;
     }
 }
 
 /* Print Styles */
 @media print {
-    .scope-card:hover,
-    .hasil-card:hover,
-    .btn-primary:hover,
-    .btn-success:hover {
+    .emission-calculator-scope-card:hover,
+    .emission-calculator-hasil-card:hover,
+    .emission-calculator-btn-primary:hover,
+    .emission-calculator-btn-success:hover {
         transform: none;
         box-shadow: initial;
     }
     
-    .btn-primary,
-    .btn-success {
+    .emission-calculator-btn-primary,
+    .emission-calculator-btn-success {
         display: none;
     }
 }

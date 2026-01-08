@@ -1,27 +1,27 @@
 /* ========================================
-   DASHBOARD SPECIFIC STYLES
+   DASHBOARD SPECIFIC STYLES - CBD (Carbon Buyer Dashboard)
    ======================================== */
 
 /* Main Content Area */
-.main-wrapper {
+.cbd-main-wrapper {
     margin-left: 280px;
     min-height: 100vh;
 }
 
-.main-content {
+.cbd-main-content {
     padding: 30px 40px;
     margin-top: 80px;
 }
 
 /* Statistics Cards */
-.stats-grid {
+.cbd-stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     margin-bottom: 30px;
 }
 
-.stat-card {
+.cbd-stat-card {
     background: white;
     padding: 30px;
     border-radius: 15px;
@@ -30,19 +30,23 @@
     transition: transform 0.3s ease;
 }
 
-.stat-card:hover {
+.cbd-stat-card:hover {
     transform: translateY(-5px);
 }
 
-.stat-card.secondary {
+.cbd-stat-card--secondary {
     border-left-color: var(--color-secondary);
 }
 
-.stat-card.tertiary {
+.cbd-stat-card--target {
+    border-left-color: #f59e0b;
+}
+
+.cbd-stat-card--tertiary {
     border-left-color: var(--color-dark);
 }
 
-.stat-label {
+.cbd-stat-label {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     color: #666;
@@ -51,22 +55,73 @@
     letter-spacing: 0.5px;
 }
 
-.stat-value {
+.cbd-stat-value {
     font-size: 36px;
     font-weight: 700;
     color: var(--color-dark);
     margin-bottom: 8px;
 }
 
-.stat-unit {
+.cbd-stat-unit {
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     color: var(--color-primary);
     font-weight: 600;
 }
 
+/* Progress Bar for All Cards */
+.cbd-progress-wrapper {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.cbd-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.cbd-progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    width: 0;
+    transition: width 1.5s ease-out;
+}
+
+.cbd-progress-fill--primary {
+    background: linear-gradient(90deg, var(--color-primary), #4ade80);
+    box-shadow: 0 2px 8px rgba(103, 192, 144, 0.4);
+}
+
+.cbd-progress-fill--secondary {
+    background: linear-gradient(90deg, var(--color-secondary), #10b981);
+    box-shadow: 0 2px 8px rgba(52, 168, 83, 0.4);
+}
+
+.cbd-progress-fill--target {
+    background: linear-gradient(90deg, #f59e0b, #eab308);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.cbd-progress-fill--tertiary {
+    background: linear-gradient(90deg, #6b7280, #4b5563);
+    box-shadow: 0 2px 8px rgba(107, 114, 128, 0.4);
+}
+
+.cbd-progress-text {
+    font-size: 12px;
+    color: #666;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
 /* Content Sections */
-.content-section {
+.cbd-content-section {
     background: white;
     padding: 35px;
     border-radius: 15px;
@@ -74,7 +129,7 @@
     margin-bottom: 30px;
 }
 
-.section-title {
+.cbd-section-title {
     color: var(--color-dark);
     font-size: 22px;
     font-weight: 700;
@@ -83,8 +138,15 @@
     border-bottom: 3px solid var(--color-light);
 }
 
+/* Chart Canvas */
+.cbd-chart-canvas {
+    width: 100% !important;
+    height: 400px !important;
+    max-height: 400px;
+}
+
 /* Chart Placeholder */
-.chart-placeholder {
+.cbd-chart-placeholder {
     height: 300px;
     background: linear-gradient(135deg, var(--color-light) 0%, #f0f9f4 100%);
     border-radius: 10px;
@@ -97,7 +159,7 @@
 }
 
 /* Certificate Items */
-.certificate-item {
+.cbd-certificate-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -109,26 +171,26 @@
     transition: all 0.3s ease;
 }
 
-.certificate-item:hover {
+.cbd-certificate-item:hover {
     transform: translateX(5px);
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
-.certificate-title {
+.cbd-certificate-title {
     font-size: 18px;
     color: var(--color-dark);
     margin-bottom: 5px;
     font-weight: 600;
 }
 
-.certificate-desc {
+.cbd-certificate-desc {
     color: #666;
     font-size: 14px;
     margin: 0;
 }
 
 /* Buttons */
-.btn-primary {
+.cbd-btn-primary {
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     color: white;
     padding: 14px 30px;
@@ -143,13 +205,13 @@
     display: inline-block;
 }
 
-.btn-primary:hover {
+.cbd-btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(103, 192, 144, 0.4);
     color: white;
 }
 
-.btn-secondary {
+.cbd-btn-secondary {
     background: white;
     color: var(--color-secondary);
     padding: 10px 24px;
@@ -162,13 +224,13 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
-.btn-secondary:hover {
+.cbd-btn-secondary:hover {
     background: var(--color-secondary);
     color: white;
 }
 
 /* Animations */
-@keyframes fadeIn {
+@keyframes cbd-fadeIn {
     from {
         opacity: 0;
         transform: translateY(10px);
@@ -179,76 +241,91 @@
     }
 }
 
-.page-content {
-    animation: fadeIn 0.3s ease;
+.cbd-page-content {
+    animation: cbd-fadeIn 0.3s ease;
+}
+
+/* Responsive - Desktop Large */
+@media (min-width: 1200px) {
+    .cbd-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 /* Responsive - Tablet */
 @media (max-width: 992px) {
-    .main-wrapper {
+    .cbd-main-wrapper {
         margin-left: 0;
     }
 
-    .main-content {
+    .cbd-main-content {
         padding: 25px 30px;
     }
 
-    .certificate-item {
+    .cbd-certificate-item {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
     }
 
-    .certificate-item .btn-secondary {
+    .cbd-certificate-item .cbd-btn-secondary {
         width: 100%;
+    }
+
+    .cbd-chart-canvas {
+        height: 350px !important;
     }
 }
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
-    .main-wrapper {
+    .cbd-main-wrapper {
         margin-left: 0;
     }
 
-    .main-content {
+    .cbd-main-content {
         padding: 20px;
         margin-top: 70px;
     }
 
-    .stats-grid {
+    .cbd-stats-grid {
         grid-template-columns: 1fr;
     }
 
-    .stat-card {
+    .cbd-stat-card {
         padding: 20px;
     }
 
-    .stat-value {
+    .cbd-stat-value {
         font-size: 28px;
     }
 
-    .content-section {
+    .cbd-content-section {
         padding: 20px;
     }
 
-    .section-title {
+    .cbd-section-title {
         font-size: 18px;
     }
 
-    .chart-placeholder {
+    .cbd-chart-canvas {
+        height: 300px !important;
+    }
+
+    .cbd-chart-placeholder {
         height: 250px;
         font-size: 16px;
     }
 
-    .certificate-title {
+    .cbd-certificate-title {
         font-size: 16px;
     }
 
-    .certificate-desc {
+    .cbd-certificate-desc {
         font-size: 13px;
     }
 
-    .btn-primary {
+    .cbd-btn-primary {
         padding: 12px 24px;
         font-size: 14px;
         width: 100%;

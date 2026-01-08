@@ -1,29 +1,30 @@
 // ========================================
-// NOTIFIKASI & BAHASA - JavaScript Functions
+// NOTIFIKASI & BAHASA - JavaScript Functions (NAMESPACED)
+// Prefix: nb- (notifikasi-bahasa)
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
     
     // Save Bahasa Settings
-    const saveBahasaBtn = document.getElementById('saveBahasaBtn');
-    if (saveBahasaBtn) {
-        saveBahasaBtn.addEventListener('click', saveBahasaSettings);
+    const nbSaveBahasaBtn = document.getElementById('nb-saveBahasaBtn');
+    if (nbSaveBahasaBtn) {
+        nbSaveBahasaBtn.addEventListener('click', nbSaveBahasaSettings);
     }
 
     // Toggle Notifications
-    const notifSwitches = [
-        { id: 'notif-transaksi', name: 'Notifikasi Transaksi' },
-        { id: 'notif-laporan', name: 'Notifikasi Laporan Proyek' },
-        { id: 'notif-sertifikat', name: 'Notifikasi Sertifikat' },
-        { id: 'notif-sistem', name: 'Notifikasi Pembaruan Sistem' },
-        { id: 'notif-email', name: 'Notifikasi Email' }
+    const nbNotifSwitches = [
+        { id: 'nb-notif-transaksi', name: 'Notifikasi Transaksi' },
+        { id: 'nb-notif-laporan', name: 'Notifikasi Laporan Proyek' },
+        { id: 'nb-notif-sertifikat', name: 'Notifikasi Sertifikat' },
+        { id: 'nb-notif-sistem', name: 'Notifikasi Pembaruan Sistem' },
+        { id: 'nb-notif-email', name: 'Notifikasi Email' }
     ];
 
-    notifSwitches.forEach(item => {
+    nbNotifSwitches.forEach(item => {
         const switchElement = document.getElementById(item.id);
         if (switchElement) {
             switchElement.addEventListener('change', function() {
-                toggleNotif(item.name, this.checked);
+                nbToggleNotif(item.name, this.checked);
             });
         }
     });
@@ -31,11 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Function: Save Bahasa Settings
-function saveBahasaSettings() {
-    const selectedLang = document.querySelector('input[name="language"]:checked');
+function nbSaveBahasaSettings() {
+    const selectedLang = document.querySelector('input[name="nb-language"]:checked');
     
     if (!selectedLang) {
-        showToast('Pilih bahasa terlebih dahulu', false);
+        nbShowToast('Pilih bahasa terlebih dahulu', false);
         return;
     }
 
@@ -47,7 +48,7 @@ function saveBahasaSettings() {
         
         // Simulate saving (in real app, send AJAX request to backend)
         setTimeout(() => {
-            showToast(`✓ Bahasa berhasil diubah ke ${langName}`, true);
+            nbShowToast(`✓ Bahasa berhasil diubah ke ${langName}`, true);
             
             // Optional: Reload page after 2 seconds
             // setTimeout(() => {
@@ -59,23 +60,23 @@ function saveBahasaSettings() {
 }
 
 // Function: Toggle Notification
-function toggleNotif(notifName, isEnabled) {
+function nbToggleNotif(notifName, isEnabled) {
     const status = isEnabled ? 'diaktifkan' : 'dinonaktifkan';
     
     // Show toast notification
-    showToast(`${notifName} ${status}`, isEnabled);
+    nbShowToast(`${notifName} ${status}`, isEnabled);
     
     // Log untuk debugging
     console.log(`${notifName} ${status}`);
     
     // Simulate saving to backend
-    // saveNotificationPreference(notifName, isEnabled);
+    // nbSaveNotificationPreference(notifName, isEnabled);
 }
 
 // Function: Show Toast Notification
-function showToast(message, isSuccess = true) {
-    const toastElement = document.getElementById('notifToast');
-    const toastBody = document.getElementById('toastMessage');
+function nbShowToast(message, isSuccess = true) {
+    const toastElement = document.getElementById('nb-notifToast');
+    const toastBody = document.getElementById('nb-toastMessage');
     
     if (!toastElement || !toastBody) return;
     
@@ -85,10 +86,10 @@ function showToast(message, isSuccess = true) {
     // Set toast color
     if (isSuccess) {
         toastBody.style.background = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
-        toastElement.classList.remove('toast-off');
+        toastElement.classList.remove('nb-toast-off');
     } else {
         toastBody.style.background = '#6C757D';
-        toastElement.classList.add('toast-off');
+        toastElement.classList.add('nb-toast-off');
     }
     
     // Show toast using Bootstrap
@@ -101,7 +102,7 @@ function showToast(message, isSuccess = true) {
 }
 
 // Function: Save Notification Preference (untuk integrasi backend nanti)
-function saveNotificationPreference(notifType, isEnabled) {
+function nbSaveNotificationPreference(notifType, isEnabled) {
     // Example AJAX call
     /*
     fetch('/api/settings/notifications', {
@@ -121,7 +122,7 @@ function saveNotificationPreference(notifType, isEnabled) {
     })
     .catch(error => {
         console.error('Error saving preference:', error);
-        showToast('Gagal menyimpan pengaturan', false);
+        nbShowToast('Gagal menyimpan pengaturan', false);
     });
     */
 }

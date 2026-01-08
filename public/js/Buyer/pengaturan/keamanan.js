@@ -7,12 +7,13 @@ function ubahEmail() {
     const newEmail = prompt('Masukkan email baru:\n\n(Email saat ini: contact@greenenergy.co.id)');
     
     if (newEmail && newEmail.includes('@')) {
-        showToast(
-            `✓ Permintaan ubah email berhasil!\n\nEmail baru: ${newEmail}\n\nLink verifikasi telah dikirim ke email lama dan baru Anda. Silakan cek inbox untuk menyelesaikan proses verifikasi.`,
-            'success'
+        showAlert(
+            'success',
+            'Email Berhasil Diubah',
+            `Email baru: ${newEmail}\n\nLink verifikasi telah dikirim ke email lama dan baru Anda. Silakan cek inbox untuk menyelesaikan proses verifikasi.`
         );
     } else if (newEmail) {
-        showToast('❌ Format email tidak valid. Silakan coba lagi.', 'danger');
+        showAlert('danger', 'Format Email Tidak Valid', 'Silakan masukkan format email yang benar.');
     }
 }
 
@@ -43,7 +44,7 @@ function changePassword(event) {
     
     // Validasi password baru
     if (newPass.length < 8) {
-        showToast('❌ Password baru minimal 8 karakter!', 'danger');
+        showAlert('danger', 'Password Terlalu Pendek', 'Password baru minimal 8 karakter!');
         return false;
     }
     
@@ -52,13 +53,13 @@ function changePassword(event) {
     const hasNumber = /[0-9]/.test(newPass);
     
     if (!hasLetter || !hasNumber) {
-        showToast('❌ Password harus mengandung kombinasi huruf dan angka!', 'danger');
+        showAlert('danger', 'Password Tidak Valid', 'Password harus mengandung kombinasi huruf dan angka!');
         return false;
     }
     
     // Cek konfirmasi password
     if (newPass !== confirmPass) {
-        showToast('❌ Konfirmasi password tidak cocok!', 'danger');
+        showAlert('danger', 'Password Tidak Cocok', 'Konfirmasi password tidak cocok dengan password baru!');
         return false;
     }
     
@@ -67,8 +68,12 @@ function changePassword(event) {
     const modal = bootstrap.Modal.getInstance(modalElement);
     modal.hide();
     
-    // Tampilkan toast sukses
-    showToast('✓ Password berhasil diubah!\n\nAnda akan diminta login ulang di semua perangkat untuk keamanan.', 'success');
+    // Tampilkan alert sukses
+    showAlert(
+        'success',
+        'Password Berhasil Diubah',
+        'Anda akan diminta login ulang di semua perangkat untuk keamanan.'
+    );
     
     // Update tanggal terakhir diubah setelah modal tertutup
     setTimeout(() => {
@@ -210,62 +215,153 @@ function resetPasswordStrength() {
 }
 
 // Logout Device
-function logoutDevice(deviceName) {
-    if (confirm(`Logout dari perangkat "${deviceName}"?\n\nPerangkat ini akan diminta login ulang saat digunakan kembali.`)) {
-        showToast(`✓ Berhasil logout dari perangkat "${deviceName}"`, 'success');
-        
-        // Refresh activity list after 1 second
-        setTimeout(() => {
-            refreshLoginActivity();
-        }, 1000);
-    }
+function logoutDevice(deviceName, deviceId) {
+    showConfirmAlert(
+        'warning',
+        'PERINGATAN!',
+        `Anda akan logout dari perangkat "${deviceName}"?\n\nPerangkat ini akan diminta login ulang saat digunakan kembali.\n\nLanjutkan?`,
+        function() {
+            // Remove device from DOM
+            const deviceElement = document.querySelector(`[data-device="${deviceId}"]`);
+            if (deviceElement) {
+                // Add fade out animation
+                deviceElement.style.transition = 'all 0.3s ease';
+                deviceElement.style.opacity = '0';
+                deviceElement.style.transform = 'translateX(30px)';
+                
+                setTimeout(() => {
+                    deviceElement.remove();
+                    showAlert('success', 'Logout Berhasil', `Berhasil logout dari perangkat "${deviceName}"`);
+                }, 300);
+            }
+        }
+    );
 }
 
 // Logout All Devices
 function logoutAllDevices() {
-    if (confirm('⚠️ PERINGATAN!\n\nAnda akan logout dari SEMUA perangkat kecuali perangkat ini.\n\nAnda harus login ulang di semua perangkat lain.\n\nLanjutkan?')) {
-        showToast('✓ Berhasil logout dari semua perangkat!\n\nSemua sesi lain telah diakhiri. Anda tetap login di perangkat ini.', 'success');
-        
-        // Refresh activity list after 1 second
-        setTimeout(() => {
-            refreshLoginActivity();
-        }, 1000);
-    }
+    showConfirmAlert(
+        'warning',
+        'PERINGATAN!',
+        'Anda akan logout dari SEMUA perangkat kecuali perangkat ini.\n\nAnda harus login ulang di semua perangkat lain.\n\nLanjutkan?',
+        function() {
+            // Remove all devices except current
+            const allDevices = document.querySelectorAll('.activity-item:not(.activity-current)');
+            
+            allDevices.forEach((device, index) => {
+                setTimeout(() => {
+                    device.style.transition = 'all 0.3s ease';
+                    device.style.opacity = '0';
+                    device.style.transform = 'translateX(30px)';
+                    
+                    setTimeout(() => {
+                        device.remove();
+                    }, 300);
+                }, index * 100);
+            });
+            
+            setTimeout(() => {
+                showAlert(
+                    'success',
+                    'Logout Berhasil',
+                    'Berhasil logout dari semua perangkat!\n\nSemua sesi lain telah diakhiri. Anda tetap login di perangkat ini.'
+                );
+            }, allDevices.length * 100 + 300);
+        }
+    );
 }
 
 // Refresh Login Activity
 function refreshLoginActivity() {
-    showToast('🔄 Memperbarui daftar aktivitas login...', 'info');
+    showAlert('info', 'Memperbarui Data', 'Memperbarui daftar aktivitas login...');
     
     // Simulate refresh delay
     setTimeout(() => {
-        showToast('✓ Daftar aktivitas login telah diperbarui.', 'success');
+        showAlert('success', 'Data Diperbarui', 'Daftar aktivitas login telah diperbarui.');
     }, 1000);
 }
 
-// Show Toast Notification
-function showToast(message, type = 'success') {
-    const colors = {
-        success: '#67C090',
-        danger: '#EF4444',
-        warning: '#F59E0B',
-        info: '#26667F'
-    };
+// Show Alert Modal
+function showAlert(type, title, message) {
+    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+    const alertIcon = document.getElementById('alertIcon');
+    const alertTitle = document.getElementById('alertTitle');
+    const alertMessage = document.getElementById('alertMessage');
     
-    const toast = document.createElement('div');
-    toast.className = 'toast-notification';
-    toast.style.background = colors[type];
-    toast.textContent = message;
+    // Set icon based on type
+    alertIcon.className = `alert-icon ${type} mb-3`;
     
-    document.body.appendChild(toast);
+    let iconHTML = '';
+    switch(type) {
+        case 'success':
+            iconHTML = '<i class="bi bi-check-circle-fill"></i>';
+            break;
+        case 'danger':
+            iconHTML = '<i class="bi bi-x-circle-fill"></i>';
+            break;
+        case 'warning':
+            iconHTML = '<i class="bi bi-exclamation-triangle-fill"></i>';
+            break;
+        case 'info':
+            iconHTML = '<i class="bi bi-info-circle-fill"></i>';
+            break;
+    }
     
-    // Remove after 3 seconds
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => {
-            toast.remove();
-        }, 300);
-    }, 3000);
+    alertIcon.innerHTML = iconHTML;
+    alertTitle.textContent = title;
+    alertMessage.textContent = message;
+    
+    alertModal.show();
+}
+
+// Show Confirm Alert (for logout actions)
+function showConfirmAlert(type, title, message, onConfirm) {
+    // Create custom confirm modal
+    const confirmModalHTML = `
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content alert-modal-content">
+                    <div class="modal-body text-center p-4">
+                        <div class="alert-icon ${type} mb-3">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                        </div>
+                        <h5 class="alert-title mb-3">${title}</h5>
+                        <p class="alert-message">${message}</p>
+                        <div class="d-flex gap-2 justify-content-center mt-4">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary" id="confirmBtn">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing confirm modal if any
+    const existingModal = document.getElementById('confirmModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Add to body
+    document.body.insertAdjacentHTML('beforeend', confirmModalHTML);
+    
+    // Show modal
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    confirmModal.show();
+    
+    // Handle confirm button
+    document.getElementById('confirmBtn').addEventListener('click', function() {
+        confirmModal.hide();
+        if (onConfirm) {
+            onConfirm();
+        }
+    });
+    
+    // Clean up after modal is hidden
+    document.getElementById('confirmModal').addEventListener('hidden.bs.modal', function() {
+        this.remove();
+    });
 }
 
 // Initialize tooltips (Bootstrap 5)

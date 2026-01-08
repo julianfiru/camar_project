@@ -77,38 +77,38 @@
 <!-- Statistics Overview -->
 <div class="row g-4 mb-4">
     <div class="col-md-4">
-        <div class="stat-card">
-            <div class="stat-icon stat-icon-primary">
+        <div class="rt-stat-card">
+            <div class="rt-stat-icon rt-stat-icon-primary">
                 <i class="bi bi-cart-check-fill"></i>
             </div>
-            <div class="stat-content">
-                <div class="stat-label">Total Pembelian</div>
-                <div class="stat-value">{{ number_format($totalPurchased) }}</div>
-                <div class="stat-unit">ton CO₂e dibeli</div>
+            <div class="rt-stat-content">
+                <div class="rt-stat-label">Total Pembelian</div>
+                <div class="rt-stat-value">{{ number_format($totalPurchased) }}</div>
+                <div class="rt-stat-unit">ton CO₂e dibeli</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="stat-card stat-card-secondary">
-            <div class="stat-icon stat-icon-secondary">
+        <div class="rt-stat-card rt-stat-card-secondary">
+            <div class="rt-stat-icon rt-stat-icon-secondary">
                 <i class="bi bi-check-circle-fill"></i>
             </div>
-            <div class="stat-content">
-                <div class="stat-label">Sudah Direalisasikan</div>
-                <div class="stat-value">{{ number_format($totalRealized) }}</div>
-                <div class="stat-unit">ton CO₂e tersertifikasi</div>
+            <div class="rt-stat-content">
+                <div class="rt-stat-label">Sudah Direalisasikan</div>
+                <div class="rt-stat-value">{{ number_format($totalRealized) }}</div>
+                <div class="rt-stat-unit">ton CO₂e tersertifikasi</div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="stat-card stat-card-tertiary">
-            <div class="stat-icon stat-icon-tertiary">
+        <div class="rt-stat-card rt-stat-card-tertiary">
+            <div class="rt-stat-icon rt-stat-icon-tertiary">
                 <i class="bi bi-hourglass-split"></i>
             </div>
-            <div class="stat-content">
-                <div class="stat-label">Dalam Proses Realisasi</div>
-                <div class="stat-value">{{ number_format($totalPending) }}</div>
-                <div class="stat-unit">ton CO₂e (proyek berjalan)</div>
+            <div class="rt-stat-content">
+                <div class="rt-stat-label">Dalam Proses Realisasi</div>
+                <div class="rt-stat-value">{{ number_format($totalPending) }}</div>
+                <div class="rt-stat-unit">ton CO₂e (proyek berjalan)</div>
             </div>
         </div>
     </div>
@@ -117,10 +117,10 @@
 <!-- Filter Bar -->
 <div class="content-section mb-4">
     <h2 class="section-title mb-3">Filter Transaksi</h2>
-    <form id="filterForm" class="row g-3">
+    <form id="rt-filterForm" class="row g-3">
         <div class="col-md-4">
             <label class="form-label">Status Transaksi</label>
-            <select class="form-select" id="statusFilter" name="status">
+            <select class="form-select" id="rt-statusFilter" name="status">
                 <option value="">Semua Status</option>
                 <option value="active">Aktif</option>
                 <option value="completed">Selesai</option>
@@ -128,7 +128,7 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">Tahun Pembelian</label>
-            <select class="form-select" id="yearFilter" name="year">
+            <select class="form-select" id="rt-yearFilter" name="year">
                 <option value="">Semua Tahun</option>
                 <option value="2025">2025</option>
                 <option value="2024">2024</option>
@@ -137,7 +137,7 @@
         </div>
         <div class="col-md-4">
             <label class="form-label">Urutkan Berdasarkan</label>
-            <select class="form-select" id="sortFilter" name="sort">
+            <select class="form-select" id="rt-sortFilter" name="sort">
                 <option value="newest">Terbaru</option>
                 <option value="oldest">Terlama</option>
                 <option value="amount">Jumlah Terbesar</option>
@@ -147,29 +147,29 @@
 </div>
 
 <!-- Transactions List -->
-<div id="transactionsList">
+<div id="rt-transactionsList">
     @forelse($transactionsData as $tx)
         @php
             $percentage = ($tx->purchased > 0) ? round(($tx->realized / $tx->purchased) * 100) : 0;
         @endphp
         
-        <div class="transaction-card" data-status="{{ $tx->statusType }}" data-year="{{ $tx->year }}">
+        <div class="rt-transaction-card" data-status="{{ $tx->statusType }}" data-year="{{ $tx->year }}">
             <!-- Transaction Header -->
-            <div class="transaction-card-header">
-                <div class="transaction-info">
-                    <h4 class="transaction-title">{{ $tx->project }}</h4>
-                    <p class="transaction-company">{{ $tx->company }}</p>
-                    <div class="transaction-meta">
-                        <span class="meta-badge">
+            <div class="rt-transaction-card-header">
+                <div class="rt-transaction-info">
+                    <h4 class="rt-transaction-title">{{ $tx->project }}</h4>
+                    <p class="rt-transaction-company">{{ $tx->company }}</p>
+                    <div class="rt-transaction-meta">
+                        <span class="rt-meta-badge">
                             <i class="bi bi-calendar3"></i> {{ $tx->date }}
                         </span>
-                        <span class="meta-badge">
+                        <span class="rt-meta-badge">
                             <i class="bi bi-hash"></i> {{ $tx->id }}
                         </span>
                     </div>
                 </div>
-                <div class="transaction-status">
-                    <span class="status-badge status-{{ $tx->statusType }}">
+                <div class="rt-transaction-status">
+                    <span class="rt-status-badge rt-status-{{ $tx->statusType }}">
                         @if($tx->statusType === 'active')
                             ● {{ $tx->status }}
                         @else
@@ -179,66 +179,66 @@
                 </div>
             </div>
 
-            <div class="transaction-card-body">
+            <div class="rt-transaction-card-body">
                 <!-- Progress Section -->
-                <div class="progress-section">
-                    <h5 class="progress-title">
+                <div class="rt-progress-section">
+                    <h5 class="rt-progress-title">
                         <i class="bi bi-graph-up-arrow"></i> Progres Realisasi Offset
                     </h5>
                     
-                    <div class="progress-stats">
-                        <div class="progress-stat">
-                            <span class="progress-stat-label">Total Dibeli</span>
-                            <span class="progress-stat-value">{{ number_format($tx->purchased) }} <small>ton</small></span>
+                    <div class="rt-progress-stats">
+                        <div class="rt-progress-stat">
+                            <span class="rt-progress-stat-label">Total Dibeli</span>
+                            <span class="rt-progress-stat-value">{{ number_format($tx->purchased) }} <small>ton</small></span>
                         </div>
-                        <div class="progress-stat">
-                            <span class="progress-stat-label">Direalisasikan</span>
-                            <span class="progress-stat-value progress-stat-success">{{ number_format($tx->realized) }} <small>ton</small></span>
+                        <div class="rt-progress-stat">
+                            <span class="rt-progress-stat-label">Direalisasikan</span>
+                            <span class="rt-progress-stat-value rt-progress-stat-success">{{ number_format($tx->realized) }} <small>ton</small></span>
                         </div>
-                        <div class="progress-stat">
-                            <span class="progress-stat-label">Menunggu</span>
-                            <span class="progress-stat-value progress-stat-warning">{{ number_format($tx->pending) }} <small>ton</small></span>
-                        </div>
-                    </div>
-
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-fill" style="width: {{ $percentage }}%;">
-                            <span class="progress-bar-text">{{ $percentage }}%</span>
+                        <div class="rt-progress-stat">
+                            <span class="rt-progress-stat-label">Menunggu</span>
+                            <span class="rt-progress-stat-value rt-progress-stat-warning">{{ number_format($tx->pending) }} <small>ton</small></span>
                         </div>
                     </div>
 
-                    <p class="progress-note">
+                    <div class="rt-progress-bar-container">
+                        <div class="rt-progress-bar-fill" style="width: {{ $percentage }}%;">
+                            <span class="rt-progress-bar-text">{{ $percentage }}%</span>
+                        </div>
+                    </div>
+
+                    <p class="rt-progress-note">
                         <i class="bi bi-info-circle"></i> 
                         Realisasi offset dilakukan secara bertahap sesuai dengan jalannya proyek dan tidak terjadi secara langsung setelah pembelian.
                     </p>
                 </div>
 
                 <!-- Reports Section -->
-                <div class="reports-section">
-                    <h5 class="reports-title">
+                <div class="rt-reports-section">
+                    <h5 class="rt-reports-title">
                         <i class="bi bi-file-earmark-text"></i> 
                         Laporan Perkembangan Proyek ({{ count($tx->reports) }})
                     </h5>
                     
-                    <div class="reports-list">
+                    <div class="rt-reports-list">
                         @foreach($tx->reports as $report)
-                        <div class="report-item">
-                            <div class="report-info">
-                                <h6 class="report-title-text">{{ $report->title }}</h6>
-                                <div class="report-meta">
+                        <div class="rt-report-item">
+                            <div class="rt-report-info">
+                                <h6 class="rt-report-title-text">{{ $report->title }}</h6>
+                                <div class="rt-report-meta">
                                     <i class="bi bi-calendar3"></i> {{ $report->date }}
                                     @if($report->verified)
-                                        <span class="report-badge report-badge-verified">
+                                        <span class="rt-report-badge rt-report-badge-verified">
                                             <i class="bi bi-check-circle"></i> Terverifikasi
                                         </span>
                                     @else
-                                        <span class="report-badge report-badge-pending">
+                                        <span class="rt-report-badge rt-report-badge-pending">
                                             <i class="bi bi-clock"></i> Menunggu Verifikasi
                                         </span>
                                     @endif
                                 </div>
                             </div>
-                            <button class="btn-download" onclick="downloadReport('{{ $tx->id }}', '{{ $report->title }}')">
+                            <button class="rt-btn-download" onclick="downloadReport('{{ $tx->id }}', '{{ $report->title }}')">
                                 <i class="bi bi-download"></i> Unduh
                             </button>
                         </div>
@@ -248,22 +248,22 @@
 
                 <!-- Certificates Section -->
                 @if(count($tx->certificates) > 0)
-                <div class="certificates-section">
-                    <h5 class="certificates-title">
+                <div class="rt-certificates-section">
+                    <h5 class="rt-certificates-title">
                         <i class="bi bi-award"></i> 
                         Sertifikat Diterbitkan ({{ count($tx->certificates) }})
                     </h5>
                     
-                    <div class="certificates-grid">
+                    <div class="rt-certificates-grid">
                         @foreach($tx->certificates as $cert)
-                        <div class="certificate-item">
-                            <div class="certificate-icon">
+                        <div class="rt-certificate-item">
+                            <div class="rt-certificate-icon">
                                 <i class="bi bi-patch-check-fill"></i>
                             </div>
-                            <div class="certificate-info">
-                                <h6 class="certificate-amount">{{ number_format($cert->amount) }} ton CO₂e</h6>
-                                <p class="certificate-details">{{ $cert->id }} • Periode: {{ $cert->period }}</p>
-                                <button class="btn-view-cert" onclick="viewCertificate('{{ $cert->id }}')">
+                            <div class="rt-certificate-info">
+                                <h6 class="rt-certificate-amount">{{ number_format($cert->amount) }} ton CO₂e</h6>
+                                <p class="rt-certificate-details">{{ $cert->id }} • Periode: {{ $cert->period }}</p>
+                                <button class="rt-btn-view-cert" onclick="viewCertificate('{{ $cert->id }}')">
                                     <i class="bi bi-eye"></i> Lihat Sertifikat
                                 </button>
                             </div>
@@ -274,99 +274,27 @@
                 @endif
 
                 <!-- Action Button -->
-                <div class="transaction-actions">
-                    <button class="btn-detail" onclick="viewDetails('{{ $tx->id }}')">
+                <div class="rt-transaction-actions">
+                    <button class="rt-btn-detail" onclick="viewDetails('{{ $tx->id }}')">
                         <i class="bi bi-file-text"></i> Lihat Detail Lengkap Transaksi
                     </button>
                 </div>
             </div>
         </div>
     @empty
-        <div class="no-data">
-            <div class="no-data-icon">📋</div>
-            <h5 class="no-data-title">Belum ada transaksi</h5>
-            <p class="no-data-text">Transaksi Anda akan muncul di sini</p>
+        <div class="rt-no-data">
+            <div class="rt-no-data-icon">📋</div>
+            <h5 class="rt-no-data-title">Belum ada transaksi</h5>
+            <p class="rt-no-data-text">Transaksi Anda akan muncul di sini</p>
         </div>
     @endforelse
 </div>
 
 <!-- No Data Message (Hidden by default) -->
-<div id="noDataMessage" class="no-data" style="display: none;">
-    <div class="no-data-icon">📋</div>
-    <h5 class="no-data-title">Tidak ada transaksi ditemukan</h5>
-    <p class="no-data-text">Coba ubah filter pencarian Anda</p>
+<div id="rt-noDataMessage" class="rt-no-data" style="display: none;">
+    <div class="rt-no-data-icon">📋</div>
+    <h5 class="rt-no-data-title">Tidak ada transaksi ditemukan</h5>
+    <p class="rt-no-data-text">Coba ubah filter pencarian Anda</p>
 </div>
 
 @endsection
-
-@push('styles')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="{{ asset('css/Buyer/riwayat-transaksi.css') }}">
-@endpush
-
-@push('scripts')
-<script>
-// Filter functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const statusFilter = document.getElementById('statusFilter');
-    const yearFilter = document.getElementById('yearFilter');
-    const transactionsList = document.getElementById('transactionsList');
-    const noDataMessage = document.getElementById('noDataMessage');
-
-    function applyFilters() {
-        const status = statusFilter.value;
-        const year = yearFilter.value;
-        const cards = document.querySelectorAll('.transaction-card');
-        let visibleCount = 0;
-
-        cards.forEach(card => {
-            const cardStatus = card.getAttribute('data-status');
-            const cardYear = card.getAttribute('data-year');
-            
-            let show = true;
-            
-            if (status && cardStatus !== status) {
-                show = false;
-            }
-            
-            if (year && cardYear !== year) {
-                show = false;
-            }
-            
-            if (show) {
-                card.style.display = 'block';
-                visibleCount++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        
-        // Show/hide no data message
-        if (visibleCount === 0) {
-            transactionsList.style.display = 'none';
-            noDataMessage.style.display = 'flex';
-        } else {
-            transactionsList.style.display = 'block';
-            noDataMessage.style.display = 'none';
-        }
-    }
-
-    // Event listeners
-    statusFilter?.addEventListener('change', applyFilters);
-    yearFilter?.addEventListener('change', applyFilters);
-});
-
-// Action functions
-function downloadReport(txId, reportTitle) {
-    alert(`📥 Mengunduh laporan:\n"${reportTitle}"\n\nUntuk transaksi: ${txId}`);
-}
-
-function viewCertificate(certId) {
-    alert(`👁️ Membuka sertifikat: ${certId}`);
-}
-
-function viewDetails(txId) {
-    alert(`📄 Membuka detail lengkap transaksi: ${txId}`);
-}
-</script>
-@endpush

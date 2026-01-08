@@ -12,16 +12,22 @@ const FAKTOR_EMISI = {
 
 // Event listener untuk tombol hitung
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Emission Calculator - DOM loaded');
+    
     const hitungBtn = document.getElementById('hitungBtn');
+    console.log('Tombol hitung:', hitungBtn);
     
     if (hitungBtn) {
         hitungBtn.addEventListener('click', function() {
+            console.log('Tombol diklik!');
             hitungEmisi();
         });
     }
 
     // Event listener untuk Enter key pada semua input
-    const inputs = document.querySelectorAll('input[type="number"]');
+    const inputs = document.querySelectorAll('.emission-calculator-form-control');
+    console.log('Total input found:', inputs.length);
+    
     inputs.forEach(input => {
         input.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -44,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function hitungEmisi() {
+    console.log('Fungsi hitungEmisi dipanggil');
+    
     // Ambil nilai input
     const bensin = parseFloat(document.getElementById('bensin').value) || 0;
     const solar = parseFloat(document.getElementById('solar').value) || 0;
@@ -54,6 +62,8 @@ function hitungEmisi() {
     const travel = parseFloat(document.getElementById('travel').value) || 0;
     const limbah = parseFloat(document.getElementById('limbah').value) || 0;
     const offsetPercent = parseFloat(document.getElementById('offset').value) || 0;
+
+    console.log('Input values:', { bensin, solar, gas, listrik, steam, transport, travel, limbah, offsetPercent });
 
     // Validasi input
     if (bensin < 0 || solar < 0 || gas < 0 || listrik < 0 || steam < 0 || 
@@ -93,13 +103,22 @@ function hitungEmisi() {
     const offsetDibutuhkan = totalEmisi * (offsetPercent / 100);
     const emisiBersih = totalEmisi - offsetDibutuhkan;
 
+    console.log('Hasil kalkulasi:', { scope1, scope2, scope3, totalEmisi, offsetDibutuhkan, emisiBersih });
+
     // Tampilkan hasil dengan animasi
     tampilkanHasil(scope1, scope2, scope3, totalEmisi, offsetDibutuhkan, emisiBersih);
 }
 
 function tampilkanHasil(scope1, scope2, scope3, total, offset, bersih) {
+    console.log('Menampilkan hasil...');
+    
     // Tampilkan section hasil
     const hasilSection = document.getElementById('hasilSection');
+    
+    if (!hasilSection) {
+        console.error('Element hasilSection tidak ditemukan!');
+        return;
+    }
     
     // Hide terlebih dahulu untuk reset animasi
     hasilSection.style.display = 'none';
@@ -119,36 +138,19 @@ function tampilkanHasil(scope1, scope2, scope3, total, offset, bersih) {
     }, 150);
 
     // Animasi angka dengan delay untuk efek cascade
-    setTimeout(() => {
-        animateValue('hasilScope1', 0, scope1, 1000);
-    }, 200);
-    
-    setTimeout(() => {
-        animateValue('hasilScope2', 0, scope2, 1000);
-    }, 300);
-    
-    setTimeout(() => {
-        animateValue('hasilScope3', 0, scope3, 1000);
-    }, 400);
-    
-    setTimeout(() => {
-        animateValue('hasilTotal', 0, total, 1200);
-    }, 500);
-    
-    setTimeout(() => {
-        animateValue('hasilOffset', 0, offset, 1000);
-    }, 600);
-    
-    setTimeout(() => {
-        animateValue('hasilBersih', 0, bersih, 1000);
-    }, 700);
+    setTimeout(() => animateValue('hasilScope1', 0, scope1, 1000), 200);
+    setTimeout(() => animateValue('hasilScope2', 0, scope2, 1000), 300);
+    setTimeout(() => animateValue('hasilScope3', 0, scope3, 1000), 400);
+    setTimeout(() => animateValue('hasilTotal', 0, total, 1200), 500);
+    setTimeout(() => animateValue('hasilOffset', 0, offset, 1000), 600);
+    setTimeout(() => animateValue('hasilBersih', 0, bersih, 1000), 700);
 }
 
 function animateValue(id, start, end, duration) {
     const element = document.getElementById(id);
     
     if (!element) {
-        console.error('Element not found:', id);
+        console.error('Element tidak ditemukan:', id);
         return;
     }
     
@@ -181,7 +183,7 @@ function formatNumber(num) {
 
 // Reset button functionality (opsional)
 function resetForm() {
-    const inputs = document.querySelectorAll('input[type="number"]');
+    const inputs = document.querySelectorAll('.emission-calculator-form-control');
     inputs.forEach(input => {
         input.value = '';
     });

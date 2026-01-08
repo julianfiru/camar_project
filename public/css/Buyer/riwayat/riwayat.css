@@ -1,9 +1,10 @@
 /* ========================================
-   RIWAYAT TRANSAKSI - STYLES
+   RIWAYAT TRANSAKSI - STYLES (NAMESPACED)
+   Prefix: rt- (riwayat-transaksi)
    ======================================== */
 
 /* Statistics Cards */
-.stat-card {
+.rt-stat-card {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -14,15 +15,15 @@
     gap: 15px;
 }
 
-.stat-card.stat-card-secondary {
+.rt-stat-card.rt-stat-card-secondary {
     border-left-color: var(--color-secondary);
 }
 
-.stat-card.stat-card-tertiary {
+.rt-stat-card.rt-stat-card-tertiary {
     border-left-color: #FFB800;
 }
 
-.stat-icon {
+.rt-stat-icon {
     width: 50px;
     height: 50px;
     border-radius: 8px;
@@ -32,26 +33,26 @@
     font-size: 24px;
 }
 
-.stat-icon-primary {
+.rt-stat-icon-primary {
     background: var(--color-light);
     color: var(--color-primary);
 }
 
-.stat-icon-secondary {
+.rt-stat-icon-secondary {
     background: #E6F3F8;
     color: var(--color-secondary);
 }
 
-.stat-icon-tertiary {
+.rt-stat-icon-tertiary {
     background: #FFF4E6;
     color: #FFB800;
 }
 
-.stat-content {
+.rt-stat-content {
     flex: 1;
 }
 
-.stat-label {
+.rt-stat-label {
     font-size: 12px;
     color: #666;
     margin-bottom: 5px;
@@ -59,20 +60,20 @@
     font-weight: 600;
 }
 
-.stat-value {
+.rt-stat-value {
     font-size: 28px;
     font-weight: 700;
     color: var(--color-dark);
     margin-bottom: 3px;
 }
 
-.stat-unit {
+.rt-stat-unit {
     font-size: 12px;
     color: #888;
 }
 
 /* Transaction Card */
-.transaction-card {
+.rt-transaction-card {
     background: white;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -80,7 +81,7 @@
     margin-bottom: 20px;
 }
 
-.transaction-card-header {
+.rt-transaction-card-header {
     background: var(--color-light);
     border-bottom: 2px solid var(--color-primary);
     padding: 20px;
@@ -90,30 +91,30 @@
     gap: 15px;
 }
 
-.transaction-info {
+.rt-transaction-info {
     flex: 1;
 }
 
-.transaction-title {
+.rt-transaction-title {
     color: var(--color-dark);
     font-weight: 700;
     font-size: 18px;
     margin-bottom: 5px;
 }
 
-.transaction-company {
+.rt-transaction-company {
     color: #666;
     font-size: 14px;
     margin-bottom: 10px;
 }
 
-.transaction-meta {
+.rt-transaction-meta {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.meta-badge {
+.rt-meta-badge {
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -124,11 +125,11 @@
     color: #666;
 }
 
-.transaction-status {
+.rt-transaction-status {
     flex-shrink: 0;
 }
 
-.status-badge {
+.rt-status-badge {
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -138,22 +139,22 @@
     font-weight: 600;
 }
 
-.status-active {
+.rt-status-active {
     background: #D1FAE5;
     color: #065F46;
 }
 
-.status-completed {
+.rt-status-completed {
     background: #DBEAFE;
     color: #1E40AF;
 }
 
-.transaction-card-body {
+.rt-transaction-card-body {
     padding: 20px;
 }
 
 /* Progress Section */
-.progress-section {
+.rt-progress-section {
     background: #F9FAFB;
     border-radius: 8px;
     padding: 20px;
@@ -161,30 +162,31 @@
     border: 1px solid #E5E7EB;
 }
 
-.progress-title {
+.rt-progress-title {
     font-size: 15px;
     font-weight: 700;
     color: var(--color-dark);
     margin-bottom: 15px;
 }
 
-.progress-title i {
+.rt-progress-title i {
     color: var(--color-primary);
     margin-right: 5px;
 }
 
-.progress-stats {
+.rt-progress-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     margin-bottom: 15px;
 }
 
-.progress-stat {
+.rt-progress-stat {
     text-align: center;
 }
 
-.progress-stat-label {
+.rt-progress-stat-label {
+    display: block;
     font-size: 11px;
     color: #888;
     text-transform: uppercase;
@@ -192,26 +194,27 @@
     margin-bottom: 5px;
 }
 
-.progress-stat-value {
+.rt-progress-stat-value {
+    display: block;
     font-size: 22px;
     font-weight: 700;
     color: var(--color-dark);
 }
 
-.progress-stat-value small {
+.rt-progress-stat-value small {
     font-size: 13px;
     font-weight: 500;
 }
 
-.progress-stat-success {
+.rt-progress-stat-success {
     color: #10B981;
 }
 
-.progress-stat-warning {
+.rt-progress-stat-warning {
     color: #F59E0B;
 }
 
-.progress-bar-container {
+.rt-progress-bar-container {
     background: white;
     height: 25px;
     border-radius: 12px;
@@ -220,7 +223,7 @@
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.progress-bar-fill {
+.rt-progress-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
     display: flex;
@@ -228,47 +231,47 @@
     justify-content: center;
 }
 
-.progress-bar-text {
+.rt-progress-bar-text {
     color: white;
     font-size: 12px;
     font-weight: 600;
 }
 
-.progress-note {
+.rt-progress-note {
     font-size: 11px;
     color: #666;
     font-style: italic;
     margin: 0;
 }
 
-.progress-note i {
+.rt-progress-note i {
     color: var(--color-primary);
 }
 
 /* Reports Section */
-.reports-section {
+.rt-reports-section {
     margin-bottom: 20px;
 }
 
-.reports-title {
+.rt-reports-title {
     font-size: 15px;
     font-weight: 700;
     color: var(--color-dark);
     margin-bottom: 12px;
 }
 
-.reports-title i {
+.rt-reports-title i {
     color: var(--color-primary);
     margin-right: 5px;
 }
 
-.reports-list {
+.rt-reports-list {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.report-item {
+.rt-report-item {
     background: #F9FAFB;
     padding: 15px;
     border-radius: 8px;
@@ -279,27 +282,27 @@
     border: 1px solid #E5E7EB;
 }
 
-.report-info {
+.rt-report-info {
     flex: 1;
 }
 
-.report-title-text {
+.rt-report-title-text {
     font-size: 14px;
     font-weight: 600;
     color: var(--color-dark);
     margin-bottom: 5px;
 }
 
-.report-meta {
+.rt-report-meta {
     font-size: 12px;
     color: #666;
 }
 
-.report-meta i {
+.rt-report-meta i {
     margin-right: 3px;
 }
 
-.report-badge {
+.rt-report-badge {
     display: inline-flex;
     align-items: center;
     gap: 3px;
@@ -310,17 +313,17 @@
     margin-left: 8px;
 }
 
-.report-badge-verified {
+.rt-report-badge-verified {
     background: #D1FAE5;
     color: #065F46;
 }
 
-.report-badge-pending {
+.rt-report-badge-pending {
     background: #FEF3C7;
     color: #92400E;
 }
 
-.btn-download {
+.rt-btn-download {
     background: var(--color-primary);
     color: white;
     padding: 8px 15px;
@@ -332,36 +335,37 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    transition: background 0.3s ease;
 }
 
-.btn-download:hover {
+.rt-btn-download:hover {
     background: var(--color-secondary);
 }
 
 /* Certificates Section */
-.certificates-section {
+.rt-certificates-section {
     margin-bottom: 20px;
 }
 
-.certificates-title {
+.rt-certificates-title {
     font-size: 15px;
     font-weight: 700;
     color: var(--color-dark);
     margin-bottom: 12px;
 }
 
-.certificates-title i {
+.rt-certificates-title i {
     color: var(--color-primary);
     margin-right: 5px;
 }
 
-.certificates-grid {
+.rt-certificates-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 12px;
 }
 
-.certificate-item {
+.rt-certificate-item {
     background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-secondary) 100%);
     color: white;
     padding: 20px;
@@ -371,7 +375,7 @@
     gap: 12px;
 }
 
-.certificate-icon {
+.rt-certificate-icon {
     width: 45px;
     height: 45px;
     background: rgba(255, 255, 255, 0.2);
@@ -382,23 +386,23 @@
     font-size: 22px;
 }
 
-.certificate-info {
+.rt-certificate-info {
     flex: 1;
 }
 
-.certificate-amount {
+.rt-certificate-amount {
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 5px;
 }
 
-.certificate-details {
+.rt-certificate-details {
     font-size: 11px;
     opacity: 0.9;
     margin-bottom: 10px;
 }
 
-.btn-view-cert {
+.rt-btn-view-cert {
     background: white;
     color: var(--color-secondary);
     padding: 5px 12px;
@@ -410,19 +414,20 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    transition: background 0.3s ease;
 }
 
-.btn-view-cert:hover {
+.rt-btn-view-cert:hover {
     background: var(--color-light);
 }
 
 /* Transaction Actions */
-.transaction-actions {
+.rt-transaction-actions {
     padding-top: 15px;
     border-top: 1px solid #E5E7EB;
 }
 
-.btn-detail {
+.rt-btn-detail {
     width: 100%;
     background: var(--color-primary);
     color: white;
@@ -436,14 +441,15 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
+    transition: background 0.3s ease;
 }
 
-.btn-detail:hover {
+.rt-btn-detail:hover {
     background: var(--color-secondary);
 }
 
 /* No Data */
-.no-data {
+.rt-no-data {
     background: white;
     padding: 50px 30px;
     border-radius: 8px;
@@ -451,20 +457,20 @@
     text-align: center;
 }
 
-.no-data-icon {
+.rt-no-data-icon {
     font-size: 60px;
     opacity: 0.3;
     margin-bottom: 12px;
 }
 
-.no-data-title {
+.rt-no-data-title {
     font-weight: 700;
     color: var(--color-dark);
     margin-bottom: 5px;
     font-size: 16px;
 }
 
-.no-data-text {
+.rt-no-data-text {
     font-size: 13px;
     color: #888;
     margin: 0;
@@ -472,52 +478,52 @@
 
 /* Responsive */
 @media (max-width: 992px) {
-    .progress-stats {
+    .rt-progress-stats {
         grid-template-columns: 1fr;
         gap: 12px;
     }
 
-    .certificates-grid {
+    .rt-certificates-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 768px) {
-    .stat-card {
+    .rt-stat-card {
         flex-direction: column;
         text-align: center;
     }
 
-    .stat-icon {
+    .rt-stat-icon {
         width: 45px;
         height: 45px;
         font-size: 20px;
     }
 
-    .stat-value {
+    .rt-stat-value {
         font-size: 24px;
     }
 
-    .transaction-card-header {
+    .rt-transaction-card-header {
         flex-direction: column;
         gap: 10px;
     }
 
-    .transaction-card-body {
+    .rt-transaction-card-body {
         padding: 15px;
     }
 
-    .report-item {
+    .rt-report-item {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .btn-download {
+    .rt-btn-download {
         width: 100%;
         justify-content: center;
     }
 
-    .certificate-item {
+    .rt-certificate-item {
         flex-direction: column;
         text-align: center;
     }

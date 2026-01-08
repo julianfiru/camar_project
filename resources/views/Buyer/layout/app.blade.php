@@ -58,8 +58,10 @@
     <!-- Custom JS -->
     <script src="{{ asset('js/Buyer/dashboard/dashboard.js') }}"></script>
     <script src="{{ asset('js/Buyer/profil/profil.js') }}"></script>
-    <script src="{{ asset('js/Buyer/emisi/hutang.js') }}"></script>
+    <script src="{{ asset('js/Buyer/emisi/hitung.js') }}"></script>
     <script src="{{ asset('js/Buyer/emisi/catatan.js') }}"></script>
+    <script src="{{ asset('js/Buyer/laporan/laporan.js') }}"></script>
+    <script src="{{ asset('js/Buyer/riwayat/riwayat.js') }}"></script>
     <script src="{{ asset('js/Buyer/pengaturan/keamanan.js') }}"></script>
     <script src="{{ asset('js/Buyer/pengaturan/notifikasi.js') }}"></script>
     <script src="{{ asset('js/Buyer/pengaturan/bantuan.js') }}"></script>

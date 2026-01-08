@@ -1,436 +1,298 @@
 @extends('Buyer.layout.app')
 
-@section('title', 'Laporan Emisi - CAMAR')
+@section('title', 'Laporan - CAMAR')
+
+@section('page-title', 'Laporan')
+@section('page-subtitle', 'Kelola laporan carbon offset Anda')
 
 @section('Buyer.content')
-<div class="laporan-container">
-    <!-- Page Header -->
-    <div class="laporan-header">
-        <div class="header-content">
-            <h1 class="page-title">Laporan Emisi Karbon</h1>
-            <p class="page-subtitle">Kelola dan pantau laporan emisi karbon perusahaan Anda</p>
-        </div>
-        <div class="header-actions">
-            <button class="btn btn-outline-primary" id="btnFilter">
-                <i class="bi bi-funnel"></i> Filter
-            </button>
-            <button class="btn btn-primary" id="btnBuatLaporan">
-                <i class="bi bi-plus-lg"></i> Buat Laporan
-            </button>
-        </div>
-    </div>
-
-    <!-- Statistics Cards -->
+<div class="laporan-container-page">
+    <!-- Quick Stats -->
     <div class="row g-4 mb-4">
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-primary-subtle">
-                    <i class="bi bi-file-earmark-text text-primary"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 class="stat-value">24</h3>
-                    <p class="stat-label">Total Laporan</p>
-                </div>
+        <div class="col-md-4">
+            <div class="laporan-stat-card">
+                <div class="laporan-stat-label">TOTAL LAPORAN</div>
+                <div class="laporan-stat-value">12</div>
+                <div class="laporan-stat-unit">laporan tersedia</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-success-subtle">
-                    <i class="bi bi-check-circle text-success"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 class="stat-value">18</h3>
-                    <p class="stat-label">Terverifikasi</p>
-                </div>
+        <div class="col-md-4">
+            <div class="laporan-stat-card laporan-stat-card-secondary">
+                <div class="laporan-stat-label">LAPORAN BULAN INI</div>
+                <div class="laporan-stat-value">3</div>
+                <div class="laporan-stat-unit">laporan baru</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-warning-subtle">
-                    <i class="bi bi-clock-history text-warning"></i>
-                </div>
-                <div class="stat-content">
-                    <h3 class="stat-value">4</h3>
-                    <p class="stat-label">Menunggu Review</p>
-                </div>
+        <div class="col-md-4">
+            <div class="laporan-stat-card laporan-stat-card-tertiary">
+                <div class="laporan-stat-label">TOTAL DOWNLOAD</div>
+                <div class="laporan-stat-value">48</div>
+                <div class="laporan-stat-unit">kali diunduh</div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-danger-subtle">
-                    <i class="bi bi-x-circle text-danger"></i>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="laporan-form-label fw-semibold">Jenis Laporan</label>
+                    <select class="form-select laporan-form-select" id="filterJenis">
+                        <option value="">Semua Jenis</option>
+                        <option value="emisi">Laporan Emisi</option>
+                        <option value="offset">Laporan Offset</option>
+                        <option value="sertifikat">Laporan Sertifikat</option>
+                        <option value="tahunan">Laporan Tahunan</option>
+                    </select>
                 </div>
-                <div class="stat-content">
-                    <h3 class="stat-value">2</h3>
-                    <p class="stat-label">Ditolak</p>
+                <div class="col-md-4">
+                    <label class="laporan-form-label fw-semibold">Periode</label>
+                    <select class="form-select laporan-form-select" id="filterPeriode">
+                        <option value="">Semua Periode</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="laporan-form-label fw-semibold">Urutkan</label>
+                    <select class="form-select laporan-form-select" id="filterSort">
+                        <option value="newest">Terbaru</option>
+                        <option value="oldest">Terlama</option>
+                        <option value="type">Jenis Laporan</option>
+                    </select>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Filter Section (Initially Hidden) -->
-    <div class="filter-section mb-4" id="filterSection" style="display: none;">
-        <div class="card">
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label class="form-label">Periode</label>
-                        <select class="form-select">
-                            <option selected>Semua Periode</option>
-                            <option>Januari 2024</option>
-                            <option>Februari 2024</option>
-                            <option>Maret 2024</option>
-                            <option>Q1 2024</option>
-                            <option>Q2 2024</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Status</label>
-                        <select class="form-select">
-                            <option selected>Semua Status</option>
-                            <option>Terverifikasi</option>
-                            <option>Menunggu Review</option>
-                            <option>Draft</option>
-                            <option>Ditolak</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">Kategori</label>
-                        <select class="form-select">
-                            <option selected>Semua Kategori</option>
-                            <option>Scope 1</option>
-                            <option>Scope 2</option>
-                            <option>Scope 3</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">&nbsp;</label>
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-search"></i> Terapkan Filter
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tabs Navigation -->
-    <ul class="nav nav-tabs laporan-tabs mb-4" id="laporanTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="semua-tab" data-bs-toggle="tab" data-bs-target="#semua" type="button" role="tab">
-                <i class="bi bi-grid"></i> Semua Laporan
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="terverifikasi-tab" data-bs-toggle="tab" data-bs-target="#terverifikasi" type="button" role="tab">
-                <i class="bi bi-check-circle"></i> Terverifikasi
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab">
-                <i class="bi bi-clock-history"></i> Menunggu Review
-            </button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="draft-tab" data-bs-toggle="tab" data-bs-target="#draft" type="button" role="tab">
-                <i class="bi bi-file-earmark"></i> Draft
-            </button>
-        </li>
-    </ul>
-
-    <!-- Tabs Content -->
-    <div class="tab-content" id="laporanTabsContent">
-        <!-- Tab Semua Laporan -->
-        <div class="tab-pane fade show active" id="semua" role="tabpanel">
-            <div class="laporan-list">
-                <!-- Laporan Card 1 -->
-                <div class="laporan-card">
-                    <div class="laporan-card-header">
-                        <div class="laporan-info">
-                            <h3 class="laporan-title">Laporan Emisi Q1 2024</h3>
-                            <p class="laporan-meta">
-                                <i class="bi bi-calendar3"></i> Periode: Januari - Maret 2024
-                                <span class="separator">•</span>
-                                <i class="bi bi-clock"></i> Dibuat: 15 April 2024
-                            </p>
+    <!-- Reports List -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="laporan-section-title mb-4">Daftar Laporan (5)</h5>
+            
+            <div id="laporanList">
+                
+                <!-- Report 1 -->
+                <div class="laporan-report-item" data-type="progress" data-year="2025">
+                    <div class="laporan-report-header">
+                        <div>
+                            <div class="laporan-report-title">Laporan Progress Proyek Energi Terbarukan - Januari 2025</div>
+                            <div class="laporan-report-meta">PT Solar Energy Nusantara • 25 Januari 2025</div>
                         </div>
-                        <span class="badge badge-verified">
-                            <i class="bi bi-check-circle-fill"></i> Terverifikasi
-                        </span>
+                        <span class="laporan-badge-report laporan-badge-progress">Laporan Progress</span>
                     </div>
-                    <div class="laporan-card-body">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Total Emisi</span>
-                                    <span class="info-value">2,456.8 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 1</span>
-                                    <span class="info-value">856.2 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 2</span>
-                                    <span class="info-value">1,245.3 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 3</span>
-                                    <span class="info-value">355.3 tCO2e</span>
-                                </div>
-                            </div>
+                    
+                    <div class="laporan-report-info-grid">
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">PROYEK</span>
+                            <span class="laporan-report-info-value">Energi Terbarukan Jawa Timur</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">TANGGAL</span>
+                            <span class="laporan-report-info-value">20 Januari 2025</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">UKURAN FILE</span>
+                            <span class="laporan-report-info-value">2.8 MB (32 hal)</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">STATUS</span>
+                            <span class="laporan-report-info-value text-success">✓ Terverifikasi</span>
                         </div>
                     </div>
-                    <div class="laporan-card-footer">
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-eye"></i> Lihat Detail
+                    
+                    <div class="laporan-report-actions">
+                        <button class="btn laporan-btn-download">
+                            <i class="bi bi-download"></i> Download PDF
                         </button>
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-download"></i> Unduh PDF
+                        <button class="btn btn-outline-secondary laporan-btn-preview">
+                            <i class="bi bi-eye"></i> Preview
                         </button>
-                        <button class="btn btn-sm btn-outline-secondary">
+                        <button class="btn btn-outline-secondary laporan-btn-share">
                             <i class="bi bi-share"></i> Bagikan
                         </button>
                     </div>
                 </div>
 
-                <!-- Laporan Card 2 -->
-                <div class="laporan-card">
-                    <div class="laporan-card-header">
-                        <div class="laporan-info">
-                            <h3 class="laporan-title">Laporan Emisi Februari 2024</h3>
-                            <p class="laporan-meta">
-                                <i class="bi bi-calendar3"></i> Periode: Februari 2024
-                                <span class="separator">•</span>
-                                <i class="bi bi-clock"></i> Dibuat: 5 Maret 2024
-                            </p>
+                <!-- Report 2 -->
+                <div class="laporan-report-item" data-type="realisasi" data-year="2024">
+                    <div class="laporan-report-header">
+                        <div>
+                            <div class="laporan-report-title">Laporan Realisasi Offset Semester 2 - 2024</div>
+                            <div class="laporan-report-meta">PT Solar Energy Nusantara • 20 Desember 2024</div>
                         </div>
-                        <span class="badge badge-pending">
-                            <i class="bi bi-clock-history"></i> Menunggu Review
-                        </span>
+                        <span class="laporan-badge-report laporan-badge-realisasi">Laporan Realisasi</span>
                     </div>
-                    <div class="laporan-card-body">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Total Emisi</span>
-                                    <span class="info-value">784.5 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 1</span>
-                                    <span class="info-value">287.3 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 2</span>
-                                    <span class="info-value">412.7 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 3</span>
-                                    <span class="info-value">84.5 tCO2e</span>
-                                </div>
-                            </div>
+                    
+                    <div class="laporan-report-info-grid">
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">PROYEK</span>
+                            <span class="laporan-report-info-value">Energi Terbarukan Jawa Timur</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">TANGGAL</span>
+                            <span class="laporan-report-info-value">Juli - Desember 2024</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">UKURAN FILE</span>
+                            <span class="laporan-report-info-value">3.5 MB (48 hal)</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">STATUS</span>
+                            <span class="laporan-report-info-value text-success">✓ Terverifikasi</span>
                         </div>
                     </div>
-                    <div class="laporan-card-footer">
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-eye"></i> Lihat Detail
+                    
+                    <div class="laporan-report-actions">
+                        <button class="btn laporan-btn-download">
+                            <i class="bi bi-download"></i> Download PDF
                         </button>
-                        <button class="btn btn-sm btn-outline-warning">
-                            <i class="bi bi-pencil"></i> Edit
+                        <button class="btn btn-outline-secondary laporan-btn-preview">
+                            <i class="bi bi-eye"></i> Preview
                         </button>
-                        <button class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash"></i> Hapus
+                        <button class="btn btn-outline-secondary laporan-btn-share">
+                            <i class="bi bi-share"></i> Bagikan
                         </button>
                     </div>
                 </div>
 
-                <!-- Laporan Card 3 -->
-                <div class="laporan-card">
-                    <div class="laporan-card-header">
-                        <div class="laporan-info">
-                            <h3 class="laporan-title">Laporan Emisi Januari 2024</h3>
-                            <p class="laporan-meta">
-                                <i class="bi bi-calendar3"></i> Periode: Januari 2024
-                                <span class="separator">•</span>
-                                <i class="bi bi-clock"></i> Dibuat: 2 Februari 2024
-                            </p>
+                <!-- Report 3 -->
+                <div class="laporan-report-item" data-type="verifikasi" data-year="2024">
+                    <div class="laporan-report-header">
+                        <div>
+                            <div class="laporan-report-title">Laporan Verifikasi Proyek Reboisasi Kalimantan</div>
+                            <div class="laporan-report-meta">PT Hutan Hijau Indonesia • 15 Desember 2024</div>
                         </div>
-                        <span class="badge badge-draft">
-                            <i class="bi bi-file-earmark"></i> Draft
-                        </span>
+                        <span class="laporan-badge-report laporan-badge-verifikasi">Laporan Verifikasi</span>
                     </div>
-                    <div class="laporan-card-body">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Total Emisi</span>
-                                    <span class="info-value">892.1 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 1</span>
-                                    <span class="info-value">312.4 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 2</span>
-                                    <span class="info-value">478.2 tCO2e</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="info-item">
-                                    <span class="info-label">Scope 3</span>
-                                    <span class="info-value">101.5 tCO2e</span>
-                                </div>
-                            </div>
+                    
+                    <div class="laporan-report-info-grid">
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">PROYEK</span>
+                            <span class="laporan-report-info-value">Reboisasi Kalimantan</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">TANGGAL</span>
+                            <span class="laporan-report-info-value">14 Oktober 2024</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">UKURAN FILE</span>
+                            <span class="laporan-report-info-value">4.2 MB (56 hal)</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">STATUS</span>
+                            <span class="laporan-report-info-value text-success">✓ Terverifikasi</span>
                         </div>
                     </div>
-                    <div class="laporan-card-footer">
-                        <button class="btn btn-sm btn-primary">
-                            <i class="bi bi-pencil"></i> Lanjutkan Edit
+                    
+                    <div class="laporan-report-actions">
+                        <button class="btn laporan-btn-download">
+                            <i class="bi bi-download"></i> Download PDF
                         </button>
-                        <button class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-send"></i> Submit untuk Review
+                        <button class="btn btn-outline-secondary laporan-btn-preview">
+                            <i class="bi bi-eye"></i> Preview
                         </button>
-                        <button class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash"></i> Hapus
+                        <button class="btn btn-outline-secondary laporan-btn-share">
+                            <i class="bi bi-share"></i> Bagikan
                         </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Pagination -->
-            <nav aria-label="Pagination" class="mt-4">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">
-                            <i class="bi bi-chevron-left"></i>
-                        </a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
-        <!-- Tab Terverifikasi -->
-        <div class="tab-pane fade" id="terverifikasi" role="tabpanel">
-            <div class="laporan-list">
-                <div class="empty-state">
-                    <i class="bi bi-check-circle empty-icon"></i>
-                    <h3>Belum Ada Laporan Terverifikasi</h3>
-                    <p>Laporan yang telah diverifikasi akan muncul di sini</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab Menunggu Review -->
-        <div class="tab-pane fade" id="review" role="tabpanel">
-            <div class="laporan-list">
-                <div class="empty-state">
-                    <i class="bi bi-clock-history empty-icon"></i>
-                    <h3>Tidak Ada Laporan Menunggu Review</h3>
-                    <p>Laporan yang menunggu review akan muncul di sini</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tab Draft -->
-        <div class="tab-pane fade" id="draft" role="tabpanel">
-            <div class="laporan-list">
-                <div class="empty-state">
-                    <i class="bi bi-file-earmark empty-icon"></i>
-                    <h3>Tidak Ada Draft Laporan</h3>
-                    <p>Draft laporan Anda akan muncul di sini</p>
-                    <button class="btn btn-primary mt-3">
-                        <i class="bi bi-plus-lg"></i> Buat Laporan Baru
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Buat Laporan -->
-<div class="modal fade" id="modalBuatLaporan" tabindex="-1" aria-labelledby="modalBuatLaporanLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalBuatLaporanLabel">Buat Laporan Baru</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="formBuatLaporan">
-                    <div class="mb-3">
-                        <label for="judulLaporan" class="form-label">Judul Laporan</label>
-                        <input type="text" class="form-control" id="judulLaporan" placeholder="Contoh: Laporan Emisi Q1 2024" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="periodeLaporan" class="form-label">Periode Laporan</label>
-                        <select class="form-select" id="periodeLaporan" required>
-                            <option value="">Pilih periode</option>
-                            <option value="januari">Januari 2024</option>
-                            <option value="februari">Februari 2024</option>
-                            <option value="maret">Maret 2024</option>
-                            <option value="q1">Q1 2024</option>
-                            <option value="q2">Q2 2024</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="kategoriLaporan" class="form-label">Kategori Emisi</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="scope1" id="scope1">
-                            <label class="form-check-label" for="scope1">
-                                Scope 1 - Emisi Langsung
-                            </label>
+                <!-- Report 4 -->
+                <div class="laporan-report-item" data-type="monitoring" data-year="2024">
+                    <div class="laporan-report-header">
+                        <div>
+                            <div class="laporan-report-title">Laporan Monitoring Bulanan Mangrove - November 2024</div>
+                            <div class="laporan-report-meta">PT Ekosistem Lestari • 10 Desember 2024</div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="scope2" id="scope2">
-                            <label class="form-check-label" for="scope2">
-                                Scope 2 - Emisi Tidak Langsung (Energi)
-                            </label>
+                        <span class="laporan-badge-report laporan-badge-monitoring">Laporan Monitoring</span>
+                    </div>
+                    
+                    <div class="laporan-report-info-grid">
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">PROYEK</span>
+                            <span class="laporan-report-info-value">Konservasi Mangrove Sulawesi</span>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="scope3" id="scope3">
-                            <label class="form-check-label" for="scope3">
-                                Scope 3 - Emisi Rantai Nilai
-                            </label>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">TANGGAL</span>
+                            <span class="laporan-report-info-value">15 November 2024</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">UKURAN FILE</span>
+                            <span class="laporan-report-info-value">1.9 MB (24 hal)</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">STATUS</span>
+                            <span class="laporan-report-info-value text-success">✓ Terverifikasi</span>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="deskripsiLaporan" class="form-label">Deskripsi (Opsional)</label>
-                        <textarea class="form-control" id="deskripsiLaporan" rows="3" placeholder="Tambahkan deskripsi laporan..."></textarea>
+                    
+                    <div class="laporan-report-actions">
+                        <button class="btn laporan-btn-download">
+                            <i class="bi bi-download"></i> Download PDF
+                        </button>
+                        <button class="btn btn-outline-secondary laporan-btn-preview">
+                            <i class="bi bi-eye"></i> Preview
+                        </button>
+                        <button class="btn btn-outline-secondary laporan-btn-share">
+                            <i class="bi bi-share"></i> Bagikan
+                        </button>
                     </div>
-                </form>
+                </div>
+
+                <!-- Report 5 -->
+                <div class="laporan-report-item" data-type="realisasi" data-year="2024">
+                    <div class="laporan-report-header">
+                        <div>
+                            <div class="laporan-report-title">Laporan Realisasi Offset Q3 2024</div>
+                            <div class="laporan-report-meta">PT Hutan Hijau Indonesia • 25 Oktober 2024</div>
+                        </div>
+                        <span class="laporan-badge-report laporan-badge-realisasi">Laporan Realisasi</span>
+                    </div>
+                    
+                    <div class="laporan-report-info-grid">
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">PROYEK</span>
+                            <span class="laporan-report-info-value">Reboisasi Kalimantan</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">TANGGAL</span>
+                            <span class="laporan-report-info-value">Juli - September 2024</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">UKURAN FILE</span>
+                            <span class="laporan-report-info-value">3.1 MB (42 hal)</span>
+                        </div>
+                        <div class="laporan-report-info-item">
+                            <span class="laporan-report-info-label">STATUS</span>
+                            <span class="laporan-report-info-value text-success">✓ Terverifikasi</span>
+                        </div>
+                    </div>
+                    
+                    <div class="laporan-report-actions">
+                        <button class="btn laporan-btn-download">
+                            <i class="bi bi-download"></i> Download PDF
+                        </button>
+                        <button class="btn btn-outline-secondary laporan-btn-preview">
+                            <i class="bi bi-eye"></i> Preview
+                        </button>
+                        <button class="btn btn-outline-secondary laporan-btn-share">
+                            <i class="bi bi-share"></i> Bagikan
+                        </button>
+                    </div>
+                </div>
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary" id="btnSimpanLaporan">Buat Laporan</button>
+
+            <!-- No Data State -->
+            <div id="noDataMessage" class="text-center py-5 d-none">
+                <div class="mb-3" style="font-size: 72px; color: #ccc;">📋</div>
+                <h5 class="text-muted">Tidak ada laporan ditemukan</h5>
+                <p class="text-muted">Coba ubah filter pencarian Anda</p>
             </div>
         </div>
     </div>
 </div>
-
-@push('scripts')
-<script src="{{ asset('js/Buyer/laporan/laporan.js') }}"></script>
-@endpush
 @endsection

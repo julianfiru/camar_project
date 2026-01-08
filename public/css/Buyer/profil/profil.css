@@ -2,6 +2,11 @@
    PROFIL PERUSAHAAN STYLES
    ======================================== */
 
+/* Content Section Spacing */
+.content-section {
+    margin-bottom: 24px;
+}
+
 /* Company Header */
 .company-header {
     display: flex;
@@ -38,36 +43,7 @@
     color: #666;
     font-family: 'Inter', sans-serif;
     font-size: 15px;
-    margin-bottom: 12px;
-}
-
-.company-badges {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.company-badges span {
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-}
-
-.badge-verified {
-    background: var(--color-light);
-    color: var(--color-secondary);
-}
-
-.badge-gold {
-    background: #FFF4E6;
-    color: #F59E0B;
-}
-
-.badge-premium {
-    background: #E0F2FE;
-    color: #0284C7;
+    margin-bottom: 0;
 }
 
 /* Information Grid */
@@ -115,179 +91,6 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* Document List */
-.document-list {
-    display: grid;
-    gap: 18px;
-}
-
-.document-item {
-    background: #F9FAFB;
-    border-radius: 12px;
-    padding: 20px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-left: 5px solid var(--color-primary);
-    transition: all 0.3s ease;
-}
-
-.document-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-}
-
-.document-info {
-    flex: 1;
-}
-
-.document-title {
-    font-size: 16px;
-    color: var(--color-dark);
-    margin-bottom: 4px;
-    font-weight: 600;
-}
-
-.document-desc {
-    font-size: 13px;
-    color: #666;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-}
-
-/* Badges */
-.badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-}
-
-.badge-verified-doc {
-    background: #D1FAE5;
-    color: #065F46;
-}
-
-.badge-optional {
-    background: #FEF3C7;
-    color: #92400E;
-}
-
-/* Form Elements */
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-dark);
-    margin-bottom: 8px;
-    display: block;
-}
-
-.form-select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #E5E7EB;
-    border-radius: 8px;
-    font-size: 15px;
-    font-family: 'Ubuntu', sans-serif;
-    transition: all 0.3s ease;
-}
-
-.form-select:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(103, 192, 144, 0.1);
-}
-
-.form-control {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #E5E7EB;
-    border-radius: 8px;
-    font-size: 15px;
-    font-family: 'Ubuntu', sans-serif;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(103, 192, 144, 0.1);
-}
-
-.file-input {
-    padding: 10px;
-    border: 2px dashed var(--color-primary);
-    border-radius: 10px;
-    background: #F0FDF4;
-}
-
-.file-input:focus {
-    background: white;
-}
-
-.form-text {
-    font-size: 13px;
-    color: #666;
-    font-family: 'Inter', sans-serif;
-    font-style: italic;
-    margin-top: 8px;
-    display: block;
-}
-
-/* Payment List */
-.payment-list {
-    padding-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.payment-list li {
-    margin-bottom: 8px;
-    font-family: 'Inter', sans-serif;
-    color: #444;
-    font-size: 15px;
-}
-
-.payment-note {
-    font-size: 13px;
-    color: #666;
-    font-family: 'Inter', sans-serif;
-    font-style: italic;
-}
-
-/* Status Grid */
-.status-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-}
-
-.status-item {
-    display: flex;
-    flex-direction: column;
-}
-
-.status-label {
-    font-size: 13px;
-    color: #666;
-    font-family: 'Inter', sans-serif;
-    margin-bottom: 8px;
-}
-
-.status-value {
-    font-size: 16px;
-    color: var(--color-dark);
-    font-weight: 600;
-}
-
 /* Responsive - Tablet */
 @media (max-width: 992px) {
     .company-header {
@@ -296,16 +99,7 @@
         text-align: center;
     }
 
-    .company-badges {
-        justify-content: center;
-    }
-
     .info-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .status-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
@@ -313,6 +107,10 @@
 
 /* Responsive - Mobile */
 @media (max-width: 768px) {
+    .content-section {
+        margin-bottom: 20px;
+    }
+
     .company-name {
         font-size: 24px;
     }
@@ -325,16 +123,6 @@
 
     .company-tagline {
         font-size: 14px;
-    }
-
-    .document-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .document-item .badge {
-        align-self: flex-start;
     }
 
     .info-value {

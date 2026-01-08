@@ -55,20 +55,20 @@ Route::middleware(['auth'])->group(function () {
         });
     # SELLER #
 
-    # contoh lain: BUYER #
-        Route::middleware(['auth', 'role:Buyer'])->prefix('buyer')->group(function () {
+    # BUYER #
+        Route::middleware(['role:Buyer'])->prefix('buyer')->group(function () {
             Route::get('/dashboard', function () {
                 return view('Buyer.content.dashboard.dashboard');
-            })->name('buyer.dashboard');            
+            })->name('buyer.dashboard');
             Route::get('/profil', function () {
                 return view('Buyer.content.profil.profil');
             })->name('buyer.profil');
             Route::get('/hitung', function () {
                 return view('Buyer.content.emisi.hitung');
-            })->name('buyer.hitung');
+            })->name('buyer.emisi.hitung');
             Route::get('/catatan', function () {
                 return view('Buyer.content.emisi.catatan');
-            })->name('buyer.catatan');
+            })->name('buyer.emisi.catatan');
             Route::get('/laporan', function () {
                 return view('Buyer.content.laporan.laporan');
             })->name('buyer.laporan');
@@ -80,22 +80,22 @@ Route::middleware(['auth'])->group(function () {
             })->name('buyer.riwayat');
             Route::get('/keamanan', function () {
                 return view('Buyer.content.pengaturan.keamanan');
-            })->name('buyer.keamanan');
+            })->name('buyer.pengaturan.keamanan');
             Route::get('/pembayaran', function () {
                 return 'Halaman Metode Pembayaran';
             })->name('buyer.pembayaran');
             Route::get('/notifikasi', function () {
                 return view('Buyer.content.pengaturan.notifikasi');
-            })->name('buyer.notifikasi');
+            })->name('buyer.pengaturan.notifikasi');
             Route::get('/bantuan', function () {
                 return view('Buyer.content.pengaturan.bantuan');
-            })->name('buyer.bantuan');
+            })->name('buyer.pengaturan.bantuan');
             Route::get('/kebijakan', function () {
                 return view('Buyer.content.pengaturan.kebijakan');
-            })->name('buyer.kebijakan');
+            })->name('buyer.pengaturan.kebijakan');
             Route::get('/hapusakun', function () {
                 return view('Buyer.content.pengaturan.hapusakun');
-            })->name('buyer.hapusakun');
+            })->name('buyer.pengaturan.hapusakun');
         });
     # BUYER #
 
