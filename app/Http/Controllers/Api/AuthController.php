@@ -109,7 +109,8 @@ class AuthController extends Controller
                 Rule::unique('users', 'email')->where(function ($query) {
                     return $query->where('status', '!=', 0);
                 }),
-            ],
+                ],
+            'profile_photo' => 'required|string',
             'phone' => 'required|string|max:20',
             'industry' => 'required|string',
             'address' => 'required|string',
@@ -134,17 +135,21 @@ class AuthController extends Controller
                 ->withErrors($validator)
                 ->withInput($request->except('password', 'password_confirmation'));
         }
-
         try {
             DB::beginTransaction();
             $path = 'urlProfil/User1.gif';
-            if ($request->hasFile('profile_photo')) {
-                $file = $request->file('profile_photo');
-                $extension = $file->getClientOriginalExtension();
-                $fileName = $request->company_email . '.' . $extension;
-                $tujuanUpload = public_path('urlProfil');
-                $file->move($tujuanUpload, $fileName);
-                $path = 'urlProfil/' . $fileName;
+            if ($request->filled('profile_photo')) {
+                $base64_image = $request->input('profile_photo');
+                if (strpos($base64_image, 'data:image') === 0) {
+                    $image_parts = explode(";base64,", $base64_image);
+                    $image_type_aux = explode("image/", $image_parts[0]);
+                    $extension = $image_type_aux[1];
+                    $image_base64 = base64_decode($image_parts[1]);
+                    $fileName = $request->company_email . '.' . $extension;
+                    $tujuanUpload = public_path('urlProfil/' . $fileName);
+                    file_put_contents($tujuanUpload, $image_base64);
+                    $path = 'urlProfil/' . $fileName;
+                }
             }
             $user = User::create([
                 'email' => $request->company_email,

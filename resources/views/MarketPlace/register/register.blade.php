@@ -68,7 +68,6 @@
         <!-- Registration Form -->
         <form id="registerForm" method="POST" action="{{ route('register.process') }}" enctype="multipart/form-data">
             @csrf
-
             <!-- STEP 1: Tipe Akun -->
             <div class="form-step active" data-step="1">
                 <h2 class="step-title">Pilih Tipe Akun</h2>
@@ -245,7 +244,6 @@
                             </div>
                         </div>
                     </div>
-
                     <input type="hidden" id="croppedImage" name="profile_photo">
                 </div>
             </div>

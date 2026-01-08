@@ -173,39 +173,40 @@ if (profilePhotoInput) {
         // Validate file size (max 5MB)
         if (file.size > 5 * 1024 * 1024) {
             alert('Ukuran file maksimal 5MB');
+            this.value = ''; // Reset jika gagal
             return;
         }
         
         // Validate file type
         if (!file.type.match('image.*')) {
             alert('File harus berupa gambar');
+            this.value = ''; // Reset jika gagal
             return;
         }
         
-        // Read file and show crop modal
         const reader = new FileReader();
         reader.onload = function(event) {
-            document.getElementById('cropImage').src = event.target.result;
+            const imageElement = document.getElementById('cropImage');
+            imageElement.src = event.target.result;
+            
             document.getElementById('cropModal').style.display = 'flex';
             
             // Initialize cropper
-            initCropper();
+            initCropper(imageElement);
         };
         reader.readAsDataURL(file);
     });
 }
 
 // Initialize Cropper
-function initCropper() {
-    const image = document.getElementById('cropImage');
-    
-    // Destroy previous cropper if exists
+function initCropper(imageElement) {
+    // Hancurkan cropper lama jika ada
     if (cropper) {
         cropper.destroy();
     }
     
     // Create new cropper
-    cropper = new Cropper(image, {
+    cropper = new Cropper(imageElement, {
         aspectRatio: 1,
         viewMode: 1,
         dragMode: 'move',
@@ -233,9 +234,9 @@ function closeCropModal() {
 
 // Save Cropped Image
 function saveCroppedImage() {
+    // Cek jika cropper belum siap
     if (!cropper) return;
     
-    // Get cropped canvas
     const canvas = cropper.getCroppedCanvas({
         width: 400,
         height: 400,
@@ -246,14 +247,20 @@ function saveCroppedImage() {
     // Convert to base64
     const croppedImageData = canvas.toDataURL('image/jpeg', 0.9);
     
-    // Store in hidden input
-    document.getElementById('croppedImage').value = croppedImageData;
-    
-    // Update preview
+    // 1. MASUKKAN KE HIDDEN INPUT (Target Utama)
+    const hiddenInput = document.getElementById('croppedImage');
+    if (hiddenInput) {
+        hiddenInput.value = croppedImageData;
+        // console.log("Data tersimpan di hidden input"); // Uncomment untuk debug
+    }
+
+    // 2. UPDATE PREVIEW (Hanya jika elemennya ada, agar tidak error)
     const photoPreview = document.getElementById('photoPreview');
-    photoPreview.innerHTML = `<img src="${croppedImageData}" alt="Profile Photo">`;
+    if (photoPreview) {
+        photoPreview.innerHTML = `<img src="${croppedImageData}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+    }
     
-    // Close modal
+    // Close modal (JANGAN reset input hidden di sini, closeCropModal hanya reset file input)
     closeCropModal();
 }
 
