@@ -339,149 +339,35 @@
             </div>
             
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="{{ asset('images/project-mangrove.jpg') }}" alt="Rehabilitasi Mangrove">
-                            <span class="project-category">Mangrove</span>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-company">PT Konservasi Hijau</div>
-                            <h3 class="project-name">Rehabilitasi Mangrove Pesisir Jawa</h3>
-                            <div class="project-duration">
-                                <span>📅</span>
-                                <span>24 Bulan</span>
+                @forelse($proyek as $item)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="{{ asset($item->photo_url) }}" alt="{{ $item->photo_url }}">
+                                <span class="project-category">{{ $item->category->category_name ?? 'Uncategorized' }}</span>
                             </div>
-                            <p class="project-description">
-                                Restorasi ekosistem mangrove seluas 500 hektar di pesisir utara Jawa untuk mitigasi abrasi dan penyerapan karbon.
-                            </p>
-                            <div class="project-footer">
-                                <div class="project-price">Rp 250K<span>/ton CO₂</span></div>
-                                <a href="{{ route('marketplace.product_detail.mangrove') }}" class="btn-project-detail">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="{{ asset('images/project-forest.jpg') }}" alt="Hutan Tropis">
-                            <span class="project-category">Hutan Tropis</span>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-company">Yayasan Rimba Lestari</div>
-                            <h3 class="project-name">Konservasi Hutan Kalimantan</h3>
-                            <div class="project-duration">
-                                <span>📅</span>
-                                <span>36 Bulan</span>
-                            </div>
-                            <p class="project-description">
-                                Perlindungan dan pemulihan hutan hujan tropis Kalimantan seluas 1000 hektar untuk habitat orangutan dan penyimpanan karbon.
-                            </p>
-                            <div class="project-footer">
-                                <div class="project-price">Rp 180K<span>/ton CO₂</span></div>
-                                <button class="btn-project-detail">Detail</button>
+                            <div class="project-info">
+                                <div class="project-company">{{ $item->seller->company_name ?? 'Unknown Seller' }}</div>
+                                <h3 class="project-name">{{ $item->project_name }}</h3>
+                                <div class="project-duration">
+                                    <span>📅</span>
+                                    <span>{{ $item->duration_years }} Tahun</span> 
+                                </div>
+                                <p class="project-description">
+                                    {{ Str::limit($item->desc, 100) }}
+                                </p>
+                                <div class="project-footer">
+                                    <div class="project-price">Rp {{ format_angka_singkat($item->price, 1, ',', '.') }}<span>/ton CO₂</span></div>
+                                    <a href="{{ route('marketplace.product_detail', $item->id) }}" class="btn-project-detail">Detail</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="{{ asset('images/project-energy.jpg') }}" alt="Energi Terbarukan">
-                            <span class="project-category">Energi Bersih</span>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-company">Indonesia Green Energy</div>
-                            <h3 class="project-name">Pembangkit Listrik Tenaga Surya</h3>
-                            <div class="project-duration">
-                                <span>📅</span>
-                                <span>60 Bulan</span>
-                            </div>
-                            <p class="project-description">
-                                Instalasi sistem PLTS skala komunitas dengan kapasitas 5MW untuk mengurangi emisi dari pembangkit fosil.
-                            </p>
-                            <div class="project-footer">
-                                <div class="project-price">Rp 320K<span>/ton CO₂</span></div>
-                                <button class="btn-project-detail">Detail</button>
-                            </div>
-                        </div>
+                @empty
+                    <div class="col-12">
+                        <p class="text-center">Tidak ada proyek tersedia saat ini.</p>
                     </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="{{ asset('images/project-peat.jpg') }}" alt="Gambut">
-                            <span class="project-category">Lahan Gambut</span>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-company">Gambut Lestari Foundation</div>
-                            <h3 class="project-name">Restorasi Lahan Gambut Sumatra</h3>
-                            <div class="project-duration">
-                                <span>📅</span>
-                                <span>48 Bulan</span>
-                            </div>
-                            <p class="project-description">
-                                Pemulihan ekosistem lahan gambut yang terdegradasi seluas 300 hektar untuk mencegah kebakaran dan emisi karbon.
-                            </p>
-                            <div class="project-footer">
-                                <div class="project-price">Rp 290K<span>/ton CO₂</span></div>
-                                <button class="btn-project-detail">Detail</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="{{ asset('images/project-community.jpg') }}" alt="Community">
-                            <span class="project-category">Pemberdayaan</span>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-company">Komunitas Hijau Indonesia</div>
-                            <h3 class="project-name">Agroforestri Berbasis Komunitas</h3>
-                            <div class="project-duration">
-                                <span>📅</span>
-                                <span>30 Bulan</span>
-                            </div>
-                            <p class="project-description">
-                                Program agroforestri yang melibatkan 500 petani untuk meningkatkan tutupan hijau sekaligus kesejahteraan ekonomi.
-                            </p>
-                            <div class="project-footer">
-                                <div class="project-price">Rp 210K<span>/ton CO₂</span></div>
-                                <button class="btn-project-detail">Detail</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="{{ asset('images/project-ocean.jpg') }}" alt="Ocean">
-                            <span class="project-category">Laut Biru</span>
-                        </div>
-                        <div class="project-info">
-                            <div class="project-company">Ocean Conservation Network</div>
-                            <h3 class="project-name">Konservasi Terumbu Karang</h3>
-                            <div class="project-duration">
-                                <span>📅</span>
-                                <span>36 Bulan</span>
-                            </div>
-                            <p class="project-description">
-                                Restorasi dan perlindungan terumbu karang di kawasan Kepulauan Seribu untuk biodiversitas laut dan carbon sink.
-                            </p>
-                            <div class="project-footer">
-                                <div class="project-price">Rp 340K<span>/ton CO₂</span></div>
-                                <button class="btn-project-detail">Detail</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

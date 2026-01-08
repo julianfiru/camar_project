@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\MarketPlace\Home\Home;
 use App\Http\Controllers\Seller\Customer\CustomerSeller;
 use App\Http\Controllers\Seller\Dashboard\DashboardSeller;
 use App\Http\Controllers\Seller\Penjualan\PenjualanSeller;
@@ -10,27 +11,22 @@ use App\Http\Controllers\Seller\Profil\ProfilSeller;
 use App\Http\Controllers\Seller\Proyek\ProyekSeller;
 
 # MarketPlace
-Route::get('/', function () {
-    return view('MarketPlace.landing.landing');
-})->name('home');
-Route::get('/kalkulator', function () {
-    return view('MarketPlace.calculator.calculator');
-})->name('calculator');
+    Route::get('/', [Home::class, 'index'])->name('home');
+    Route::get('/kalkulator', function () {
+        return view('MarketPlace.calculator.calculator');
+    })->name('calculator');
 
-Route::get('/proyek', function () {
-    return view('MarketPlace.projects.projects');
-})->name('projects');
+    Route::get('/proyek', function () {
+        return view('MarketPlace.projects.projects');
+    })->name('projects');
+    Route::get('/marketplace/product/{id}', [ProdukDetail::class, 'detail'])->name('marketplace.product_detail');
+    Route::get('/edukasi', function () {
+        return view('MarketPlace.edukasi.edukasi');
+    })->name('edukasi');
 
-Route::get('/proyek/rehabilitasi-mangrove-pesisir-jawa', function () {
-    return view('MarketPlace.product-detail.product-detail');
-})->name('marketplace.product_detail.mangrove');
-Route::get('/edukasi', function () {
-    return view('MarketPlace.edukasi.edukasi');
-})->name('edukasi');
-
-Route::get('/tentang', function () {
-    return view('MarketPlace.tentang.tentang');
-})->name('about');
+    Route::get('/tentang', function () {
+        return view('MarketPlace.tentang.tentang');
+    })->name('about');
 # MarketPlace
 
 # Authentication
