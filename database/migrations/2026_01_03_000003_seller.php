@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('bio');
             $table->string('desc');
             $table->text('address');
-            $table->timestamp('verified_at');
+            $table->timestamp('verified_at')->nullable();
             $table->foreign('user_id')->references('user_id')->on('users');
         });
         Schema::create('seller_badges', function (Blueprint $table) {
@@ -51,6 +51,7 @@ return new class extends Migration
             $table->decimal('size', 65, 0);
             $table->integer('document_status');
             $table->string('document_url');
+            $table->timestamp('submitted_at');
 
             $table->foreign('seller_id')->references('seller_id')->on('sellers');
         });

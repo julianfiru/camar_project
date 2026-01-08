@@ -89,7 +89,9 @@
 
                                     <td class="text-center pe-4">
                                         <button class="btn btn-sm rounded-pill bdc-green" 
-                                                onclick="showProjectDetail({{ $item->project_id }})">
+                                                data-bs-target="#projectModal"
+                                                onclick="showProjectDetail(this)"  
+                                                data-url="{{ route('seller.project.detail', $item->project_id) }}">
                                             Detail
                                         </button>
                                     </td>
@@ -168,7 +170,6 @@
                 </div>
             </div>
         </div>
+    @include('Seller.Content.Proyek.tproyek')
+    <script src="{{ asset('js/seller/proyek/DetailProyek.js') }}"></script>
 @endsection
-@push('scripts')
-    <script src="{{ asset('detail/projek/detail_project.js') }}"></script>
-@endpush

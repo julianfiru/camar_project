@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('bio');
             $table->string('desc');
             $table->text('address');
-            $table->timestamp('verified_at');
+            $table->timestamp('verified_at')->nullable();
             
             $table->foreign('user_id')->references('user_id')->on('users');
         });

@@ -106,7 +106,6 @@ class AuthController extends Controller
             'company_email' => [
                 'required',
                 'email',
-                // Hanya blokir email yang sudah dipakai akun dengan status != 0 (pending/aktif).
                 Rule::unique('users', 'email')->where(function ($query) {
                     return $query->where('status', '!=', 0);
                 }),
@@ -138,20 +137,22 @@ class AuthController extends Controller
 
         try {
             DB::beginTransaction();
-            $profilePhotoPath = null;
-            if ($request->filled('profile_photo')) {
-                // Store cropped profile photo under public/images/profile
-                $profilePhotoPath = $this->saveBase64Image($request->profile_photo, 'images/profile');
-                \Log::info('Profile photo saved during registration', ['profilePhotoPath' => $profilePhotoPath]);
+            $path = 'urlProfil/User1.gif';
+            if ($request->hasFile('profile_photo')) {
+                $file = $request->file('profile_photo');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $request->company_email . '.' . $extension;
+                $tujuanUpload = public_path('urlProfil');
+                $file->move($tujuanUpload, $fileName);
+                $path = 'urlProfil/' . $fileName;
             }
             $user = User::create([
                 'email' => $request->company_email,
-                'photo_url' => $profilePhotoPath ?: 'urlProfil/User1.gif',
+                'photo_url' => $path,
                 'password_hash' => Hash::make($request->password),
                 'role' => $request->account_type,
-                'status' => 1, // 1 = pending
+                'status' => 1,
                 'created_at' => now(),
-                // Kolom last_login di DB tidak nullable, isi awal sama dengan waktu registrasi
                 'last_login' => now(),
             ]);
             if ($request->account_type === 'buyer') {
@@ -184,7 +185,6 @@ class AuthController extends Controller
                 $this->uploadSellerDocuments($request, $seller->seller_id);
             }
             DB::commit();
-            \Log::info('User created', ['user_id' => $user->user_id, 'photo_url' => $user->photo_url]);
             return redirect()
                 ->route('register.success')
                 ->with('success', 'Registrasi berhasil! Akun Anda akan ditinjau dan diaktifkan oleh admin/auditor.');
@@ -212,7 +212,6 @@ class AuthController extends Controller
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
                 $sizeKb = round($file->getSize() / 1024, 2);
-                // Back to original: store in storage/app/public/documents/...
                 $path = $file->store('documents/buyer/' . $buyerId, 'public');
                 
                 BuyerDocumentation::create([

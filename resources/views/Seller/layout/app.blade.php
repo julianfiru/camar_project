@@ -9,12 +9,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/seller/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/seller/performa.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Seller/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Seller/performa.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Seller/form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/root.css') }}">
 </head>
     <body data-theme="">
-        
         <div class="container">
             <aside class="sidebar d-flex flex-column flex-shrink-0 vh-100 fixed-top" id="sidebar">
                 <div class="logo p-4 mb-3" onclick="navigateTo('dashboard')">
@@ -69,6 +69,18 @@
                             <span>Performa</span>
                         </a>
                     </li>
+                    <li class="nav-item mb-2">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="border-0 nav-link d-flex align-items-center w-100" style="cursor: pointer;">
+                                <svg class="bi me-3" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 0h-8A1.5 1.5 0 0 0 0 1.5v9A1.5 1.5 0 0 0 1.5 12h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                                </svg>
+                                <span>Keluar</span>
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </aside>
             <main class="main-content {{ Request::is('seller.proyek') ? 'ProyekCard' : '' }}">
@@ -80,37 +92,17 @@
                         </div>
                         <div class="d-flex align-items-center gap-3">
                             <div class="text-end d-none d-sm-block">
-                                <p class="fw-bold mb-1 fs-5">{{ $companyName ?? $displayName }}</p>
-                                <small class="d-block text-muted mb-2 fw-semibold">{{ $roleLabel ?? '' }}</small>
+                                <p class="fw-bold mb-2">{{ $companyName }}</p>
                                 <span class="badge rounded-pill px-3 py-2 fw-bold" style="{{ $badgeStyle }}"> 
                                     {{ $badgeLevel }}
                                 </span>
                             </div>
-                            <div class="dropdown">
-                                <a href="#" class="d-inline-block" id="sellerUserDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold company-logo overflow-hidden bg-secondary" 
-                                        style="width: 45px; height: 45px; min-width: 45px;">
-                                        <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
-                                            alt="Profile" 
-                                            class="w-100 h-100" 
-                                            style="object-fit: cover;">
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="sellerUserDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}">Dashboard</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('seller.profil') }}">Pengaturan</a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form-seller').submit();">Logout</a>
-                                        <form id="logout-form-seller" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </li>
-                                </ul>
+                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold company-logo overflow-hidden bg-secondary" 
+                                style="width: 45px; height: 45px; min-width: 45px;">
+                                <img src="{{ asset($photoUrl) }}" 
+                                    alt="Profile" 
+                                    class="w-100 h-100" 
+                                    style="object-fit: cover;">
                             </div>
                         </div>
                     </div>

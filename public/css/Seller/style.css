@@ -209,6 +209,25 @@ body {
         border-bottom: 1px solid var(--table-row-border);
         color: var(--stat-title-color);
     }
+
+    .product-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        /* Bootstrap class 'rounded' handles border-radius */
+    }
+
+    .product-title {
+        font-weight: 600; /* Semi-bold */
+        font-size: 1rem;
+        color: var(--navy);
+    }
+
+    .meta-text {
+        font-size: 0.875rem; /* Setara small */
+        color: var(--gray);
+        line-height: 1.4;
+    }
 /* TABLE */
 
 /* CARD STATUS */
@@ -341,3 +360,28 @@ body {
         z-index: 10;
     }
 /* CHART */
+
+/* MODAL */
+    .nav-tabs .nav-link {
+        color: var(--navy);
+        border: none;
+        border-bottom: 2px solid transparent;
+    }
+    .nav-tabs .nav-link:hover {
+        color: var(--green);
+        border-color: transparent;
+        isolation: isolate;
+    }
+    .nav-tabs .nav-link.active {
+        color: var(--teal) !important;
+        background: transparent;
+        border-bottom: 2px solid var(--green);
+    }
+    .modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+        width: 6px;
+    }
+    .modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 4px;
+    }
+/* MODAL */
