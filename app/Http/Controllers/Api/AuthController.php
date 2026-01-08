@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
@@ -141,7 +140,8 @@ class AuthController extends Controller
             DB::beginTransaction();
             $profilePhotoPath = null;
             if ($request->filled('profile_photo')) {
-                $profilePhotoPath = $this->saveBase64Image($request->profile_photo, 'profile_photos');
+                // Store cropped profile photo under public/images/profile
+                $profilePhotoPath = $this->saveBase64Image($request->profile_photo, 'images/profile');
                 \Log::info('Profile photo saved during registration', ['profilePhotoPath' => $profilePhotoPath]);
             }
             $user = User::create([
@@ -211,13 +211,15 @@ class AuthController extends Controller
         foreach ($documents as $key => $name) {
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
+                $sizeKb = round($file->getSize() / 1024, 2);
+                // Back to original: store in storage/app/public/documents/...
                 $path = $file->store('documents/buyer/' . $buyerId, 'public');
                 
                 BuyerDocumentation::create([
                     'buyer_id' => $buyerId,
                     'document_name' => $name,
                     'document_type' => $file->getClientOriginalExtension(),
-                    'size' => round($file->getSize() / 1024, 2),
+                    'size' => $sizeKb,
                     'document_status' => 1,
                     'document_url' => $path,
                 ]);
@@ -255,13 +257,16 @@ class AuthController extends Controller
         foreach ($documents as $key => $name) {
             if ($request->hasFile($key)) {
                 $file = $request->file($key);
+                $sizeBytes = $file->getSize();
+                // Back to original: store in storage/app/public/documents/...
                 $path = $file->store('documents/seller/' . $sellerId, 'public');
                 
                 SellerDocumentation::create([
                     'seller_id' => $sellerId,
                     'document_name' => $name,
                     'document_type' => $file->getClientOriginalExtension(),
-                    'size' => $file->getSize(),
+                    // keep original: store raw bytes
+                    'size' => $sizeBytes,
                     'document_status' => 1,
                     'document_url' => $path,
                 ]);
@@ -298,14 +303,25 @@ class AuthController extends Controller
             return null;
         }
 
+        $folder = trim((string) $folder, '/');
+
         // Generate unique filename
         $fileName = uniqid() . '_' . time() . '.png';
-        $filePath = $folder . '/' . $fileName;
+        $relativePath = $folder . '/' . $fileName;
 
-        // Save to storage/app/public
-        Storage::disk('public')->put($filePath, $imageData);
+        // Save directly under public/ (as requested)
+        $targetDir = public_path($folder);
+        if (!is_dir($targetDir)) {
+            @mkdir($targetDir, 0755, true);
+        }
 
-        return $filePath;
+        $fullPath = public_path($relativePath);
+        $written = @file_put_contents($fullPath, $imageData);
+        if ($written === false) {
+            return null;
+        }
+
+        return $relativePath;
     }
 
     /**
