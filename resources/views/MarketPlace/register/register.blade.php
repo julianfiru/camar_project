@@ -121,9 +121,9 @@
                         <input type="tel" name="phone" placeholder="+62 812-3456-7890" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="industryGroup">
                         <label><i class="fas fa-industry"></i> Industri <span class="required">*</span></label>
-                        <select name="industry" required>
+                        <select name="industry" id="industrySelect" required>
                             <option value="">Pilih industri</option>
                             <option value="manufacturing">Manufacturing</option>
                             <option value="energy">Energy & Utilities</option>
@@ -136,6 +136,7 @@
                             <option value="other">Lainnya</option>
                         </select>
                     </div>
+                    <input type="hidden" name="industry" id="sellerIndustryInput" value="Perdagangan Karbon" disabled>
 
                     <div class="form-group full-width">
                         <label><i class="fas fa-map-marker-alt"></i> Alamat Perusahaan <span class="required">*</span></label>

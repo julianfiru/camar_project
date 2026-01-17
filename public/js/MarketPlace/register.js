@@ -19,12 +19,29 @@ function selectAccountType(type, element) {
     // Add selected class to clicked card
     element.classList.add('selected');
 
-    // Show/hide seller documents
+    // Show/hide seller documents and toggle Industry field
     const sellerDocs = document.getElementById('sellerDocs');
+    const industryGroup = document.getElementById('industryGroup');
+    const industrySelect = document.getElementById('industrySelect');
+    const sellerIndustryInput = document.getElementById('sellerIndustryInput');
+
     if (type === 'seller') {
+        // Show seller docs
         sellerDocs.style.display = 'block';
-    } else {
+
+        // Hide regular industry select and use fixed value
+        if (industryGroup) industryGroup.style.display = 'none';
+        if (industrySelect) industrySelect.disabled = true;
+        if (sellerIndustryInput) sellerIndustryInput.disabled = false;
+
+    } else { // Buyer
+        // Hide seller docs
         sellerDocs.style.display = 'none';
+
+        // Show regular industry select
+        if (industryGroup) industryGroup.style.display = 'block';
+        if (industrySelect) industrySelect.disabled = false;
+        if (sellerIndustryInput) sellerIndustryInput.disabled = true;
     }
 }
 
