@@ -110,7 +110,7 @@ class AuthController extends Controller
                     return $query->where('status', '!=', 0);
                 }),
                 ],
-            'profile_photo' => 'required|string',
+            'profile_photo' => 'nullable|string',
             'phone' => 'required|string|max:20',
             'industry' => 'required|string',
             'address' => 'required|string',

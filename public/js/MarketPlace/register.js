@@ -10,15 +10,15 @@ let selectedAccountType = null;
 function selectAccountType(type, element) {
     selectedAccountType = type;
     document.getElementById('accountType').value = type;
-    
+
     // Remove selected class from all cards
     document.querySelectorAll('.account-card').forEach(card => {
         card.classList.remove('selected');
     });
-    
+
     // Add selected class to clicked card
     element.classList.add('selected');
-    
+
     // Show/hide seller documents
     const sellerDocs = document.getElementById('sellerDocs');
     if (type === 'seller') {
@@ -34,22 +34,22 @@ function changeStep(direction) {
     if (direction === 1 && !validateStep(currentStep)) {
         return;
     }
-    
+
     // Hide current step
     document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.remove('active');
     document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
     document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('completed');
-    
+
     // Update current step
     currentStep += direction;
-    
+
     // Show new step
     document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
     document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('active');
-    
+
     // Update progress bar
     updateProgressBar();
-    
+
     // Update buttons
     updateButtons();
 }
@@ -64,16 +64,16 @@ function updateButtons() {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
     const submitBtn = document.getElementById('submitBtn');
-    
+
     if (!prevBtn || !nextBtn || !submitBtn) return;
-    
+
     // Show/hide prev button
     if (currentStep === 1) {
         prevBtn.style.display = 'none';
     } else {
         prevBtn.style.display = 'inline-flex';
     }
-    
+
     // Show/hide next/submit button
     if (currentStep === 5) {
         nextBtn.style.display = 'none';
@@ -84,59 +84,123 @@ function updateButtons() {
     }
 }
 
+// Show Alert in UI
+function showAlert(message) {
+    const alertBox = document.getElementById('step-alert');
+    const alertMsg = document.getElementById('step-alert-msg');
+
+    if (alertBox && alertMsg) {
+        alertMsg.textContent = message;
+        alertBox.style.display = 'block';
+
+        // Auto scroll to alert
+        alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Hide after 5 seconds
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 5000);
+    } else {
+        alert(message); // Fallback
+    }
+}
+
 // Validate Step
 function validateStep(step) {
-    switch(step) {
+    const alertBox = document.getElementById('step-alert');
+    if (alertBox) alertBox.style.display = 'none'; // Hide previous alerts
+
+    switch (step) {
         case 1:
             if (!selectedAccountType) {
-                alert('Pilih tipe akun terlebih dahulu');
+                showAlert('Pilih tipe akun terlebih dahulu');
                 return false;
             }
             return true;
-            
+
         case 2:
             const requiredFields = document.querySelectorAll('.form-step[data-step="2"] [required]');
             for (let field of requiredFields) {
                 if (!field.value.trim()) {
-                    alert('Mohon lengkapi semua field yang wajib diisi');
+                    showAlert('Mohon lengkapi semua field yang wajib diisi');
                     field.focus();
                     return false;
                 }
             }
-            
+
             // Validate password
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            
+
             if (password.length < 8) {
-                alert('Password minimal 8 karakter');
+                showAlert('Password minimal 8 karakter');
                 return false;
             }
-            
+
             if (password !== confirmPassword) {
-                alert('Password tidak cocok');
+                showAlert('Password tidak cocok');
                 return false;
             }
-            
+
             return true;
-            
+
         case 3:
-            // FOTO PROFIL OPSIONAL - tidak perlu validasi
-            // User bisa skip step ini tanpa upload foto
             return true;
-            
+
         case 4:
-            // Documents are optional in validation, just proceed
+            // 1. Mandatory Documents for ALL Users (Akta, NPWP, NIB)
+            const commonDocs = ['akta', 'npwp', 'nib'];
+            const docNames = {
+                'akta': 'Akta Pendirian',
+                'npwp': 'NPWP Perusahaan',
+                'nib': 'NIB / SIUP'
+            };
+
+            for (let doc of commonDocs) {
+                const fileInput = document.querySelector(`input[name="${doc}"]`);
+                const driveInput = document.querySelector(`input[name="${doc}_drive_url"]`);
+
+                // Check if File is uploaded OR Drive Link is set
+                const hasFile = fileInput && fileInput.files.length > 0;
+                const hasDrive = driveInput && driveInput.value.trim() !== '';
+
+                if (!hasFile && !hasDrive) {
+                    showAlert(`Dokumen Wajib: Mohon upload ${docNames[doc]}`);
+                    return false;
+                }
+            }
+
+            // 2. Mandatory Documents for SELLER Only (Min 1 of Carbon Standard)
+            if (selectedAccountType === 'seller') {
+                const sellerDocs = ['gold_standard', 'vcs'];
+                let hasSellerDoc = false;
+
+                for (let doc of sellerDocs) {
+                    const fileInput = document.querySelector(`input[name="${doc}"]`);
+                    const driveInput = document.querySelector(`input[name="${doc}_drive_url"]`);
+
+                    if ((fileInput && fileInput.files.length > 0) || (driveInput && driveInput.value.trim() !== '')) {
+                        hasSellerDoc = true;
+                        break; // Found at least one
+                    }
+                }
+
+                if (!hasSellerDoc) {
+                    showAlert('Dokumen Wajib Seller: Mohon upload minimal satu standar karbon (Gold Standard atau VCS)');
+                    return false;
+                }
+            }
+
             return true;
-            
+
         case 5:
             const termsCheck = document.getElementById('termsCheck');
             if (!termsCheck || !termsCheck.checked) {
-                alert('Anda harus menyetujui Syarat & Ketentuan');
+                showAlert('Anda harus menyetujui Syarat & Ketentuan');
                 return false;
             }
             return true;
-            
+
         default:
             return true;
     }
@@ -146,7 +210,7 @@ function validateStep(step) {
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
     const icon = input.nextElementSibling.querySelector('i');
-    
+
     if (input.type === 'password') {
         input.type = 'text';
         icon.classList.remove('fa-eye');
@@ -159,39 +223,69 @@ function togglePassword(inputId) {
 }
 
 // ====================================
+// GOOGLE DRIVE LINK HANDLER
+// ====================================
+function setGoogleDriveLink(inputId, docName) {
+    const driveUrl = prompt(`Masukkan Link Google Drive untuk ${docName}:`);
+
+    if (driveUrl) {
+        // Basic validation
+        if (driveUrl.includes('drive.google.com')) {
+            // Save to hidden input
+            const hiddenInput = document.getElementById(inputId + '_drive_url');
+            if (hiddenInput) hiddenInput.value = driveUrl;
+
+            // Update indicator
+            const indicator = document.getElementById('indicator-' + inputId);
+            indicator.className = 'file-indicator uploaded';
+            indicator.innerHTML = `
+                <i class="fab fa-google-drive"></i> Link Drive Terlampir
+                <button type="button" class="btn-remove-doc" onclick="removeDriveLink('${inputId}')" title="Hapus Link">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+        } else {
+            showAlert('Link tidak valid! Harap masukkan link Google Drive yang benar.');
+        }
+    }
+}
+
+function removeDriveLink(inputId) {
+    const hiddenInput = document.getElementById(inputId + '_drive_url');
+    if (hiddenInput) hiddenInput.value = '';
+
+    // Clear indicator
+    const indicator = document.getElementById('indicator-' + inputId);
+    indicator.className = 'file-indicator';
+    indicator.innerHTML = '';
+}
+
+// ====================================
 // PHOTO CROP FUNCTIONALITY
 // ====================================
-
-// Photo Upload Handler
-const profilePhotoInput = document.getElementById('profilePhotoInput');
 if (profilePhotoInput) {
-    profilePhotoInput.addEventListener('change', function(e) {
+    profilePhotoInput.addEventListener('change', function (e) {
+        // ... (existing photo logic) ...
         const file = e.target.files[0];
-        
         if (!file) return;
-        
-        // Validate file size (max 5MB)
+
         if (file.size > 5 * 1024 * 1024) {
-            alert('Ukuran file maksimal 5MB');
-            this.value = ''; // Reset jika gagal
+            showAlert('Ukuran file maksimal 5MB');
+            this.value = '';
             return;
         }
-        
-        // Validate file type
+
         if (!file.type.match('image.*')) {
-            alert('File harus berupa gambar');
-            this.value = ''; // Reset jika gagal
+            showAlert('File harus berupa gambar');
+            this.value = '';
             return;
         }
-        
+
         const reader = new FileReader();
-        reader.onload = function(event) {
+        reader.onload = function (event) {
             const imageElement = document.getElementById('cropImage');
             imageElement.src = event.target.result;
-            
             document.getElementById('cropModal').style.display = 'flex';
-            
-            // Initialize cropper
             initCropper(imageElement);
         };
         reader.readAsDataURL(file);
@@ -200,112 +294,77 @@ if (profilePhotoInput) {
 
 // Initialize Cropper
 function initCropper(imageElement) {
-    // Hancurkan cropper lama jika ada
-    if (cropper) {
-        cropper.destroy();
-    }
-    
-    // Create new cropper
+    if (cropper) cropper.destroy();
     cropper = new Cropper(imageElement, {
-        aspectRatio: 1,
-        viewMode: 1,
-        dragMode: 'move',
-        autoCropArea: 1,
-        restore: false,
-        guides: true,
-        center: true,
-        highlight: false,
-        cropBoxMovable: true,
-        cropBoxResizable: true,
-        toggleDragModeOnDblclick: false,
+        aspectRatio: 1, viewMode: 1, dragMode: 'move', autoCropArea: 1, restore: false,
+        guides: true, center: true, highlight: false, cropBoxMovable: true, cropBoxResizable: true, toggleDragModeOnDblclick: false,
     });
 }
 
-// Close Crop Modal
 function closeCropModal() {
     document.getElementById('cropModal').style.display = 'none';
-    if (cropper) {
-        cropper.destroy();
-        cropper = null;
-    }
-    // Reset input
+    if (cropper) { cropper.destroy(); cropper = null; }
     document.getElementById('profilePhotoInput').value = '';
 }
 
-// Save Cropped Image
 function saveCroppedImage() {
-    // Cek jika cropper belum siap
     if (!cropper) return;
-    
-    const canvas = cropper.getCroppedCanvas({
-        width: 400,
-        height: 400,
-        imageSmoothingEnabled: true,
-        imageSmoothingQuality: 'high',
-    });
-    
-    // Convert to base64
+    const canvas = cropper.getCroppedCanvas({ width: 400, height: 400, imageSmoothingEnabled: true, imageSmoothingQuality: 'high' });
     const croppedImageData = canvas.toDataURL('image/jpeg', 0.9);
-    
-    // 1. MASUKKAN KE HIDDEN INPUT (Target Utama)
-    const hiddenInput = document.getElementById('croppedImage');
-    if (hiddenInput) {
-        hiddenInput.value = croppedImageData;
-        // console.log("Data tersimpan di hidden input"); // Uncomment untuk debug
-    }
 
-    // 2. UPDATE PREVIEW (Hanya jika elemennya ada, agar tidak error)
+    const hiddenInput = document.getElementById('croppedImage');
+    if (hiddenInput) hiddenInput.value = croppedImageData;
+
     const photoPreview = document.getElementById('photoPreview');
-    if (photoPreview) {
-        photoPreview.innerHTML = `<img src="${croppedImageData}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-    }
-    
-    // Close modal (JANGAN reset input hidden di sini, closeCropModal hanya reset file input)
+    if (photoPreview) photoPreview.innerHTML = `<img src="${croppedImageData}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+
     closeCropModal();
 }
 
-// Form submit dibiarkan default HTML (tanpa JS intercept)
-
-// Submit form secara manual dari tombol "Daftar Sekarang"
 function submitRegisterForm() {
-    // Pastikan sudah di step 5 dan terms dicentang
-    if (!validateStep(5)) {
-        return;
-    }
-
+    if (!validateStep(5)) return;
     const form = document.getElementById('registerForm');
-    if (!form) return;
-
     const submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mendaftar...';
     }
-
-    // Bypass native validation (karena multi-step), gunakan validasi custom kita
     form.submit();
 }
 
-// Update File Indicator
 function updateFileIndicator(inputId) {
     const input = document.getElementById(inputId);
     const indicator = document.getElementById('indicator-' + inputId);
-    
+
     if (input.files && input.files.length > 0) {
         const file = input.files[0];
         const fileName = file.name;
         const fileSize = (file.size / 1024).toFixed(1); // KB
-        
+
         indicator.className = 'file-indicator uploaded';
-        indicator.textContent = fileName.length > 15 ? fileName.substring(0, 15) + '...' : fileName;
+        indicator.innerHTML = `
+            ${fileName.length > 20 ? fileName.substring(0, 20) + '...' : fileName}
+            <button type="button" class="btn-remove-doc" onclick="removeDocument('${inputId}')" title="Hapus file">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
         indicator.title = fileName + ' (' + fileSize + ' KB)';
     } else {
         indicator.className = 'file-indicator';
-        indicator.textContent = '';
+        indicator.innerHTML = '';
         indicator.title = '';
     }
 }
 
-// Initialize
-updateButtons();
+// Remove Document Function
+function removeDocument(inputId) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        input.value = ''; // Clear file input
+        // Trigger change event to ensure any listeners update
+        const event = new Event('change');
+        input.dispatchEvent(event);
+    }
+}
+
 updateButtons();

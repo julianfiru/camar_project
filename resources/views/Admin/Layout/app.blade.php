@@ -117,7 +117,7 @@
         </div>
     </nav>
 
-    <div class="d-flex" style="padding-top: 70px;">
+    <div style="padding-top: 70px;">
         <!-- Sidebar -->
         <div class="position-fixed start-0 d-flex flex-column" style="width: 260px; height: 100vh; background-color: var(--color-quaternary); top: 0; overflow-y: auto; z-index: 1040; padding-top: 70px;">
             <!-- Logo CAMAR di Sidebar -->
@@ -170,7 +170,7 @@
         </div>
 
         <!-- Page Content -->
-        <div class="flex-grow-1" style="margin-left: 260px; min-height: calc(100vh - 70px);">
+        <div class="flex-grow-1 d-flex flex-column" style="margin-left: 260px; min-height: calc(100vh - 70px);">
             <!-- Page Header -->
             <div class="bg-white border-bottom py-4 mb-4">
                 <div class="container-fluid px-4">
@@ -191,12 +191,12 @@
             </div>
 
             <!-- Main Content -->
-            <div class="container-fluid px-4 py-4">
+            <div class="container-fluid px-4 flex-grow-1">
                 @yield('Admin.Content')
             </div>
 
             <!-- Footer -->
-            <footer class="bg-light border-top mt-5 py-3">
+            <footer class="bg-light border-top mt-auto py-3">
                 <div class="container-fluid px-4">
                     <div class="row">
                         <div class="col-md-6">

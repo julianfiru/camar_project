@@ -253,26 +253,26 @@
                 <h2 class="step-title">Dokumen Perusahaan</h2>
                 <p class="step-subtitle">Upload dokumen pendukung perusahaan Anda</p>
 
-                <!-- Documents for ALL users -->
+                <!-- SECTION 1: LEGALITAS -->
                 <div class="documents-section">
-                    <h3 class="doc-section-title">Dokumen Wajib (Semua Pengguna)</h3>
-
+                    <h3 class="doc-section-title"><i class="fas fa-briefcase"></i> Legalitas Perusahaan</h3>
+                    
                     <div class="document-item">
                         <div class="doc-info">
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-file-contract"></i>
                             <div>
                                 <h4>Akta Pendirian</h4>
                                 <p>Dokumen pendirian perusahaan</p>
                             </div>
                         </div>
                         <div class="doc-upload">
+                            <span class="file-indicator" id="indicator-doc1"></span>
                             <input type="file" id="doc1" name="akta" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc1')">
                             <label for="doc1" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
-                            <span class="file-indicator" id="indicator-doc1"></span>
-                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc1','akta')">
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc1','Akta Pendirian')">
                                 <i class="fab fa-google-drive"></i>
                                 Drive
                             </button>
@@ -283,7 +283,7 @@
 
                     <div class="document-item">
                         <div class="doc-info">
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-id-card"></i>
                             <div>
                                 <h4>NPWP Perusahaan</h4>
                                 <p>Nomor Pokok Wajib Pajak</p>
@@ -307,7 +307,7 @@
 
                     <div class="document-item">
                         <div class="doc-info">
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-stamp"></i>
                             <div>
                                 <h4>NIB / SIUP</h4>
                                 <p>Nomor Induk Berusaha atau SIUP</p>
@@ -328,38 +328,44 @@
                             <input type="hidden" name="nib_drive_url" id="nib_drive_url">
                         </div>
                     </div>
+                </div>
+
+                <!-- SECTION 2: SERTIFIKASI -->
+                <div class="documents-section" style="margin-top: 2rem;">
+                    <h3 class="doc-section-title"><i class="fas fa-award"></i> Sertifikasi Tambahan</h3>
 
                     <div class="document-item">
                         <div class="doc-info">
-                            <i class="fas fa-file-alt"></i>
+                            <i class="fas fa-globe-americas"></i>
                             <div>
                                 <h4>ISO 14001</h4>
-                                <p>Sertifikat ISO (jika ada)</p>
+                                <p>Sertifikat Manajemen Lingkungan (Jika ada)</p>
                             </div>
                         </div>
                         <div class="doc-upload">
+                            <span class="file-indicator" id="indicator-doc4"></span>
                             <input type="file" id="doc4" name="iso" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc4')">
                             <label for="doc4" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
-                            <span class="file-indicator" id="indicator-doc4"></span>
-                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc4','iso')">
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc4','ISO 14001')">
                                 <i class="fab fa-google-drive"></i>
                                 Drive
                             </button>
+                            
                             <span class="doc-badge optional">Opsional</span>
                             <input type="hidden" name="iso_drive_url" id="iso_drive_url">
                         </div>
                     </div>
                 </div>
 
-                <!-- Documents for SELLER only -->
-                <div class="documents-section seller-docs" id="sellerDocs" style="display: none;">
-                    <h3 class="doc-section-title">Dokumen Tambahan (Seller)</h3>
+                <!-- SECTION 3: STANDAR KARBON (SELLER ONLY) -->
+                <div class="documents-section seller-docs" id="sellerDocs" style="display: none; margin-top: 2rem;">
+                    <h3 class="doc-section-title"><i class="fas fa-leaf"></i> Standar Karbon (Khusus Seller)</h3>
                     <p class="doc-note">
                         <i class="fas fa-info-circle"></i>
-                        Minimal upload 1 dari 2 dokumen sertifikasi berikut
+                        Dokumen berikut wajib diunggah untuk verifikasi Seller
                     </p>
 
                     <div class="document-item">
@@ -371,41 +377,43 @@
                             </div>
                         </div>
                         <div class="doc-upload">
+                            <span class="file-indicator" id="indicator-doc5"></span>
                             <input type="file" id="doc5" name="gold_standard" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc5')">
                             <label for="doc5" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
-                            <span class="file-indicator" id="indicator-doc5"></span>
-                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc5','gold_standard')">
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc5','Gold Standard')">
                                 <i class="fab fa-google-drive"></i>
                                 Drive
                             </button>
-                            <span class="doc-badge seller">Seller</span>
+                            
+                            <span class="doc-badge required">Wajib</span>
                             <input type="hidden" name="gold_standard_drive_url" id="gold_standard_drive_url">
                         </div>
                     </div>
 
                     <div class="document-item">
                         <div class="doc-info">
-                            <i class="fas fa-certificate"></i>
+                            <i class="fas fa-check-double"></i>
                             <div>
                                 <h4>VCS Verification Report</h4>
                                 <p>Laporan Verifikasi VCS</p>
                             </div>
                         </div>
                         <div class="doc-upload">
+                            <span class="file-indicator" id="indicator-doc6"></span>
                             <input type="file" id="doc6" name="vcs" accept=".pdf,.jpg,.png" onchange="updateFileIndicator('doc6')">
                             <label for="doc6" class="btn-upload-doc">
                                 <i class="fas fa-upload"></i>
                                 Upload
                             </label>
-                            <span class="file-indicator" id="indicator-doc6"></span>
-                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc6','vcs')">
+                            <button type="button" class="btn-upload-gdrive" onclick="setGoogleDriveLink('doc6','VCS')">
                                 <i class="fab fa-google-drive"></i>
                                 Drive
                             </button>
-                            <span class="doc-badge seller">Seller</span>
+                            
+                            <span class="doc-badge required">Wajib</span>
                             <input type="hidden" name="vcs_drive_url" id="vcs_drive_url">
                         </div>
                     </div>
@@ -435,6 +443,11 @@
                         </span>
                     </label>
                 </div>
+            </div>
+
+            <!-- Validation Alert Container -->
+            <div id="step-alert" class="alert alert-danger" style="display:none; background-color: #f8d7da; color: #721c24; margin-top: 1rem; border-radius: 8px;">
+                <i class="fas fa-exclamation-circle"></i> <span id="step-alert-msg"></span>
             </div>
 
             <!-- Navigation Buttons -->

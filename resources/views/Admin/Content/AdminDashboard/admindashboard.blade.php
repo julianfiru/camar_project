@@ -171,26 +171,30 @@
                         <tbody>
                             @php
                                 $orders = [
-                                    ['id' => 'ORD-2024-157', 'buyer' => 'PT Industri Hijau', 'project' => 'Reforestasi Kalimantan', 'amount' => '500 ton', 'status' => 'PAID'],
-                                    ['id' => 'ORD-2024-156', 'buyer' => 'CV Karbon Nusantara', 'project' => 'Solar Farm Bandung', 'amount' => '350 ton', 'status' => 'ACTIVE'],
-                                    ['id' => 'ORD-2024-155', 'buyer' => 'PT Manufaktur Hijau', 'project' => 'Konservasi Mangrove', 'amount' => '750 ton', 'status' => 'COMPLETED'],
-                                    ['id' => 'ORD-2024-154', 'buyer' => 'PT Eco Industry', 'project' => 'Biogas Komunitas', 'amount' => '200 ton', 'status' => 'PAID'],
+                                    ['order_id' => 'ORD-157', 'buyer_name' => 'PT Industri Hijau', 'offset_amount_ton' => '500', 'status' => 'PAID'],
+                                    ['order_id' => 'ORD-156', 'buyer_name' => 'CV Karbon N.', 'offset_amount_ton' => '350', 'status' => 'ACTIVE'],
+                                    ['order_id' => 'ORD-155', 'buyer_name' => 'PT Manufaktur', 'offset_amount_ton' => '750', 'status' => 'COMPLETED'],
+                                    ['order_id' => 'ORD-154', 'buyer_name' => 'PT Eco Industry', 'offset_amount_ton' => '200', 'status' => 'PAID'],
+                                    ['order_id' => 'ORD-153', 'buyer_name' => 'UD Sejahtera', 'offset_amount_ton' => '150', 'status' => 'PENDING'],
                                 ];
                             @endphp
 
                             @foreach($orders as $order)
                             <tr>
-                                <td><code>{{ $order['id'] }}</code></td>
-                                <td>{{ $order['buyer'] }}</td>
-                                <td>{{ $order['project'] }}</td>
-                                <td><strong>{{ $order['amount'] }}</strong></td>
+                                <td><span class="font-monospace small text-primary bg-soft-primary px-2 py-1 rounded">{{ $order['order_id'] }}</span></td>
+                                <td>
+                                    <span class="d-block text-dark fw-medium text-truncate" style="max-width: 120px;">{{ $order['buyer_name'] }}</span>
+                                </td>
+                                <td class="fw-bold text-dark">{{ $order['offset_amount_ton'] }} t</td>
                                 <td>
                                     @if($order['status'] == 'PAID')
-                                        <span class="badge bg-info">Paid</span>
+                                        <span class="badge badge-modern badge-soft-info">Paid</span>
                                     @elseif($order['status'] == 'ACTIVE')
-                                        <span class="badge active">Active</span>
+                                        <span class="badge badge-modern badge-soft-warning">Active</span>
+                                    @elseif($order['status'] == 'COMPLETED')
+                                        <span class="badge badge-modern badge-soft-success">Done</span>
                                     @else
-                                        <span class="badge approved">Completed</span>
+                                        <span class="badge badge-modern badge-soft-secondary">Pending</span>
                                     @endif
                                 </td>
                             </tr>
@@ -200,274 +204,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-12 col-lg-6">
-            <div class="content-section">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="section-title mb-0">
-                        <i class="bi bi-wallet2 me-2"></i>Status Pembayaran
-                    </h2>
-                    <a href="/admin/pembayaran" class="btn btn-sm btn-secondary">Detail</a>
-                </div>
-
-                <!-- Payment Stats -->
-                <div class="row g-3 mb-4">
-                    <div class="col-6">
-                        <div class="payment-stat">
-                            <div class="payment-stat-icon bg-success">
-                                <i class="bi bi-check-circle"></i>
-                            </div>
-                            <div>
-                                <div class="payment-stat-label">Lunas</div>
-                                <div class="payment-stat-value">Rp {{ number_format($paidPayments ?? 850000000, 0, ',', '.') }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="payment-stat">
-                            <div class="payment-stat-icon bg-warning">
-                                <i class="bi bi-clock-history"></i>
-                            </div>
-                            <div>
-                                <div class="payment-stat-label">Pending</div>
-                                <div class="payment-stat-value">Rp {{ number_format($pendingPayments ?? 125000000, 0, ',', '.') }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Payment Methods Distribution -->
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Metode Pembayaran</label>
-                    <div class="payment-method-item">
-                        <div class="d-flex justify-content-between mb-1">
-                            <span>Transfer Bank</span>
-                            <span class="fw-semibold">65%</span>
-                        </div>
-                        <div class="progress" style="height: 6px;">
-                            <div class="progress-bar bg-primary" style="width: 65%"></div>
-                        </div>
-                    </div>
-                    <div class="payment-method-item">
-                        <div class="d-flex justify-content-between mb-1">
-                            <span>Virtual Account</span>
-                            <span class="fw-semibold">25%</span>
-                        </div>
-                        <div class="progress" style="height: 6px;">
-                            <div class="progress-bar bg-info" style="width: 25%"></div>
-                        </div>
-                    </div>
-                    <div class="payment-method-item">
-                        <div class="d-flex justify-content-between mb-1">
-                            <span>E-Wallet</span>
-                            <span class="fw-semibold">10%</span>
-                        </div>
-                        <div class="progress" style="height: 6px;">
-                            <div class="progress-bar bg-success" style="width: 10%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Emission Calculations by Buyer -->
-    <div class="content-section mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">
-                <i class="bi bi-calculator me-2"></i>Top Emisi Buyer (Tahun Ini)
-            </h2>
-            <a href="/admin/emisi-buyer" class="btn btn-sm btn-secondary">Lihat Semua</a>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Buyer</th>
-                        <th>Industri</th>
-                        <th>Total Emisi</th>
-                        <th>Sudah Offset</th>
-                        <th>Sisa</th>
-                        <th>Progress</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $buyers = [
-                            ['rank' => 1, 'name' => 'PT Industri Hijau Indonesia', 'industry' => 'Manufaktur', 'emission' => 85000, 'offset' => 65000, 'remaining' => 20000],
-                            ['rank' => 2, 'name' => 'CV Karbon Nusantara', 'industry' => 'Tekstil', 'emission' => 72000, 'offset' => 58000, 'remaining' => 14000],
-                            ['rank' => 3, 'name' => 'PT Manufaktur Berkelanjutan', 'industry' => 'Kimia', 'emission' => 68000, 'offset' => 45000, 'remaining' => 23000],
-                            ['rank' => 4, 'name' => 'PT Eco Industry', 'industry' => 'Food & Beverage', 'emission' => 54000, 'offset' => 48000, 'remaining' => 6000],
-                            ['rank' => 5, 'name' => 'PT Green Manufacturing', 'industry' => 'Otomotif', 'emission' => 51000, 'offset' => 42000, 'remaining' => 9000],
-                        ];
-                    @endphp
-
-                    @foreach($buyers as $buyer)
-                    <tr>
-                        <td>
-                            @if($buyer['rank'] <= 3)
-                                <span class="badge bg-warning">{{ $buyer['rank'] }}</span>
-                            @else
-                                {{ $buyer['rank'] }}
-                            @endif
-                        </td>
-                        <td>
-                            <div class="fw-semibold">{{ $buyer['name'] }}</div>
-                        </td>
-                        <td>{{ $buyer['industry'] }}</td>
-                        <td>
-                            <span class="text-danger fw-semibold">{{ number_format($buyer['emission'], 0, ',', '.') }}</span>
-                            <small class="text-muted">ton CO₂</small>
-                        </td>
-                        <td>
-                            <span class="text-success fw-semibold">{{ number_format($buyer['offset'], 0, ',', '.') }}</span>
-                            <small class="text-muted">ton CO₂</small>
-                        </td>
-                        <td>
-                            <span class="text-warning fw-semibold">{{ number_format($buyer['remaining'], 0, ',', '.') }}</span>
-                            <small class="text-muted">ton CO₂</small>
-                        </td>
-                        <td style="min-width: 150px;">
-                            @php
-                                $progress = ($buyer['offset'] / $buyer['emission']) * 100;
-                            @endphp
-                            <div class="progress" style="height: 8px;">
-                                <div class="progress-bar {{ $progress >= 80 ? 'bg-success' : ($progress >= 50 ? 'bg-warning' : 'bg-danger') }}" 
-                                     style="width: {{ $progress }}%" 
-                                     role="progressbar">
-                                </div>
-                            </div>
-                            <small class="text-muted">{{ number_format($progress, 1) }}%</small>
-                        </td>
-                        <td>
-                            <button class="btn btn-secondary btn-sm">
-                                <i class="bi bi-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Offset Realizations (6 Bulanan) -->
-    <div class="content-section mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">
-                <i class="bi bi-calendar-check me-2"></i>Realisasi Offset 6 Bulanan
-            </h2>
-            <a href="/admin/realisasi-offset" class="btn btn-sm btn-secondary">Detail Lengkap</a>
-        </div>
-
-        <div class="alert alert-info mb-4">
-            <i class="bi bi-info-circle me-2"></i>
-            Data realisasi diperbarui setiap 6 bulan berdasarkan MRV Report dan verifikasi auditor
-        </div>
-
-        <div class="row g-3">
-            @php
-                $realizations = [
-                    ['period' => 'H2 2024', 'target' => 120000, 'realized' => 118500, 'projects' => 34],
-                    ['period' => 'H1 2024', 'target' => 110000, 'realized' => 108200, 'projects' => 32],
-                    ['period' => 'H2 2023', 'target' => 95000, 'realized' => 92800, 'projects' => 28],
-                    ['period' => 'H1 2023', 'target' => 88000, 'realized' => 86400, 'projects' => 25],
-                ];
-            @endphp
-
-            @foreach($realizations as $realization)
-            <div class="col-md-6 col-lg-3">
-                <div class="realization-card">
-                    <div class="realization-period">{{ $realization['period'] }}</div>
-                    <div class="realization-values">
-                        <div class="realization-value">
-                            <small class="text-muted">Target</small>
-                            <div class="fw-semibold">{{ number_format($realization['target'], 0, ',', '.') }} ton</div>
-                        </div>
-                        <div class="realization-value">
-                            <small class="text-muted">Terealisasi</small>
-                            <div class="fw-semibold text-success">{{ number_format($realization['realized'], 0, ',', '.') }} ton</div>
-                        </div>
-                    </div>
-                    @php
-                        $achievementRate = ($realization['realized'] / $realization['target']) * 100;
-                    @endphp
-                    <div class="progress mb-2" style="height: 8px;">
-                        <div class="progress-bar bg-success" style="width: {{ $achievementRate }}%"></div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <small class="text-muted">{{ $realization['projects'] }} proyek</small>
-                        <small class="fw-semibold {{ $achievementRate >= 95 ? 'text-success' : 'text-warning' }}">
-                            {{ number_format($achievementRate, 1) }}%
-                        </small>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-
-    <!-- Pending Approvals Section -->
-    <div class="content-section mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">
-                <i class="bi bi-clock-history me-2"></i>Pending Approvals
-            </h2>
-            <a href="/admin/manajemen-akun" class="btn btn-primary">Kelola Semua</a>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Tipe</th>
-                        <th>Tanggal Daftar</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>PT Green Energy Indonesia</td>
-                        <td><span class="badge bg-success">Seller</span></td>
-                        <td>20 Des 2025</td>
-                        <td><span class="badge pending">Menunggu</span></td>
-                        <td>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-primary btn-sm">Approve</button>
-                                <button class="btn btn-secondary btn-sm">Review</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>CV Karbon Nusantara</td>
-                        <td><span class="badge bg-primary">Buyer</span></td>
-                        <td>19 Des 2025</td>
-                        <td><span class="badge pending">Menunggu</span></td>
-                        <td>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-primary btn-sm">Approve</button>
-                                <button class="btn btn-secondary btn-sm">Review</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>PT Eco Solutions</td>
-                        <td><span class="badge bg-success">Seller</span></td>
-                        <td>18 Des 2025</td>
-                        <td><span class="badge pending">Menunggu</span></td>
-                        <td>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-primary btn-sm">Approve</button>
-                                <button class="btn btn-secondary btn-sm">Review</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
     </div>
