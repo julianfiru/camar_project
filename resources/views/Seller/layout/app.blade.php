@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ asset('css/Seller/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Seller/performa.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Seller/form.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/root.css') }}">
 </head>
     <body data-theme="">
         <div class="container">

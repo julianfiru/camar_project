@@ -10,6 +10,7 @@ use App\Models\Seller\Mrv;
 use App\Models\Seller\Order;
 use App\Models\Seller\Project;
 use App\Models\Seller\ProjectCategory;
+use App\Models\Seller\ProjectDocument;
 use App\Models\Seller\ProjectViews;
 use App\Models\Seller\Seller;
 use App\Models\Seller\SellerBadge;
@@ -32,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'asd@seller.com',
             'password_hash' => bcrypt('asd'),
             'photo_url' => 'urlProfil/User1.gif',
-            'role' => 'Seller',
+            'role' => 'seller',
             'status' => 2,
             'created_at' => now(),
             'last_login' => now(),
@@ -41,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'asd@buyer.com',
             'password_hash' => bcrypt('asd'),
             'photo_url' => 'urlProfil/User1.gif',
-            'role' => 'Buyer',
+            'role' => 'buyer',
             'status' => 2,
             'created_at' => now(),
             'last_login' => now(),
@@ -50,7 +51,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'asd@auditor.com',
             'password_hash' => bcrypt('asd'),
             'photo_url' => 'urlProfil/User1.gif',
-            'role' => 'Auditor',
+            'role' => 'auditor',
             'status' => 2,
             'created_at' => now(),
             'last_login' => now(),
@@ -59,7 +60,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'asd@admin.com',
             'password_hash' => bcrypt('asd'),
             'photo_url' => 'urlProfil/User1.gif',
-            'role' => 'Admin',
+            'role' => 'admin',
             'status' => 2,
             'created_at' => now(),
             'last_login' => now(),
@@ -70,7 +71,7 @@ class DatabaseSeeder extends Seeder
         Auditor::create([
             'user_id' => '3',
             'name' => 'asd',
-            'position' => 'Senior',
+            'position' => 'senior',
         ]);
         Seller::create([
             'user_id' => 1,
@@ -83,6 +84,8 @@ class DatabaseSeeder extends Seeder
             'bio' => 'asd',
             'desc' => 'asd',
             'address' => 'Jl. asd',
+            'bank_name' => 'BCA',
+            'account_number' => '123',
             'verified_at' => now(),
         ]);
         SellerBadge::create([
@@ -90,17 +93,11 @@ class DatabaseSeeder extends Seeder
             'total_relized_ton' => 2000000,
             'assigned_at' => now(),
         ]);
-        SellerBanking::create([
-            'seller_id' => 1,
-            'bank_name' => 'Bank Central Asia (BCA)',
-            'account_number' => '1234567890',
-            'bank_branch' => 'KCU Jakarta Gatot Subroto',
-        ]);
         SellerDocumentation::create([
             'seller_id' => 1,
             'document_name' => 'Akta Pendirian Perusahaan',
-            'document_type' => 'PDF',
-            'size' => 4500 ,
+            'document_type' => 'pdf',
+            'size' => 45000 ,
             'document_status' => 2,
             'document_url' => 'https://claude.ai/new',
             'submitted_at' => now(),
@@ -109,6 +106,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 2,
             'company_name' => 'asd',
             'country' => 'asd, asd',
+            'industry' => 'pangan',
             'nib' => '1234567890123',
             'npwp' => '01.234.567.8-901.000',
             'website' => 'www.asd.com',
@@ -132,8 +130,8 @@ class DatabaseSeeder extends Seeder
         BuyerDocumentation::create([
             'buyer_id' => 1,
             'document_name' => 'Akta Pendirian Perusahaan',
-            'document_type' => 'PDF',
-            'size' => 4500 ,
+            'document_type' => 'pdf',
+            'size' => 45000 ,
             'document_status' => 2,
             'document_url' => 'https://claude.ai/new',
         ]);
@@ -161,9 +159,9 @@ class DatabaseSeeder extends Seeder
             'desc' => 'asd',
             'created_at' => '2025-01-04 17:09:07',
         ]);
-        Mrv::create([
+        ProjectDocument::create([
             'project_id' => 1,
-            'mrv_name' => 'MRV Report Q1 2025',
+            'document_name' => 'MRV Report Q1 2025',
             'status' => 2,
             'size' => 4000,
             'document_url' => 'https://claude.ai/new',

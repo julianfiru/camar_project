@@ -35,9 +35,9 @@ class Project extends Model
     {
         return $this->belongsTo(ProjectCategory::class, 'category_id', 'category_id');
     }
-    public function mrv()
+    public function projectdocuments()
     {
-        return $this->hasMany(Mrv::class, 'project_id', 'project_id');
+        return $this->hasMany(ProjectDocument::class, 'project_id', 'project_id');
     }
     public function projectviews()
     {

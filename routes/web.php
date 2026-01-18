@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\MarketPlace\Home\Home;
+use App\Http\Controllers\MarketPlace\Proyek\Proyek;
+use App\Http\Controllers\Produk\ProdukDetail;
 use App\Http\Controllers\Seller\Customer\CustomerSeller;
 use App\Http\Controllers\Seller\Dashboard\DashboardSeller;
 use App\Http\Controllers\Seller\Penjualan\PenjualanSeller;
@@ -15,10 +17,7 @@ use App\Http\Controllers\Seller\Proyek\ProyekSeller;
     Route::get('/kalkulator', function () {
         return view('MarketPlace.calculator.calculator');
     })->name('calculator');
-
-    Route::get('/proyek', function () {
-        return view('MarketPlace.projects.projects');
-    })->name('projects');
+    Route::get('/proyek', [Proyek::class, 'index'])->name('projects');
     Route::get('/marketplace/product/{id}', [ProdukDetail::class, 'detail'])->name('marketplace.product_detail');
     Route::get('/edukasi', function () {
         return view('MarketPlace.edukasi.edukasi');
@@ -44,8 +43,7 @@ Route::middleware(['auth'])->group(function () {
         Route::middleware(['role:Seller'])->prefix('seller')->group(function () {
             Route::get('/project/detail/{id}', [ProyekSeller::class, 'getDetail'])->name('seller.project.detail');
             Route::get('/project/update/{id}', [ProyekSeller::class, 'getUpdate'])->name('seller.project.ubah');
-            Route::post('/project/uploadDocument', [ProyekSeller::class, 'UploadDocument'])->name('seller.upload.documentProject');
-            Route::post('/profil/uploadDocument', [ProfilSeller::class, 'UploadDocument'])->name('seller.upload.documentSeller');
+            Route::post('/seller/uploadDocument', [ProfilSeller::class, 'uploadDocument'])->name('seller.upload.document');
             Route::post('/project/updating', [ProyekSeller::class, 'UpdateProject'])->name('seller.project.updating');
             Route::get('/dashboard', [DashboardSeller::class, 'index'])->name('seller.dashboard');
             Route::get('/penjualan', [PenjualanSeller::class, 'index'])->name('seller.penjualan');

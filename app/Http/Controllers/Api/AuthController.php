@@ -44,25 +44,12 @@ class AuthController extends Controller
                 ->withErrors(['email' => 'Email atau password salah.'])
                 ->withInput($request->only('email'));
         }
-        
-        // DEBUG: Logging sementara untuk melihat nilai status yang sebenarnya
-        \Log::info('Login attempt', [
-            'email' => $user->email,
-            'user_id' => $user->user_id,
-            'status_raw' => $user->getAttributes()['status'],
-            'status_cast' => $user->status,
-            'status_int' => (int) $user->status,
-            'is_active' => ((int) $user->status === 2),
-        ]);
-        
         if ((int) $user->status !== 2) {
-            // Arahkan ke halaman status akun tanpa navbar/footer
             return redirect()->route('account.status', ['email' => $user->email]);
         }
         $user->last_login = now();
         $user->save();
         Auth::login($user, $request->filled('remember'));
-        // Redirect users to role-specific dashboard
         return $this->redirectBasedOnRole($user->role);
     }
 
@@ -110,7 +97,7 @@ class AuthController extends Controller
                     return $query->where('status', '!=', 0);
                 }),
                 ],
-            'profile_photo' => 'required|string',
+            'profile_photo' => 'nullable|string',
             'phone' => 'required|string|max:20',
             'industry' => 'required|string',
             'address' => 'required|string',
@@ -129,7 +116,6 @@ class AuthController extends Controller
             'gold_standard' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
             'vcs' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:10240',
         ]);
-
         if ($validator->fails()) {
             return back()
                 ->withErrors($validator)

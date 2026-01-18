@@ -339,7 +339,7 @@
             </div>
             
             <div class="row g-4">
-                @forelse($proyek as $item)
+                @forelse($proyek->take(3) as $item)
                     <div class="col-md-6 col-lg-4">
                         <div class="project-card">
                             <div class="project-image">
@@ -358,7 +358,7 @@
                                 </p>
                                 <div class="project-footer">
                                     <div class="project-price">Rp {{ format_angka_singkat($item->price, 1, ',', '.') }}<span>/ton CO₂</span></div>
-                                    <a href="{{ route('marketplace.product_detail', $item->id) }}" class="btn-project-detail">Detail</a>
+                                    <a href="{{ route('marketplace.product_detail', $item->project_id) }}" class="btn-project-detail">Detail</a>
                                 </div>
                             </div>
                         </div>

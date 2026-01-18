@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('emission_calculations', function (Blueprint $table) {
             $table->id('calculation_id');
             $table->unsignedBigInteger('buyer_id');
-            $table->integer('year');
-            $table->decimal('total_emission_ton', 65, 0);
-            $table->string('methodology');
+            $table->decimal('scope1', 65, 0);
+            $table->decimal('scope2', 65, 0);
+            $table->decimal('scope3', 65, 0);
+            $table->decimal('target', 65, 0);
+            $table->boolean('lock_target')->default(false);
             $table->timestamp('created_at');
 
             $table->foreign('buyer_id')->references('buyer_id')->on('buyers');

@@ -20,7 +20,8 @@ class Seller extends Model
         'phone_number',
         'bio',
         'desc',
-        'address',
+        'bank_name',
+        'account_number',
         'verified_at',
     ];
     public function user()
@@ -42,10 +43,6 @@ class Seller extends Model
     public function projects()
     {
         return $this->hasMany(Project::class, 'seller_id', 'seller_id');
-    }
-    public function bank()
-    {
-        return $this->hasOne(SellerBanking::class, 'seller_id', 'seller_id');
     }
     public function documentsSeller()
     {

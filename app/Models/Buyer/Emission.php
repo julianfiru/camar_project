@@ -11,9 +11,11 @@ class Emission extends Model
     protected $primaryKey = 'calculation_id';
     protected $fillable = [
         'buyer_id',
-        'year',
-        'total_emission_ton',
-        'methodology',
+        'scope1',
+        'scope2',
+        'scope3',
+        'target',
+        'lock_target',
         'created_at',
     ];
     public function buyer()

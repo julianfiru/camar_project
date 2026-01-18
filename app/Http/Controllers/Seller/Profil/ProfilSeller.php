@@ -15,50 +15,57 @@ class ProfilSeller extends Controller
         return view('Seller.Content.Profil.profil', [
             'profil'      => $this->profil,
             'email'      => $this->user,
-            'bank'        => $this->bank,
-            'document'  => $this->document,
+            'document'  => $this->documentProfil,
             'totalAktif'  => $this->totalAktif,
             'statusSeller'  => $this->statusSeller,
             'statusStyle'  => $this->statusStyleSeller,
             'riwayatTransaksi'  => $this->riwayatTransaksi,
         ]);
     }
-    public function UploadDocument(Request $request)
+    public function uploadDocument(Request $request)
     {
         $request->validate([
-            'document_file' => 'required|file|mimes:pdf,doc,docx|max:10240',
+            'document_category' => 'required|string',
+            'document_file'     => 'required|file|mimes:pdf,doc,docx|max:10240',
         ]);
         try {
+            $user = Auth::user();
+            $subclass = $request->document_category;
+            $allCategories = getDocumentCategories(); 
+            $parentClass = 'others';
+            foreach ($allCategories as $groupKey => $group) {
+                if (array_key_exists($subclass, $group['items'])) {
+                    $parentClass = $groupKey;
+                    break;
+                }
+            }
             if ($request->hasFile('document_file')) {
                 $file = $request->file('document_file');
-                $originalName = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $size = $file->getSize();
-                $folderPath = 'Profil/' . Auth::user()->seller->company_name;
-                $fileName = time() . '_' . Str::slug(pathinfo($originalName, PATHINFO_FILENAME)) . '.' . $extension;
+                $dbName = $subclass . '_' . time();
+                $filename = $subclass . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $folderPath = 'Document/' . $user->role . '/' . $user->seller->seller_id . '/' . $parentClass;
                 $path = $file->storeAs(
                     $folderPath,
-                    $fileName,
+                    $filename,
                     'public'
                 );
-                $document = SellerDocumentation::create([
-                    'seller_id'   => Auth::user()->seller->seller_id,
-                    'document_name'     => $originalName,
-                    'document_type'     => $originalName,
-                    'size'         => $size,
-                    'document_status'       => 1,
-                    'document_url' => $path,
-                    'submitted_at' => now(),
+                SellerDocumentation::create([
+                    'seller_id'       => $user->seller->seller_id,
+                    'document_name'   => $dbName,
+                    'document_type'   => $file->getClientOriginalExtension(),
+                    'size'            => $file->getSize(),
+                    'document_status' => 1,
+                    'document_url'    => $path, 
+                    'submitted_at'    => now(),
                 ]);
-                return response()->json([
-                    'status'  => 'success',
-                    'message' => 'Laporan berhasil diupload!',
-                    'data'    => $document
-                ], 200);
+
+                return back()->with('success', 'Dokumen berhasil diunggah.');
             }
-            return response()->json(['status' => 'error', 'message' => 'File tidak ditemukan'], 400);
+
+            return back()->with('error', 'File tidak ditemukan.');
+
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+            return back()->with('error', 'Terjadi kesalahan sistem.');
         }
     }
 }

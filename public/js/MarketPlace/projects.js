@@ -315,27 +315,6 @@ function renderProjects() {
     const projectsToShow = filteredProjects.slice(startIndex, endIndex);
     
     grid.innerHTML = projectsToShow.map(project => `
-        <div class="project-card" onclick="viewProjectDetail(${project.id})">
-            <div class="project-image">
-                <img src="${project.image}" alt="${project.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22160%22><rect width=%22300%22 height=%22160%22 fill=%22%2326667F%22/></svg>'">
-                <span class="project-category">${project.category}</span>
-            </div>
-            <div class="project-info">
-                <div class="project-company">${project.company}</div>
-                <h3 class="project-name">${project.name}</h3>
-                <div class="project-duration">
-                    <span>📅</span>
-                    <span>${project.duration}</span>
-                </div>
-                <p class="project-description">${project.description}</p>
-                <div class="project-footer">
-                    <div class="project-price">
-                        Rp ${(project.price / 1000).toFixed(0)}K<span>/ton CO₂</span>
-                    </div>
-                    <button class="btn-detail">Detail</button>
-                </div>
-            </div>
-        </div>
     `).join('');
 }
 

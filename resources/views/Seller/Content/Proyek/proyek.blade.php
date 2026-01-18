@@ -103,5 +103,5 @@
         </table>
     </div>
     @include('Seller.Content.Proyek.tproyek')
-    <script src="{{ asset('js/seller/proyek/Proyek.js') }}"></script>
+    <script src="{{ asset('js/seller/proyek/DetailProyek.js') }}"></script>
 @endsection

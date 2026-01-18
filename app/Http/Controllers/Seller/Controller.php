@@ -19,6 +19,7 @@ class Controller extends BaseController
 
     // Proyek
         protected $proyek;
+        protected $documentproyek;
         protected $statusStyleProyek;
         protected $statusLabelProyek;
         protected $totalAktif;
@@ -52,8 +53,7 @@ class Controller extends BaseController
 
     // Profil
         protected $profil; 
-        protected $bank; 
-        protected $document; 
+        protected $documentProfil; 
         protected $statusSeller; 
         protected $statusStyleSeller;
     // Profil
@@ -86,12 +86,6 @@ class Controller extends BaseController
                 // Proyek
 
                 // Penjualan
-                    $this->totalPenjualan = Payment::whereHas('order', function ($query) use ($projectIds) {
-                            $query->whereIn('project_id', $projectIds);
-                            $query->where('order_status', 2);
-                        })
-                        ->where('payment_status', 2)
-                        ->sum('amount');
                     $this->penjualanBulanan = Order::join('projects', 'offset_orders.project_id', '=', 'projects.project_id')
                         ->whereIn('offset_orders.project_id', $projectIds)
                         ->where('offset_orders.order_status', 2) 
@@ -157,8 +151,7 @@ class Controller extends BaseController
 
                 // Profil
                     $this->profil = $this->user->seller;
-                    $this->bank = $this->profil->bank;
-                    $this->document = $this->profil->documentsSeller;
+                    $this->documentProfil = $this->profil->documentsSeller;
                     if ($this->profil && $this->profil->verified_at) {
                         $tanggalVerifikasi = \Carbon\Carbon::parse($this->profil->verified_at);
                         $tanggalKadaluarsa = $tanggalVerifikasi->copy()->addMonth(); 

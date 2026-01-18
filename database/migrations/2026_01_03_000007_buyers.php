@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('company_name');
             $table->string('country');
+            $table->string('industry');
             $table->string('nib');
             $table->string('npwp');
             $table->string('website');

@@ -103,10 +103,35 @@
             <!-- Projects Grid Section -->
             <section class="projects-grid-section">
                 <div class="projects-grid" id="projects-grid">
-                    <!-- Project cards will be dynamically generated -->
+                    @forelse($proyek->take(3) as $item)
+                        <div class="project-card" onclick="viewProjectDetail({{ $item->project_id }})">
+                            <div class="project-image">
+                                <img src="{{ asset($item->photo_url) }}" alt="{{ $item->photo_url }}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22160%22><rect width=%22300%22 height=%22160%22 fill=%22%2326667F%22/></svg>'">
+                                <span class="project-category">{{ $item->category->category_name ?? 'Uncategorized' }}</span>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-company">{{ $item->seller->company_name ?? 'Unknown Seller' }}</div>
+                                <h3 class="project-name">{{ $item->project_name }}</h3>
+                                <div class="project-duration">
+                                    <span>📅</span>
+                                    <span>{{ $item->duration_years }} Tahun</span>
+                                </div>
+                                <p class="project-description">{{ Str::limit($item->desc, 100) }}</p>
+                                <div class="project-footer">
+                                    <div class="project-price">
+                                        Rp {{ format_angka_singkat($item->price, 1, ',', '.') }}<span>/ton CO₂</span>
+                                    </div>
+                                    <button class="btn-detail">Detail</button>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-12">
+                            <p class="text-center">Tidak ada proyek tersedia saat ini.</p>
+                        </div>
+                    @endforelse
                 </div>
             </section>
-
             <!-- Pagination Section -->
             <section class="pagination-section">
                 <button class="pagination-btn" id="prev-btn" disabled>
@@ -132,49 +157,4 @@
 @endsection
 
 @push('scripts')
-<script>
-    window.MARKETPLACE_PROJECT_DETAIL_URLS = {
-        1: "{{ route('marketplace.product_detail.mangrove') }}",
-    };
-
-    // Load emission data from localStorage
-    document.addEventListener('DOMContentLoaded', function() {
-        loadEmissionData();
-    });
-
-    function loadEmissionData() {
-        const emissionData = localStorage.getItem('carbonEmissionData');
-        
-        if (emissionData) {
-            try {
-                const data = JSON.parse(emissionData);
-                
-                // Display emission stats
-                document.getElementById('total-emissions').textContent = data.totalEmissions || '-';
-                document.getElementById('tree-equivalent').textContent = data.treeEquivalent || '-';
-                document.getElementById('offset-needed').textContent = data.offsetNeeded || '-';
-                
-                // Hide calculation notice
-                document.getElementById('calculation-notice').style.display = 'none';
-                
-            } catch (error) {
-                console.error('Error loading emission data:', error);
-                showCalculationNotice();
-            }
-        } else {
-            showCalculationNotice();
-        }
-    }
-
-    function showCalculationNotice() {
-        // Show notice
-        document.getElementById('calculation-notice').style.display = 'block';
-        
-        // Set default values
-        document.getElementById('total-emissions').textContent = '-';
-        document.getElementById('tree-equivalent').textContent = '-';
-        document.getElementById('offset-needed').textContent = '-';
-    }
-</script>
-<script src="{{ asset('js/MarketPlace/projects.js') }}"></script>
 @endpush

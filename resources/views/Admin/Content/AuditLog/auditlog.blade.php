@@ -80,111 +80,87 @@
                     <option value="login">Login</option>
                     <option value="logout">Logout</option>
                     <option value="create">Create</option>
-                    <option value="update">Update</option>
-                    <option value="delete">Delete</option>
-                    <option value="approve">Approve</option>
-                </select>
+        <div class="col-md-3">
+            <div class="log-stat-card">
+                <div class="log-icon-wrapper bg-primary bg-opacity-10 text-primary">
+                    <i class="bi bi-activity"></i>
+                </div>
+                <div>
+                    <h4 class="mb-0 fw-bold">1,248</h4>
+                    <span class="text-muted small">Total Aktivitas</span>
+                </div>
             </div>
-            <div class="col-md-2">
-                <input type="date" class="form-control" placeholder="Tanggal Mulai">
+        </div>
+        <div class="col-md-3">
+            <div class="log-stat-card">
+                <div class="log-icon-wrapper bg-success bg-opacity-10 text-success">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <div>
+                    <h4 class="mb-0 fw-bold">98.5%</h4>
+                    <span class="text-muted small">Success Rate</span>
+                </div>
             </div>
-            <div class="col-md-2">
-                <input type="date" class="form-control" placeholder="Tanggal Akhir">
+        </div>
+        <div class="col-md-3">
+            <div class="log-stat-card">
+                <div class="log-icon-wrapper bg-warning bg-opacity-10 text-warning">
+                    <i class="bi bi-shield-exclamation"></i>
+                </div>
+                <div>
+                    <h4 class="mb-0 fw-bold">12</h4>
+                    <span class="text-muted small">Suspicious</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="log-stat-card">
+                <div class="log-icon-wrapper bg-info bg-opacity-10 text-info">
+                    <i class="bi bi-people"></i>
+                </div>
+                <div>
+                    <h4 class="mb-0 fw-bold">45</h4>
+                    <span class="text-muted small">Active Users</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Audit Log Table -->
-    <div class="content-section">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">Riwayat Aktivitas</h2>
+    <!-- Main Content -->
+    <div class="card-modern">
+        <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
+            <h5 class="fw-bold mb-0 text-dark">Aktivitas Terbaru</h5>
             <div class="d-flex gap-2">
-                <button class="btn btn-secondary btn-sm">
-                    <i class="bi bi-funnel me-2"></i>Filter Lanjutan
-                </button>
-                <button class="btn btn-secondary btn-sm">
-                    <i class="bi bi-arrow-clockwise me-2"></i>Refresh
-                </button>
+                <div class="input-group" style="width: 250px;">
+                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" class="form-control border-start-0 bg-light" placeholder="Search logs...">
+                </div>
+                <button class="btn btn-outline-secondary"><i class="bi bi-filter"></i></button>
+                <button class="btn btn-outline-secondary"><i class="bi bi-download"></i></button>
             </div>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-modern mb-0">
                 <thead>
                     <tr>
-                        <th>Waktu</th>
-                        <th>User</th>
-                        <th>Role</th>
-                        <th>Aktivitas</th>
-                        <th>Detail</th>
+                        <th style="width: 25%;">User / Actor</th>
+                        <th>Action</th>
+                        <th>Entity Type</th>
+                        <th>Entity ID</th>
                         <th>IP Address</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
+                        <th>Timestamp</th>
+                        <th class="text-end">Details</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            <div class="fw-semibold">05 Jan 2026</div>
-                            <div class="small text-muted">14:23:15</div>
-                        </td>
-                        <td>
-                            <div class="fw-semibold">Admin Super</div>
-                            <div class="small text-muted">admin@camar.id</div>
-                        </td>
-                        <td><span class="badge bg-danger">Admin</span></td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-person-check text-success me-2"></i>
-                                Approve Akun
-                            </div>
-                        </td>
-                        <td>Menyetujui akun PT Green Energy Indonesia</td>
-                        <td><code>192.168.1.100</code></td>
-                        <td><span class="badge approved">Berhasil</span></td>
-                        <td>
-                            <button class="btn btn-secondary btn-sm">Detail</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="fw-semibold">05 Jan 2026</div>
-                            <div class="small text-muted">14:15:42</div>
-                        </td>
-                        <td>
-                            <div class="fw-semibold">Dr. Hartono Wijaya</div>
-                            <div class="small text-muted">hartono@auditor.camar.id</div>
-                        </td>
-                        <td><span class="badge bg-info">Auditor</span></td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-file-earmark-check text-primary me-2"></i>
-                                Update Proyek
-                            </div>
-                        </td>
-                        <td>Memperbarui status proyek Reforestasi Kalimantan</td>
-                        <td><code>103.45.78.120</code></td>
-                        <td><span class="badge approved">Berhasil</span></td>
-                        <td>
-                            <button class="btn btn-secondary btn-sm">Detail</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="fw-semibold">05 Jan 2026</div>
-                            <div class="small text-muted">13:58:30</div>
-                        </td>
-                        <td>
-                            <div class="fw-semibold">Eko Prasetyo</div>
-                            <div class="small text-muted">eko@greenenergy.co.id</div>
-                        </td>
-                        <td><span class="badge bg-success">Seller</span></td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-box-arrow-in-right text-primary me-2"></i>
                                 Login
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">Auth</span></td>
+                        <td><code>-</code></td>
                         <td>Login berhasil ke sistem</td>
                         <td><code>114.79.45.201</code></td>
                         <td><span class="badge approved">Berhasil</span></td>
@@ -208,6 +184,8 @@
                                 Login Gagal
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">Auth</span></td>
+                        <td><code>-</code></td>
                         <td>Percobaan login dengan kredensial salah</td>
                         <td><code>45.123.67.89</code></td>
                         <td><span class="badge pending">Gagal</span></td>
@@ -231,6 +209,8 @@
                                 Terbitkan Sertifikat
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">Certificate</span></td>
+                        <td><code>CERT-2025-001</code></td>
                         <td>Menerbitkan sertifikat untuk proyek #CR-2025-001</td>
                         <td><code>192.168.1.100</code></td>
                         <td><span class="badge approved">Berhasil</span></td>
@@ -254,6 +234,8 @@
                                 Buat Transaksi
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">Order</span></td>
+                        <td><code>ORD-2025-156</code></td>
                         <td>Membuat transaksi pembelian 500 ton CO2</td>
                         <td><code>180.247.92.15</code></td>
                         <td><span class="badge approved">Berhasil</span></td>
@@ -277,6 +259,8 @@
                                 Hapus Data
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">User</span></td>
+                        <td><code>USR-2025-099</code></td>
                         <td>Menghapus akun spam user@spam.com</td>
                         <td><code>192.168.1.100</code></td>
                         <td><span class="badge approved">Berhasil</span></td>
@@ -300,6 +284,8 @@
                                 Verifikasi Proyek
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">Project</span></td>
+                        <td><code>PRJ-2025-045</code></td>
                         <td>Menyelesaikan verifikasi proyek Mangrove Conservation</td>
                         <td><code>125.164.33.78</code></td>
                         <td><span class="badge approved">Berhasil</span></td>
@@ -323,6 +309,8 @@
                                 Akses Ditolak
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">Security</span></td>
+                        <td><code>-</code></td>
                         <td>Percobaan akses ke halaman admin tanpa otorisasi</td>
                         <td><code>67.89.123.45</code></td>
                         <td><span class="badge pending">Gagal</span></td>
@@ -346,6 +334,8 @@
                                 Update Settings
                             </div>
                         </td>
+                        <td><span class="badge bg-light text-dark border">System</span></td>
+                        <td><code>SYS-CONF</code></td>
                         <td>Mengubah konfigurasi sistem notifikasi</td>
                         <td><code>192.168.1.100</code></td>
                         <td><span class="badge approved">Berhasil</span></td>

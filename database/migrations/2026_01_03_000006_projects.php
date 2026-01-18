@@ -41,27 +41,16 @@ return new class extends Migration
 
             $table->foreign('project_id')->references('project_id')->on('projects');
         });
-        Schema::create('mrv_reports', function (Blueprint $table) {
-            $table->id('mrv_id');
+        Schema::create('project_documentations', function (Blueprint $table) {
+            $table->id('document_id');
             $table->unsignedBigInteger('project_id');
-            $table->string('mrv_name');
+            $table->string('document_name');
             $table->integer('status');
             $table->decimal('size', 65, 0);
             $table->string('document_url');
             $table->timestamp('submitted_at');
 
             $table->foreign('project_id')->references('project_id')->on('projects');
-        });
-        Schema::create('project_verifications', function (Blueprint $table) {
-            $table->id('verification_id');
-            $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('auditor_id');
-            $table->string('verified_emission_ton');
-            $table->string('verification_report_url');
-            $table->timestamp('verified_at');
-
-            $table->foreign('project_id')->references('project_id')->on('projects');
-            $table->foreign('auditor_id')->references('auditor_id')->on('auditors');
         });
         Schema::create('project_view_logs', function (Blueprint $table) {
             $table->id('view_id');

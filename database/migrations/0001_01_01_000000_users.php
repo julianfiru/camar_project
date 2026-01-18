@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('user_id');
             $table->string('email')->unique();
             $table->string('password_hash');
-            $table->string('photo_url');
+            $table->string('photo_url')->nullable();
             $table->string('role');
             $table->integer('status');
             $table->rememberToken();

@@ -25,7 +25,7 @@ class ProyekSeller extends Controller
     }
     public function getDetail($id)
     {
-        $project = Project::with(['seller', 'mrv', 'category'])->find($id);
+        $project = Project::with(['seller', 'projectdocuments', 'category'])->find($id);
         $revenue = Order::join('projects', 'offset_orders.project_id', '=', 'projects.project_id')
                     ->where('offset_orders.project_id', $id)
                     ->where('offset_orders.order_status', 2)

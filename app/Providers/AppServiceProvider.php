@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
                 $role = $user->role;
                 $photoUrl = $user ? $user->photo_url : 'urlProfil/User1.gif';
                 $view->with('photoUrl', $photoUrl);
-                if ($role === "Seller") {
+                if ($role === "seller") {
                     $companyName = $user->seller?->company_name;
                     $badgeLevel  = $user->seller?->badge?->badge_name;
                     $badgeStyle = $user->seller?->badge?->badge_style;
@@ -51,11 +51,11 @@ class AppServiceProvider extends ServiceProvider
                     $view->with('badgeStyle', $badgeStyle);
                     $view->with('companyName', $companyName);
                 } 
-                if ($role === "Buyer") {
+                if ($role === "buyer") {
                     $companyName = $user->buyer?->company_name;
                     $view->with('companyName', $companyName);
                 }
-                if ($role === "Auditor") {
+                if ($role === "auditor") {
                     $displayName = $user->auditor?->name;
                     $roleLabel = $user->auditor?->position;
                     $view->with('displayName', $displayName);

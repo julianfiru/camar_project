@@ -80,45 +80,6 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="reports" role="tabpanel">
-                        <div class="text-center p-4 mb-4 rounded-3 border border-2 border-dashed" onclick="showUploadCard()" 
-                            style="border-color: var(--green) !important; background: rgba(103, 192, 144, 0.05); cursor: pointer;">
-                            <h6 class="fw-bold mb-1" style="color: var(--navy);">Upload Laporan Baru</h6>
-                            <p class="small text-muted mb-0">Ubah nama sesuai isi dokumen terlebih dahulu</p>
-                            <p class="small text-muted mb-0">Klik untuk upload PDF/DOC</p>
-                        </div>
-                        <form id="uploadForm" action="{{ route('seller.upload.documentProject') }}" method="POST" enctype="multipart/form-data" style="display: none;">
-                            @csrf
-                            <input type="hidden" name="project_id" id="input_project_id_upload">
-                            <div class="upload-card p-4">
-                                <h5 class="fw-bold mb-3" style="color: var(--navy);">Upload Laporan</h5>
-                                <div class="upload-area text-center p-4 mb-3" 
-                                    id="uploadArea" 
-                                    onclick="document.getElementById('fileInput').click()" 
-                                    style="cursor: pointer;">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0 auto 12px;">
-                                        <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="#67C090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M17 8L12 3L7 8" stroke="#67C090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M12 3V15" stroke="#67C090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                    <h6 class="fw-semibold mb-2" style="color: var(--navy);">Pilih file atau drag & drop</h6>
-                                    <p class="small text-muted mb-0">Format: PDF, DOC, DOCX (Maks. 10MB)</p>
-                                </div>
-                                <input type="file" 
-                                    id="fileInput" 
-                                    name="document_file" 
-                                    class="d-none" 
-                                    accept=".pdf,.doc,.docx" 
-                                    onchange="handleFileSelect(event)">
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <button type="button" class="btn btn-keluar" onclick="hideUploadCard()">
-                                        Keluar
-                                    </button>
-                                    <button type="button" class="btn btn-lanjutkan" id="btnLanjutkan" onclick="handleSubmit()" disabled>
-                                        Lanjutkan
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                         <div id="modal_mrv_list">
                             </div>
                         <template id="mrv_card_template">
@@ -145,5 +106,3 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('js/seller/proyek/DetailProyek.js') }}"></script>
-<script src="{{ asset('js/seller/UploadFile.js') }}"></script>

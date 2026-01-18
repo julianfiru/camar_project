@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Auth;
 if (!function_exists('get_status_style')) {
     function get_status_style($status) {
         return match((int) $status) {
@@ -61,20 +62,45 @@ if (!function_exists('format_angka_singkat')) {
 }
 if (!function_exists('format_ukuran_kb')) {
     function format_ukuran_kb($kb, $presisi = 1) {
-        if (!is_numeric($kb)) return '0 KB';
-        if ($kb >= 1048576) { 
-            $hasil = $kb / 1048576;
-            $satuan = ' GB';
+        $satuan = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $kb = max($kb, 0);
+        $pow = floor(($kb ? log($kb) : 0) / log(1024));
+        $pow = min($pow, count($satuan) - 1);
+        if ($pow == 0) $presisi = 0; 
+        $kb /= pow(1024, $pow);
+        return number_format($kb, $presisi, ',', '.') . ' ' . $satuan[$pow];
+    }
+}
+if (!function_exists('getDocumentCategories')) {
+    function getDocumentCategories()
+    {
+        $user = Auth::user();
+        $role = $user ? $user->role : null;
+        $categories = [
+            'legalitas' => [
+                'label' => 'Legalitas',
+                'items' => [
+                    'akta' => 'Akta',
+                    'npwp' => 'NPWP',
+                    'nib'  => 'NIB',
+                ]
+            ],
+            'sertifikat' => [
+                'label' => 'Sertifikat',
+                'items' => [
+                    'iso' => 'ISO',
+                ]
+            ]
+        ];
+        if ($role === 'Seller') {
+            $categories['carbon_standard'] = [
+                'label' => 'Carbon Standard',
+                'items' => [
+                    'vcs' => 'Verified Carbon Standard (VCS)',
+                    'gold_standard' => 'Gold Standard (GS)',
+                ]
+            ];
         }
-        elseif ($kb >= 1024) {
-            $hasil = $kb / 1024;
-            $satuan = ' MB';
-        }
-        else {
-            $hasil = $kb;
-            $satuan = ' KB';
-            $presisi = 0;
-        }
-        return number_format($hasil, $presisi, ',', '.') . $satuan;
+        return $categories;
     }
 }

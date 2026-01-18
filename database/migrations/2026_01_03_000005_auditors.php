@@ -21,13 +21,13 @@ return new class extends Migration
         });
         Schema::create('audit_logs', function (Blueprint $table) {
             $table->id('log_id');
-            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('auditor_id');
             $table->string('action');
             $table->string('entity_type');
             $table->integer('entity_id');
             $table->timestamp('created_at');
             
-            $table->foreign('admin_id')->references('admin_id')->on('admins');
+            $table->foreign('auditor_id')->references('auditor_id')->on('auditors');
         });
     }
 

@@ -266,188 +266,282 @@
                 <button class="btn btn-secondary btn-sm">
                     <i class="bi bi-file-text me-1"></i>Detail Proyek
                 </button>
-            </div>
-        </div>
-    </div>
+@extends('Admin.Layout.app')
 
-    <!-- Issued Certificates Section -->
-    <div class="content-section">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">
-                <i class="bi bi-check-circle me-2"></i>Sertifikat yang Telah Diterbitkan
-            </h2>
-        </div>
+@section('title', 'Sertifikat - CAMAR Admin')
 
-        <!-- Nav Tabs -->
-        <ul class="nav nav-tabs mb-4" id="certificateTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent-cert" type="button" role="tab">
-                    <i class="bi bi-clock-history me-2"></i>Terbaru
-                </button>
+@section('page-title', 'Manajemen Sertifikat')
+
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}" class="text-decoration-none text-muted">Dashboard</a></li>
+    <li class="breadcrumb-item active">Sertifikat</li>
+@endsection
+
+@push('styles')
+<style>
+    /* Modern Card & Layout */
+    .card-modern {
+        background: white;
+        border-radius: 16px;
+        border: none;
+        box-shadow: 0 4px 20px -2px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    /* Modern Tabs */
+    .nav-tabs-modern {
+        border-bottom: 2px solid #f0f0f0;
+        padding: 0 1.5rem;
+    }
+
+    .nav-tabs-modern .nav-link {
+        border: none;
+        color: #999;
+        font-weight: 600;
+        padding: 1rem 1.5rem;
+        position: relative;
+        background: transparent;
+        transition: all 0.2s;
+    }
+
+    .nav-tabs-modern .nav-link:hover {
+        color: var(--color-quaternary);
+    }
+
+    .nav-tabs-modern .nav-link.active {
+        color: var(--color-quaternary);
+        background: transparent;
+    }
+
+    .nav-tabs-modern .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--color-secondary);
+        border-radius: 2px 2px 0 0;
+    }
+
+    /* Certificate Cards */
+    .cert-card {
+        background: #fff;
+        border: 1px solid #f0f0f0;
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.2s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cert-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+        border-color: var(--color-secondary);
+    }
+
+    .cert-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(103, 192, 144, 0.1);
+        color: var(--color-secondary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .cert-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+    }
+
+    .cert-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--color-quaternary);
+        margin-bottom: 0.25rem;
+    }
+    
+    .cert-subtitle {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+
+    .cert-meta {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .meta-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    .meta-row:last-child { margin-bottom: 0; }
+    
+    .meta-label { color: #999; }
+    .meta-value { font-weight: 600; color: #333; }
+
+    /* Modern Table */
+    .table-modern thead th {
+        background-color: #f8f9fa;
+        font-size: 0.75rem;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .table-modern tbody td {
+        padding: 1rem 1.5rem;
+        vertical-align: middle;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        font-size: 0.95rem;
+    }
+    
+    .badge-modern {
+        padding: 0.5em 0.8em;
+        font-weight: 600;
+        font-size: 0.75rem;
+        border-radius: 6px;
+    }
+    
+    .badge-soft-success { background-color: rgba(25, 135, 84, 0.1); color: #198754; }
+    .badge-soft-warning { background-color: rgba(255, 193, 7, 0.1); color: #997404; }
+</style>
+@endpush
+
+@section('Admin.Content')
+    <div class="card-modern">
+        <ul class="nav nav-tabs nav-tabs-modern" id="sertifikatTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="ready-tab" data-bs-toggle="tab" href="#ready-content" role="tab">
+                    <i class="bi bi-file-earmark-check me-2"></i>Siap Terbit
+                    <span class="badge bg-danger rounded-pill ms-2" style="font-size: 0.6rem;">2</span>
+                </a>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-cert" type="button" role="tab">
-                    <i class="bi bi-list-ul me-2"></i>Semua Sertifikat
-                </button>
+            <li class="nav-item">
+                <a class="nav-link" id="issued-tab" data-bs-toggle="tab" href="#issued-content" role="tab">
+                    <i class="bi bi-clock-history me-2"></i>Riwayat Penerbitan
+                </a>
             </li>
         </ul>
 
-        <!-- Tab Content -->
-        <div class="tab-content" id="certificateTabContent">
-            <!-- Recent Certificates Tab -->
-            <div class="tab-pane fade show active" id="recent-cert" role="tabpanel">
-                <!-- Certificate Card 1 -->
-                <div class="certificate-card mb-3">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                            <h5 class="certificate-title mb-1">Konservasi Terumbu Karang Kepulauan Seribu</h5>
-                            <p class="certificate-id mb-0">Sertifikat ID: CERT-2024-089 | Proyek: PRJ-2023-067</p>
-                        </div>
-                        <span class="badge approved">Terbit</span>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-6 col-md-4">
-                            <div class="info-item">
-                                <span class="info-label">Penerima</span>
-                                <span class="info-value">Ocean Conservation ID</span>
+        <div class="tab-content">
+            <!-- Ready to Issue -->
+            <div class="tab-pane fade show active p-4" id="ready-content" role="tabpanel">
+                <div class="row g-4">
+                    <!-- Card 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="cert-card">
+                            <div class="cert-header">
+                                <div class="cert-icon">
+                                    <i class="bi bi-award"></i>
+                                </div>
+                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill small">Menunggu Penerbitan</span>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="info-item">
-                                <span class="info-label">Jumlah Offset</span>
-                                <span class="info-value">18,000 ton CO₂</span>
+                            <div>
+                                <h5 class="cert-title">PT Industri Hijau Indonesia</h5>
+                                <div class="cert-subtitle mb-3">Order ID: ORD-2026-001</div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="info-item">
-                                <span class="info-label">Tanggal Terbit</span>
-                                <span class="info-value">23 Des 2024</span>
+                            
+                            <div class="cert-meta">
+                                <div class="meta-row">
+                                    <span class="meta-label">Proyek</span>
+                                    <span class="meta-value text-end" style="max-width: 60%;">Reforestasi Kalimantan</span>
+                                </div>
+                                <div class="meta-row">
+                                    <span class="meta-label">Offset</span>
+                                    <span class="meta-value text-success">500 tCO2e</span>
+                                </div>
+                                <div class="meta-row">
+                                    <span class="meta-label">Vintage</span>
+                                    <span class="meta-value">2025</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="d-flex gap-2 pt-3 border-top">
-                        <button class="btn btn-secondary" onclick="downloadCertificate('CERT-2024-089')">
-                            <i class="bi bi-download me-1"></i>Download Sertifikat
-                        </button>
-                        <button class="btn btn-secondary btn-sm">
-                            <i class="bi bi-eye me-1"></i>Preview
-                        </button>
-                        <button class="btn btn-secondary btn-sm">
-                            <i class="bi bi-envelope me-1"></i>Kirim Email
-                        </button>
-                    </div>
-                </div>
 
-                <!-- Certificate Card 2 -->
-                <div class="certificate-card mb-3">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <div>
-                            <h5 class="certificate-title mb-1">Pembangkit Listrik Tenaga Surya Komunitas</h5>
-                            <p class="certificate-id mb-0">Sertifikat ID: CERT-2024-088 | Proyek: PRJ-2023-054</p>
-                        </div>
-                        <span class="badge approved">Terbit</span>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-6 col-md-4">
-                            <div class="info-item">
-                                <span class="info-label">Penerima</span>
-                                <span class="info-value">Solar Community Indonesia</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="info-item">
-                                <span class="info-label">Jumlah Offset</span>
-                                <span class="info-value">14,200 ton CO₂</span>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="info-item">
-                                <span class="info-label">Tanggal Terbit</span>
-                                <span class="info-value">21 Des 2024</span>
+                            <div class="d-grid">
+                                <button class="btn btn-primary" style="background-color: var(--color-quaternary);">
+                                    <i class="bi bi-magic me-2"></i>Terbitkan Sertifikat
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex gap-2 pt-3 border-top">
-                        <button class="btn btn-secondary" onclick="downloadCertificate('CERT-2024-088')">
-                            <i class="bi bi-download me-1"></i>Download Sertifikat
-                        </button>
-                        <button class="btn btn-secondary btn-sm">
-                            <i class="bi bi-eye me-1"></i>Preview
-                        </button>
-                        <button class="btn btn-secondary btn-sm">
-                            <i class="bi bi-envelope me-1"></i>Kirim Email
-                        </button>
+
+                    <!-- Card 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="cert-card">
+                            <div class="cert-header">
+                                <div class="cert-icon">
+                                    <i class="bi bi-award"></i>
+                                </div>
+                                <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill small">Menunggu Penerbitan</span>
+                            </div>
+                            <div>
+                                <h5 class="cert-title">CV Karbon Nusantara</h5>
+                                <div class="cert-subtitle mb-3">Order ID: ORD-2026-002</div>
+                            </div>
+                            
+                            <div class="cert-meta">
+                                <div class="meta-row">
+                                    <span class="meta-label">Proyek</span>
+                                    <span class="meta-value text-end" style="max-width: 60%;">Solar Farm Bali</span>
+                                </div>
+                                <div class="meta-row">
+                                    <span class="meta-label">Offset</span>
+                                    <span class="meta-value text-success">1,200 tCO2e</span>
+                                </div>
+                                <div class="meta-row">
+                                    <span class="meta-label">Vintage</span>
+                                    <span class="meta-value">2025</span>
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button class="btn btn-primary" style="background-color: var(--color-quaternary);">
+                                    <i class="bi bi-magic me-2"></i>Terbitkan Sertifikat
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- All Certificates Tab -->
-            <div class="tab-pane fade" id="all-cert" role="tabpanel">
-                <!-- Search & Filter -->
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6">
+            <!-- Issued History -->
+            <div class="tab-pane fade" id="issued-content" role="tabpanel">
+                <div class="filter-section d-flex gap-3 align-items-center flex-wrap p-4 bg-light border-bottom">
+                    <div class="flex-grow-1">
                         <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-search"></i></span>
-                            <input type="text" class="form-control" placeholder="Cari sertifikat...">
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0" placeholder="Cari sertifikat...">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <select class="form-select">
-                            <option>Semua Bulan</option>
-                            <option>Desember 2024</option>
-                            <option>November 2024</option>
-                            <option>Oktober 2024</option>
-                        </select>
-                    </div>
+                    <button class="btn btn-light btn-sm border"><i class="bi bi-filter me-1"></i>Filters</button>
+                    <button class="btn btn-light btn-sm border"><i class="bi bi-download me-1"></i>Export</button>
                 </div>
 
-                <!-- Table -->
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-modern mb-0">
                         <thead>
                             <tr>
-                                <th>ID Sertifikat</th>
-                                <th>Proyek</th>
+                                <th>No. Sertifikat</th>
+                                <th>Order ID</th>
                                 <th>Penerima</th>
+                                <th>Proyek</th>
                                 <th>Jumlah Offset</th>
                                 <th>Tanggal Terbit</th>
-                                <th>Aksi</th>
+                                <th>Status</th>
+                                <th class="text-end">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>CERT-2024-089</td>
-                                <td>Konservasi Terumbu Karang</td>
-                                <td>Ocean Conservation ID</td>
-                                <td>18,000 ton CO₂</td>
-                                <td>23 Des 2024</td>
-                                <td>
-                                    <button class="btn btn-secondary btn-sm" onclick="downloadCertificate('CERT-2024-089')">
-                                        <i class="bi bi-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CERT-2024-088</td>
-                                <td>Pembangkit Listrik Tenaga Surya</td>
-                                <td>Solar Community Indonesia</td>
-                                <td>14,200 ton CO₂</td>
-                                <td>21 Des 2024</td>
-                                <td>
-                                    <button class="btn btn-secondary btn-sm" onclick="downloadCertificate('CERT-2024-088')">
-                                        <i class="bi bi-download"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>CERT-2024-087</td>
-                                <td>Reforestasi Hutan Mangrove</td>
-                                <td>PT Green Indonesia</td>
-                                <td>22,500 ton CO₂</td>
-                                <td>15 Des 2024</td>
-                                <td>
-                                    <button class="btn btn-secondary btn-sm" onclick="downloadCertificate('CERT-2024-087')">
-                                        <i class="bi bi-download"></i>
                                     </button>
                                 </td>
                             </tr>

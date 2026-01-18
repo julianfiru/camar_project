@@ -15,6 +15,7 @@ class Buyer extends Model
         'user_id',
         'company_name',
         'country',
+        'industry',
         'nib',
         'npwp',
         'website',

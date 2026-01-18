@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('bio');
             $table->string('desc');
             $table->text('address');
+            $table->string('bank_name');
+            $table->string('account_number');
             $table->timestamp('verified_at')->nullable();
             $table->foreign('user_id')->references('user_id')->on('users');
         });
@@ -31,15 +33,6 @@ return new class extends Migration
             $table->unsignedBigInteger('seller_id');
             $table->decimal('total_relized_ton', 65, 0);
             $table->timestamp('assigned_at');
-
-            $table->foreign('seller_id')->references('seller_id')->on('sellers');
-        });
-        Schema::create('seller_bankings', function (Blueprint $table) {
-            $table->id('bank_id');
-            $table->unsignedBigInteger('seller_id');
-            $table->string('bank_name');
-            $table->string('account_number');
-            $table->string('bank_branch');
 
             $table->foreign('seller_id')->references('seller_id')->on('sellers');
         });
