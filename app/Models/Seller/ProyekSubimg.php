@@ -4,18 +4,14 @@ namespace App\Models\Seller;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mrv extends Model
+class ProyekSubimg extends Model
 {
-    protected $table = 'mrv_reports';
+    protected $table = 'project_subimg';
     public $timestamps = false;
-    protected $primaryKey = 'mrv_id';
+    protected $primaryKey = 'subimg_id';
     protected $fillable = [
         'project_id',
-        'mrv_name',
-        'status',
-        'size',
-        'document_url',
-        'submitted_at',
+        'subimg_url',
     ];
     public function project()
     {

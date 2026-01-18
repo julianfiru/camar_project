@@ -8,7 +8,7 @@
     </div>
 
     <div class="user-profile">
-        <img src="{{ $photoUrl }}" alt="Profile" class="user-avatar-img">
+        <img src="{{ asset($photoUrl) }}" alt="Profile" class="user-avatar-img">
         <div class="user-info">
             <div class="user-name">{{ $displayName }}</div>
             <div class="user-role">{{ $roleLabel }}</div>

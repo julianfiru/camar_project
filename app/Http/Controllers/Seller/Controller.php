@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use App\Models\Seller\Order;
 use App\Models\Seller\Payment;
+use App\Models\Seller\ProjectCategory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -26,6 +27,7 @@ class Controller extends BaseController
         protected $totalProyek;
         protected $carbonCredit;
         protected $carbonTotal;
+        protected $categories;
     // Proyek
 
     // Penjualan
@@ -63,6 +65,7 @@ class Controller extends BaseController
                 $this->user = Auth::user();
                 $projectIds = $this->user->seller->projects->pluck('project_id');
                 // Proyek
+                    $this->categories = ProjectCategory::all();
                     $this->proyek = $this->user->seller->projects;
                     $this->totalAktif = $this->user->seller->projects()
                          ->where('status', 2)

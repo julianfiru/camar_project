@@ -59,7 +59,7 @@ function showProjectDetail(element) {
             }
             document.getElementById('input_project_id_upload').value = data.project_id;
             document.getElementById('modal_project_name').innerText = data.project_name;
-            document.getElementById('modal_project_type').innerText = data.project_type;
+            document.getElementById('modal_project_type').innerText = data.category.category_name;
             document.getElementById('modal_project_location').innerText = data.location;
             let capacity = new Intl.NumberFormat('id-ID').format(data.total_capacity_ton);
             document.getElementById('modal_project_capacity').innerText = capacity;
@@ -120,13 +120,13 @@ function showProjectDetail(element) {
                         let badgeClass = 'bg-secondary';
                         let badgeText = 'Pending';
                         if (doc.status === 2) {
-                            badgeClass = 'bg-opacity-10 ftc-green border bgc-green';
+                            badgeClass = 'bg-opacity-10 border bgc-green';
                             badgeText = 'Disetujui';
                         } else if (doc.status === 1) {
                             badgeClass = 'bg-opacity-10 border bgc-yellow';
                             badgeText = 'Pending';
                         } else if (doc.status === 0) {
-                            badgeClass = 'bg-opacity-10 ftc-red border bgc-red';
+                            badgeClass = 'bg-opacity-10 border bgc-red';
                             badgeText = 'Ditolak';
                         }
                         clone.querySelector('.mrv-name').innerText = doc.mrv_name;

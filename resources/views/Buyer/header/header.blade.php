@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold company-logo overflow-hidden bg-secondary" 
                                     style="width: 45px; height: 45px; min-width: 45px;">
-                                    <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
+                                    <img src="{{ asset($photoUrl) }}" 
                                         alt="Profile" 
                                         class="w-100 h-100" 
                                         style="object-fit: cover;">

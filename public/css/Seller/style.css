@@ -209,6 +209,25 @@ body {
         border-bottom: 1px solid var(--table-row-border);
         color: var(--stat-title-color);
     }
+
+    .product-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        /* Bootstrap class 'rounded' handles border-radius */
+    }
+
+    .product-title {
+        font-weight: 600; /* Semi-bold */
+        font-size: 1rem;
+        color: var(--navy);
+    }
+
+    .meta-text {
+        font-size: 0.875rem; /* Setara small */
+        color: var(--gray);
+        line-height: 1.4;
+    }
 /* TABLE */
 
 /* CARD STATUS */

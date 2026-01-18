@@ -85,7 +85,7 @@
                     <!-- User Profile Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" style="color: #333;">
-                            <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
+                            <img src="{{ asset($photoUrl) }}" 
                                 alt="Profile" 
                                 class="rounded-circle me-2" 
                                 style="width: 35px; height: 35px; object-fit: cover;">

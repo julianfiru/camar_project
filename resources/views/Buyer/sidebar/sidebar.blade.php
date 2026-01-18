@@ -122,12 +122,12 @@
 
                 <!-- Keluar -->
                 <li class="nav-item logout-item">
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-sidebar').submit();" class="nav-link">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>Keluar</span>
-                    </a>
-                    <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST" class="d-none">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
+                            <button type="submit" class="nav-link w-100" style="cursor: pointer;">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Keluar</span>
+                            </button>
                     </form>
                 </li>
             </ul>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Update Produk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* COLOR PALETTE & THEME */
+        :root {
+            --body-bg: linear-gradient(135deg, var(--mint) 0%, var(--white) 100%);
+            --body-color: var(--navy);
+            --red: #E74C3C;
+            --mint: #DDF4E7;
+            --green: #67C090;
+            --teal: #26667F;
+            --navy: #124170;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray: #666;
+            --yellow: #f39c12;
+            --dark: #1a1a1a;
+            --darker: #0f0f0f;
+            --darkest: #0a0a0a;
+
+            --card-bg: var(--white);
+            --card-border: transparent;
+            --card-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            --stat-title-color: var(--gray);
+            --stat-value-color: var(--navy);
+            
+            --bs-font-sans-serif: 'Ubuntu', sans-serif;
+            --bs-body-font-family: 'Ubuntu', sans-serif;
+        }
+        
+        [data-theme="dark"] {
+            --body-bg: linear-gradient(135deg, var(--darkest) 0%, var(--darker) 50%, var(--dark) 100%);
+            --body-color: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border: rgba(103, 192, 144, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #ffffff90;
+            
+            --card-bg: var(--bg-card);
+            --card-border: var(--border);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --stat-title-color: var(--text-secondary);
+            --stat-value-color: var(--mint);
+        }
+
+        * {
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        body {
+            background: var(--body-bg);
+            color: var(--body-color);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+        }
+
+        .modal-header {
+            color: var(--white);
+            border-bottom: none;
+        }
+
+        [data-theme="dark"] .modal-header {
+            background: linear-gradient(135deg, rgba(103, 192, 144, 0.3), rgba(38, 102, 127, 0.3));
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .modal-header p {
+            margin: 0.25rem 0 0 0;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        [data-theme="dark"] .btn-close {
+            filter: brightness(1) invert(0);
+            opacity: 0.8;
+        }
+
+        .detail-section {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        [data-theme="dark"] .detail-section {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-section:last-child {
+            border-bottom: none;
+        }
+
+        .detail-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--teal);
+            margin-bottom: 1.25rem;
+        }
+
+        [data-theme="dark"] .detail-section h3 {
+            color: var(--mint);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--stat-title-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid transparent;
+            background: var(--gray-light);
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--navy);
+            transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .form-input,
+        [data-theme="dark"] .form-textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--border);
+            color: var(--text-primary);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--green);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(103, 192, 144, 0.1);
+        }
+
+        [data-theme="dark"] .form-input:focus,
+        [data-theme="dark"] .form-textarea:focus {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(103, 192, 144, 0.2);
+        }
+
+        .form-input:read-only {
+            background: var(--gray-light);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        [data-theme="dark"] .form-input:read-only {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+
+        [data-theme="dark"] .modal-footer {
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-keluar {
+            background: transparent;
+            color: var(--gray);
+            border: 2px solid var(--gray-light);
+        }
+
+        .btn-keluar:hover {
+            background: var(--gray-light);
+            color: var(--navy);
+        }
+
+        [data-theme="dark"] .btn-keluar {
+            color: var(--text-secondary);
+            border-color: var(--border);
+        }
+
+        [data-theme="dark"] .btn-keluar:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .btn-lanjutkan {
+            background: linear-gradient(135deg, var(--green), var(--teal));
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(103, 192, 144, 0.3);
+        }
+
+        .btn-lanjutkan:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(103, 192, 144, 0.4);
+        }
+
+        .btn-lanjutkan:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .badge-info {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--mint);
+            color: var(--teal);
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+
+        [data-theme="dark"] .badge-info {
+            background: rgba(103, 192, 144, 0.2);
+            color: var(--mint);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 9999;
+        }
+
+        .theme-toggle button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--green);
+            background: var(--white);
+            color: var(--teal);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] .theme-toggle button {
+            background: var(--bg-card);
+            border-color: var(--border);
+            color: var(--mint);
+        }
+
+        .theme-toggle button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()" id="themeToggle">🌙</button>
+    </div>
+
+    <div class="container">
+        <!-- Button to trigger modal (for demo purposes) -->
+        <div class="text-center mb-4">
+            <button class="btn btn-lanjutkan" data-bs-toggle="modal" data-bs-target="#updateModal">
+                Buka Form Update
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div id="updateModal" class="modal fade" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content rounded-4 border-0">
+                    <div class="modal-header px-4 py-3">
+                        <div>
+                            <h2 class="modal-title">Edit Produk Carbon Offset</h2>
+                            <p><span id="modal_project_name_display">Proyek Reforestasi Kalimantan</span></p>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <form id="updateForm" class="modal-body p-0">
+                        <input type="hidden" name="project_id" id="input_project_id_upload">
+                        
+                        <!-- Informasi Produk -->
+                        <div class="detail-section">
+                            <h3>Informasi Produk</h3>
+                            <div class="form-group">
+                                <label class="form-label">Nama Produk</label>
+                                <input type="text" class="form-input" id="modal_project_name" name="project_name" placeholder="Masukkan nama produk">
+                            </div>
+                            <div class="grid-2col">
+                                <div class="form-group">
+                                    <label class="form-label">SKU <span class="badge-info">Auto Generated</span></label>
+                                    <input type="text" class="form-input" id="modal_project_sku" name="sku" readonly value="CRB-2024-001">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Kategori</label>
+                                    <select class="form-input" id="modal_project_type" name="category_id">
+                                        <option value="">Pilih Kategori</option>
+                                        <option value="1">Reforestasi</option>
+                                        <option value="2">Energi Terbarukan</option>
+                                        <option value="3">Konservasi Hutan</option>
+                                        <option value="4">Teknologi Hijau</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Harga & Stok -->
+                        <div class="detail-section">
+                            <h3>Harga & Stok</h3>
+                            <div class="grid-2col">
+                                <div class="form-group">
+                                    <label class="form-label">Harga per tCO2e (Rp)</label>
+                                    <input type="number" class="form-input" id="modal_project_price" name="price" placeholder="150000" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Stok Tersedia (tCO2e)</label>
+                                    <input type="number" class="form-input" id="modal_project_stock" name="stock" placeholder="1000" min="0">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Deskripsi Produk</label>
+                                <textarea class="form-textarea" id="modal_project_desc" name="description" rows="4" placeholder="Jelaskan detail tentang produk carbon offset Anda..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Lokasi Proyek -->
+                        <div class="detail-section">
+                            <h3>Lokasi & Informasi Tambahan</h3>
+                            <div class="grid-2col">
+                                <div class="form-group">
+                                    <label class="form-label">Provinsi</label>
+                                    <select class="form-input" name="province">
+                                        <option value="">Pilih Provinsi</option>
+                                        <option value="kalimantan">Kalimantan Tengah</option>
+                                        <option value="sumatra">Sumatra Selatan</option>
+                                        <option value="papua">Papua</option>
+                                        <option value="jawa">Jawa Barat</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tahun Proyek</label>
+                                    <input type="number" class="form-input" name="year" placeholder="2024" min="2000" max="2030">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Sertifikasi</label>
+                                <select class="form-input" name="certification">
+                                    <option value="">Pilih Sertifikasi</option>
+                                    <option value="vcs">Verified Carbon Standard (VCS)</option>
+                                    <option value="gold">Gold Standard</option>
+                                    <option value="csr">Climate Action Reserve</option>
+                                    <option value="other">Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="modal-footer">
+                        <div class="d-flex gap-2 justify-content-end w-100">
+                            <button type="button" class="btn btn-keluar" data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button type="button" class="btn btn-lanjutkan" id="btnLanjutkan" onclick="handleSubmit()">
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const themeBtn = document.getElementById('themeToggle');
+            
+            html.setAttribute('data-theme', newTheme);
+            themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.getElementById('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        // Form Validation & Submit
+        function handleSubmit() {
+            const form = document.getElementById('updateForm');
+            const formData = new FormData(form);
+            
+            // Validation
+            let isValid = true;
+            const requiredFields = ['project_name', 'category_id', 'price'];
+            
+            requiredFields.forEach(field => {
+                const input = form.querySelector(`[name="${field}"]`);
+                if (!input.value) {
+                    isValid = false;
+                    input.style.borderColor = 'var(--red)';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+            
+            if (!isValid) {
+                alert('Mohon lengkapi semua field yang wajib diisi!');
+                return;
+            }
+            
+            // Success simulation
+            console.log('Form Data:', Object.fromEntries(formData));
+            alert('Produk berhasil diupdate!');
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('updateModal'));
+            modal.hide();
+        }
+
+        // Enable/disable button based on input
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('updateForm');
+            const btnLanjutkan = document.getElementById('btnLanjutkan');
+            
+            form.addEventListener('input', function() {
+                const projectName = document.getElementById('modal_project_name').value;
+                const category = document.getElementById('modal_project_type').value;
+                const price = document.getElementById('modal_project_price').value;
+                
+                if (projectName && category && price) {
+                    btnLanjutkan.disabled = false;
+                } else {
+                    btnLanjutkan.disabled = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

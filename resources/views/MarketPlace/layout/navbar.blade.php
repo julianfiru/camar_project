@@ -43,7 +43,7 @@
                             <a class="profile-avatar" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center overflow-hidden bg-secondary" 
                                     style="width: 45px; height: 45px; min-width: 45px;">
-                                    <img src="{{ $photoUrl ?? asset('urlProfil/User1.gif') }}" 
+                                    <img src="{{ asset($photoUrl) ?? asset('urlProfil/User1.gif') }}" 
                                         alt="Profile" 
                                         class="w-100 h-100" 
                                         style="object-fit: cover;">

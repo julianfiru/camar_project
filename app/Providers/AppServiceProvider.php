@@ -28,10 +28,7 @@ class AppServiceProvider extends ServiceProvider
                 $user = Auth::user();
 
                 foreach ($actions as $role => $controllerAction) {
-                    // Cek apakah user punya role tersebut
-                    // Pastikan logic $user->hasRole() sesuai dengan sistem role kamu
-                    if ($user->hasRole($role)) { 
-                        // Panggil Controller & Method yang sesuai
+                    if ($user->hasRole($role)) {
                         return app()->call($controllerAction[0] . '@' . $controllerAction[1], $parameters);
                     }
                 }
@@ -44,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $user = Auth::user();
                 $role = $user->role;
-                $photoUrl = $user ? $user->photo_url : '';
+                $photoUrl = $user ? $user->photo_url : 'urlProfil/User1.gif';
                 $view->with('photoUrl', $photoUrl);
                 if ($role === "Seller") {
                     $companyName = $user->seller?->company_name;
@@ -57,6 +54,12 @@ class AppServiceProvider extends ServiceProvider
                 if ($role === "Buyer") {
                     $companyName = $user->buyer?->company_name;
                     $view->with('companyName', $companyName);
+                }
+                if ($role === "Auditor") {
+                    $displayName = $user->auditor?->name;
+                    $roleLabel = $user->auditor?->position;
+                    $view->with('displayName', $displayName);
+                    $view->with('roleLabel', $roleLabel);
                 }
             }
         });

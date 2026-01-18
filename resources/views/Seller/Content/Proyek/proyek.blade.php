@@ -54,7 +54,6 @@
             <thead>
                 <tr>
                     <th>Nama Proyek</th>
-                    <th>Tipe</th>
                     <th>Lokasi</th>
                     <th>Total Credit</th>
                     <th>Tersedia</th>
@@ -67,7 +66,6 @@
                 @forelse($projects as $item)
                     <tr class="project-row" data-status="{{ $item->status }}">
                         <td class="ps-4 fw-bold">{{ $item->project_name }}</td>
-                        <td class="ps-4 fw-bold">{{ $item->project_type }}</td>
                         <td class="p-3">
                             {{ $item->location }} 
                         </td>
@@ -85,7 +83,6 @@
                                 {{ statusProyek($item->status) }}
                             </span>
                         </td>
-
                         <td class="text-end pe-4">
                             <button class="btn btn-sm rounded-pill bdc-green" 
                                 data-bs-target="#projectModal"
